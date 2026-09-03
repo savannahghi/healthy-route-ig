@@ -1,0 +1,10 @@
+<!--
+  Placeholder mark. Replace with the OptimalHealth asset supplied by the design
+  team; the filename is referenced from _includes/header.html and must not change.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OptimalHealth">
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#1A1A2E" stroke-width="4"/>
+  <path d="M13 32 h9 l5 -12 l7 24 l5 -12 h12"
+        fill="none" stroke="#B5177E" stroke-width="4"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

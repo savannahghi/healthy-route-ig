@@ -1,0 +1,89 @@
+/*
+ * OptimalHealth brand overrides for the Healthy Route implementation guide.
+ *
+ * Loaded after the template's own stylesheets by scripts/apply-branding.js, so
+ * only declarations that differ from the base template appear here. Colours are
+ * defined once as custom properties; a brand change is a single edit.
+ *
+ * This file is applied as a post-build step rather than through a custom
+ * template. fhir.base.template is a root template with no template.xml, so it
+ * is not structured to be extended; forking it would place its entire contents
+ * under version control here and require re-synchronisation on every upstream
+ * release.
+ */
+
+:root {
+  --oh-magenta:      #B5177E;
+  --oh-magenta-dark: #8E1263;
+  --oh-magenta-tint: #FDF0F7;
+  --oh-ink:          #1A1A2E;
+  --oh-ink-soft:     #46445A;
+  --oh-rule:         #E4E1EA;
+}
+
+/* Title block ------------------------------------------------------------- */
+
+#segment-header .ig-name,
+#segment-header h1,
+#segment-header a { color: var(--oh-ink) !important; }
+
+#ig-status,
+#segment-header p  { color: var(--oh-magenta) !important; }
+
+/* Navigation -------------------------------------------------------------- */
+
+.navbar-inverse {
+  background-color: var(--oh-ink) !important;
+  background-image: none !important;
+  border-color: var(--oh-ink) !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #E7E4EE !important;
+  text-shadow: none !important;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .open > a {
+  background-color: var(--oh-magenta) !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+}
+
+.navbar-inverse .navbar-toggle             { border-color: var(--oh-magenta) !important; }
+.navbar-inverse .navbar-toggle .icon-bar   { background-color: #E7E4EE !important; }
+
+#stripe { background: var(--oh-magenta) !important; height: 3px; }
+
+/* Breadcrumbs ------------------------------------------------------------- */
+
+#segment-breadcrumb,
+.breadcrumb            { background: var(--oh-magenta-tint) !important; border: none; }
+.breadcrumb > .active  { color: var(--oh-ink) !important; }
+
+/* Typography -------------------------------------------------------------- */
+
+body                   { color: var(--oh-ink-soft); }
+h1, h2, h3, h4         { color: var(--oh-ink); }
+h2                     { border-bottom: 1px solid var(--oh-rule); padding-bottom: 6px; }
+
+a                      { color: var(--oh-magenta); }
+a:hover, a:focus       { color: var(--oh-magenta-dark); }
+
+/* Tables ------------------------------------------------------------------ */
+
+table.grid-dict > tbody > tr > th,
+table.list > thead > tr > th,
+table.codes > thead > tr > th,
+.list thead th         { background: var(--oh-magenta-tint) !important; color: var(--oh-magenta-dark) !important; }
+
+/* Footer ------------------------------------------------------------------ */
+
+#segment-footer        { background: var(--oh-ink) !important; }
+#segment-footer,
+#segment-footer a,
+#segment-footer p      { color: #C9C5D4 !important; }
+#segment-footer a      { color: #E9A8CF !important; }

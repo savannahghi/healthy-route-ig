@@ -1,0 +1,14 @@
+# Build output
+output/
+temp/
+template/
+fsh-generated/
+input-cache/
+
+# Tooling
+node_modules/
+publisher.jar
+*.log
+
+# OS
+.DS_Store

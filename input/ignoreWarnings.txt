@@ -1,0 +1,11 @@
+== Suppressed Messages ==
+
+# Validator messages listed below are acknowledged and deliberately suppressed.
+#
+# Each entry is either the exact message text, or a regular expression written
+# as %regex%. Every suppression must be preceded by a comment recording why the
+# message is expected, so that a suppression added for one reason is not
+# silently relied upon for another.
+#
+# No messages are currently suppressed. This file exists because the publisher
+# requires the path referenced by its suppressed-warnings parameter to resolve.

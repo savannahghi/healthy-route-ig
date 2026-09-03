@@ -1,0 +1,41 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Healthy Route Implementation Guide
+# Canonical and packageId are the two hardest things to change later.
+# If they need to change, change them HERE and nowhere else.
+# ─────────────────────────────────────────────────────────────────────────────
+id: org.savannahghi.healthyroute
+canonical: https://fhir.savannahghi.org/ig/healthy-route
+name: HealthyRouteIG
+title: "Healthy Route Implementation Guide"
+description: >-
+  Clinical data management profiles for the AstraZeneca Healthy Heart Africa
+  validation study of a machine-learning algorithm predicting chronic kidney
+  disease from digital retinal images.
+status: draft
+version: 0.1.0
+fhirVersion: 5.0.0
+copyrightYear: 2026+
+releaseLabel: ci-build
+license: MIT
+
+publisher:
+  name: Savannah Informatics
+  url: https://savannahghi.org
+
+contact:
+  - name: Savannah Informatics
+    telecom:
+      - system: url
+        value: https://savannahghi.org
+
+# No external package dependencies. Both extensions in this guide are defined
+# locally. A dependency is added when the guide first references an artefact it
+# does not define.
+
+parameters:
+  show-inherited-invariants: false
+  path-expansion-params: '../../input/_resources/expansion-params.json'
+
+menu:
+  Home: index.html
+  Artifacts: artifacts.html

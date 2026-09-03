@@ -1,0 +1,113 @@
+name: Build IG
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ig-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Fast gate: runs on every push, catches most authoring mistakes in ~30s.
+  sushi:
+    name: SUSHI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Compile FSH
+        run: npx sushi build . 2>&1 | tee sushi.log
+      - name: Fail on SUSHI errors
+        run: |
+          if grep -qE '[1-9][0-9]* Error' sushi.log; then
+            echo "::error::SUSHI reported errors"; exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fsh-generated
+          path: fsh-generated/
+
+  # Slow gate: full IG build. ~8 minutes. Produces the reviewable site.
+  publish:
+    name: IG Publisher
+    runs-on: ubuntu-latest
+    needs: sushi
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: npm }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+
+      # The IG Publisher shells out to Jekyll to render the narrative pages.
+      # Without it the build fails after validation, at page generation.
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: false
+      - run: gem install jekyll --no-document
+
+      - run: npm ci
+
+      # The FHIR package cache is the difference between an 8-minute build
+      # and a 20-minute one.
+      - name: Cache FHIR packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.fhir/packages
+          key: fhir-pkgs-${{ hashFiles('sushi-config.yaml') }}
+          restore-keys: fhir-pkgs-
+
+      - name: Build IG
+        run: npm run build
+
+      - name: Gate on QA errors
+        run: npm run qa
+
+      # While the repo is private, this artifact IS the deliverable.
+      # Reviewers download the zip; no Pages site needed.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: healthy-route-ig-site
+          path: output/
+          retention-days: 30
+
+  # Publishes to fhir.savannahghi.org. Inert until the AWS secrets exist,
+  # so it costs nothing while the repo is private.
+  publish-site:
+    name: Publish to fhir.savannahghi.org
+    runs-on: ubuntu-latest
+    needs: publish
+    if: github.ref == 'refs/heads/main' && vars.PUBLISH_ENABLED == 'true'
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: healthy-route-ig-site
+          path: site/
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_PUBLISH_ROLE }}
+          aws-region: af-south-1
+      - name: Read IG version
+        id: v
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+      - name: Sync current
+        run: aws s3 sync site/ "s3://${{ secrets.S3_BUCKET }}/ig/healthy-route/" --delete
+      - name: Sync pinned version
+        run: aws s3 sync site/ "s3://${{ secrets.S3_BUCKET }}/ig/healthy-route/${{ steps.v.outputs.version }}/"
+      - name: Invalidate CDN
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/ig/healthy-route/*"

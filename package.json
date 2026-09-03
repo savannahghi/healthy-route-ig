@@ -1,0 +1,23 @@
+{
+  "name": "healthy-route-ig",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FHIR R5 Implementation Guide for the Healthy Route retinal CKD validation study",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "sushi": "sushi build .",
+    "sushi:snapshot": "sushi build . --snapshot",
+    "ig:update": "bash scripts/_updatePublisher.sh",
+    "ig:build": "bash scripts/_genonce.sh",
+    "build": "npm run sushi && npm run ig:build && npm run brand",
+    "qa": "node scripts/check-qa.js",
+    "clean": "rm -rf fsh-generated output temp template",
+    "brand": "node scripts/apply-branding.js"
+  },
+  "devDependencies": {
+    "fsh-sushi": "3.16.3"
+  }
+}
