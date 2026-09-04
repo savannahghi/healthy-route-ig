@@ -56,9 +56,15 @@ https://fhir.savannahghi.org/sid/optimalhealth-participant
 
 #### Tenancy
 
-Every resource carries the [tenant extension](StructureDefinition-hr-tenant.html).
-Records are partitioned by site, and partition membership is a property of the
-record rather than of the storage location it happens to occupy.
+Every resource holding participant data carries the
+[tenant extension](StructureDefinition-hr-tenant.html). Records are partitioned
+by site, and partition membership is a property of the record rather than of the
+storage location it happens to occupy.
+
+The resources describing sites and staff do not carry it. They describe the
+partitions rather than sitting inside one: a site's tenant is the identity of its
+organisation, and a location or practitioner resolves to one through the
+organisation that manages or registered them. See [sites and people](sites.html).
 
 #### Dependencies
 

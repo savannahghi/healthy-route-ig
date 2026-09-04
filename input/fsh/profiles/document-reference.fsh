@@ -44,7 +44,7 @@ Description: "Any document held by the study, in the form common to all of them.
 * date ^comment = "When this record was created, which is not necessarily when the document itself was produced or signed."
 
 * custodian 1..1 MS
-* custodian only Reference(Organization)
+* custodian only Reference(HROrganization)
 * custodian ^short = "Organisation holding the original"
 * custodian ^requirements = "What is held here is a copy. Establishing who holds the original is a routine step in monitoring and is not derivable from the tenant once a site operates more than one physical location."
 
@@ -103,7 +103,7 @@ Description: "The photographed page a participant signed, referenced by the cons
 * subject ^comment = "Required, where the base profile leaves it optional. A signed page that is not tied to the participant who signed it is not evidence of anything."
 
 * author MS
-* author only Reference(Practitioner or PractitionerRole or Organization)
+* author only Reference(HRPractitioner or HROrganization)
 * author ^short = "Who captured the page"
 
 * attester MS
