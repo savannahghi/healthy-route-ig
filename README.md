@@ -36,8 +36,11 @@ These govern what goes into a change and what waits for one.
 
 1. **One increment, one pull request, one signed commit.** `main` requires
    linear history, signed commits and both status checks.
-2. **Nothing references what does not exist.** SUSHI fails the build on an
-   unresolved profile reference, so dependency order is the build order.
+2. **Nothing references what does not exist, and nothing references a base
+   resource this guide profiles.** SUSHI fails on an unresolved profile
+   reference; `scripts/check-references.js` fails on a reference that resolves
+   to a base resource for which a profile exists. Dependency order is therefore
+   the build order.
 3. **The export counterpart ships with its profile**, never as a later
    de-identification change. Deferring it risks discovering that something
    already modelled cannot be de-identified.
@@ -56,7 +59,8 @@ Requires Node 20 or later and Java 17 or later.
 npm ci
 npm run sushi      # compile FSH to fsh-generated/
 npm run build      # SUSHI followed by the HL7 IG Publisher
-npm run qa         # fail if the publisher reports errors
+npm run qa         # fail on publisher errors, or on a reference to a
+                   # base resource this guide profiles
 ```
 
 `npm run build` downloads a pinned IG Publisher on first use and writes the
@@ -70,7 +74,7 @@ input/fsh/extensions/          extensions required by the profiles
 input/fsh/profiles/            profile definitions
 input/fsh/terminology/         locally defined code systems and value sets
 input/pagecontent/             narrative pages, one per resource area
-scripts/                       publisher download, build, and QA gate
+scripts/                       publisher download, build, and the gates
 ```
 
 ## Canonical URL

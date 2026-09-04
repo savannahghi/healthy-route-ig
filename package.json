@@ -13,9 +13,10 @@
     "ig:update": "bash scripts/_updatePublisher.sh",
     "ig:build": "bash scripts/_genonce.sh",
     "build": "npm run sushi && npm run ig:build && npm run brand",
-    "qa": "node scripts/check-qa.js",
+    "qa": "node scripts/check-qa.js && node scripts/check-references.js",
     "clean": "rm -rf fsh-generated output temp template",
-    "brand": "node scripts/apply-branding.js"
+    "brand": "node scripts/apply-branding.js",
+    "lint:refs": "node scripts/check-references.js"
   },
   "devDependencies": {
     "fsh-sushi": "3.20.1"
