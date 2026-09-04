@@ -39,12 +39,14 @@ Description: "A study participant as held within a site tenant."
 
 * name 1..1 MS
 * name ^short = "Participant name"
-* name ^requirements = "Registration begins with a search of the site's existing records by name, date of birth and contact number. The name is also the means by which the electronic record is matched to the signed consent form retained in the site file."
+* name ^requirements = "Matches the electronic record to the signed consent form retained in the site file, which carries the participant's handwritten name and no study identifier at the point of signature."
+* name ^comment = "Required here as a design decision rather than a protocol requirement. Neither protocol asks for a name: their shared data collection tool records date, study identifier, contact number, age and gender, and Uganda specifies duplicate enrolment be prevented by a confidential local log of coded identifiers. A site operating strictly from that tool would hold no name, and whether this cardinality should be relaxed to 0..1 is an open question."
 * name.family 1..1 MS
 * name.family ^comment = "Where a participant is mononymous, the single name is recorded as the family name."
 
 * birthDate 1..1 MS
-* birthDate ^requirements = "Used with name and contact number to search the site's existing records at registration, and to derive age. Age selects the coefficients used by the CKD-EPI 2021 equation and is an input to the algorithm under validation."
+* birthDate ^requirements = "Derives age, which selects the coefficients used by the CKD-EPI 2021 equation and is an input to the algorithm under validation."
+* birthDate ^comment = "Required here as a design decision rather than a protocol requirement, and in tension with the rest of the guide. The protocols record age rather than date of birth, HRAgeYears states that analysis needs age and not a full date, and HRExportPatient prohibits this element as a re-identification risk. A site recording age from the protocol's own tool cannot satisfy this profile. Whether it should be relaxed to 0..1, with age carried directly, is an open question."
 * birthDate ^comment = "Where only a year, or a year and month, are known, a partial date is recorded and age is derived to the precision available."
 
 * telecom MS

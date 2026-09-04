@@ -3,12 +3,20 @@
 // HRResearchStudy    A country's approved protocol, as a resource.
 // HRResearchSubject  One participant's enrolment onto one of them.
 //
-// This is where the countries differ, and it is the only place they differ.
-// The participating countries run separate protocols with separate approvals,
-// separate sponsors, separate site lists and different case and control
-// targets. None of that is a difference of structure, and none of it belongs in
-// a profile. A country-specific profile would make every downstream consumer
-// branch on country, and could not be undone once written.
+// This is where the countries differ in every respect the guide currently
+// models. They run separate protocols with separate approvals, sponsors, site
+// lists and case and control splits, none of which is a difference of
+// structure, and a country-specific profile would make every downstream
+// consumer branch on country without being undoable once written.
+//
+// That claim holds for what is profiled today and is an assumption about what
+// is not. The protocols diverge substantially in the material still in
+// preparation: one collects anthropometry, lifestyle history and additional
+// laboratory investigations that the other does not, and the two specify
+// different blood pressure procedures — one timing three readings around the
+// retinal imaging, the other taking a triplicate after a rest period and using
+// the mean of the last two. Whether that divergence can be carried as instance
+// data is a question for the measurement profiles, not one this file settles.
 //
 // Both resources are FMM 0. The maturity is known and accepted: there is no
 // alternative resource for enrolment onto a protocol, and expressing it as a
@@ -63,7 +71,8 @@ Description: "A country's approved protocol, and the parties, sites and targets 
 
 * recruitment 1..1 MS
 * recruitment.targetNumber 1..1 MS
-* recruitment.targetNumber ^requirements = "Recruitment targets differ between countries, as does the split between cases and controls. The target is what an interim enrolment count is judged against, and a study reporting progress without one is reporting a number with no denominator."
+* recruitment.targetNumber ^requirements = "The target is what an interim enrolment count is judged against, and a study reporting progress without one is reporting a number with no denominator."
+* recruitment.targetNumber ^comment = "The total is the same in both current protocols; what differs is the split between cases and controls. This element is a single integer and cannot carry that split. ResearchStudy.comparisonGroup is where it belongs and is not yet profiled, so the split is currently recorded nowhere in this guide."
 * recruitment.actualNumber MS
 
 * objective MS

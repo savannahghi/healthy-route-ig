@@ -82,14 +82,32 @@ untraceable everywhere else.
 | Element | Cardinality | Reason |
 | --- | --- | --- |
 | `identifier[participantId]` | `1..1` | the key linking record, form and image |
-| `name` | `1..1` | registration searches existing site records by name; the electronic record is matched to the signed form by name |
+| `name` | `1..1` | matches the electronic record to the signed consent form, which carries a handwritten name and no study identifier |
 | `name.family` | `1..1` | a mononymous participant records the single name here |
-| `birthDate` | `1..1` | derives age, and searches existing records at registration |
+| `birthDate` | `1..1` | derives age |
 | `gender` | `1..1` | a coefficient in CKD-EPI 2021 and a direct model input — a record without it cannot be analysed |
 | `telecom` | `0..*` | contributes to the site's duplicate-enrolment log |
 
 `telecom` is deliberately optional. Enrolment must not depend on a participant
 owning a telephone.
+
+#### Two of these are decisions, not protocol requirements
+
+`name` and `birthDate` are required here because a site needs to recognise a
+returning participant and tie the record to a signed sheet of paper. **Neither
+protocol asks for either.** Their shared data collection tool records date, study
+identifier, contact number, age and gender; Uganda specifies that duplicate
+enrolment be prevented by a confidential local log of coded identifiers, held at
+the site and never transmitted.
+
+A site operating strictly from that tool would hold neither a name nor a date of
+birth, and could not produce a resource valid against this profile. `birthDate`
+is also in tension with the rest of the guide, which prohibits it on export as a
+re-identification risk and states elsewhere that analysis needs age rather than a
+full date.
+
+Whether both should be relaxed to `0..1` is open, and is a question about how
+sites will actually operate rather than about FHIR.
 
 Where only a year, or a year and month, of birth are known, a partial date is
 recorded and age is derived to the precision available.

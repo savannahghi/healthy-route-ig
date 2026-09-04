@@ -48,7 +48,8 @@ Description: "Any document held by the study, in the form common to all of them.
 * custodian ^short = "Organisation holding the original"
 * custodian ^requirements = "What is held here is a copy. Establishing who holds the original is a routine step in monitoring and is not derivable from the tenant once a site operates more than one physical location."
 
-* content 1..1 MS
+* content 1..* MS
+* content ^comment = "Repeats where the same document is held in more than one format, which is what the base cardinality is for. It does not repeat for versions: a later version of a signed page is a separate resource linked by relatesTo."
 * content.attachment 1..1 MS
 * content.attachment.contentType 1..1 MS
 * content.attachment.url 1..1 MS
@@ -75,11 +76,12 @@ Description: "Any document held by the study, in the form common to all of them.
 // directly identifying object the study holds. Nothing about it is
 // de-identifiable: a redacted signature is not evidence that consent was given.
 //
-// It is therefore never exported. There is no export counterpart to this
-// profile, and the absence is deliberate — the export set is defined by
-// enumerating what may leave a tenant, so a resource type that is not
-// enumerated cannot be selected by an export query. Adding one later would be
-// an addition to that list and would be visible as such in review.
+// It is therefore never exported, and there is no export counterpart to this
+// profile. The absence is deliberate but it is not yet enforced: this guide
+// defines no export manifest, and the only artefact describing what may leave a
+// tenant is HRExportPatient. Until an enumerated export set exists, the
+// prohibition rests on there being no profile to export against rather than on
+// anything a consumer can validate. Building that manifest is outstanding work.
 
 Profile: HRConsentEvidence
 Parent: HRDocumentReference
@@ -107,8 +109,8 @@ Description: "The photographed page a participant signed, referenced by the cons
 * author ^short = "Who captured the page"
 
 * attester MS
-* attester ^short = "Witness to the signature"
-* attester ^comment = "Used where the participant cannot read the form and it is read to them in the presence of an impartial witness, a case the protocol provides for and which the signature alone does not evidence."
+* attester ^short = "Who attested the accuracy of the copy"
+* attester ^comment = "R5 defines this as a participant who has authenticated the accuracy of the document, not as a witness to the act it records. Used here for the person confirming that the photograph is a complete and legible copy of the page that was signed. Neither protocol describes a witnessed consent procedure, and an earlier version of this profile said otherwise."
 
 * relatesTo MS
 * relatesTo ^short = "The page this one replaces"

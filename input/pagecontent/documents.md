@@ -67,10 +67,14 @@ The image carries a name and a signature together. Nothing about it is
 de-identifiable: a redacted signature is not evidence that consent was given.
 
 There is therefore no export counterpart to this profile, and the absence is
-deliberate. The export set is defined by enumerating what may leave a tenant, so
-a resource type that is not enumerated cannot be selected by an export query at
-all. Adding one later would be an addition to that list, visible as such in
-review.
+deliberate.
+
+It is not, however, yet enforced. This guide defines no export manifest, and the
+only artefact describing what may leave a tenant is
+[HRExportPatient](StructureDefinition-hr-export-patient.html). Until an
+enumerated export set exists, the prohibition rests on there being no profile to
+export this resource against, rather than on a rule a consumer can validate
+against. That manifest is outstanding work and is tracked as such.
 
 `securityLabel` carries a restricted confidentiality classification, applied at
 creation rather than assigned by policy at read time, so that a copy of the
