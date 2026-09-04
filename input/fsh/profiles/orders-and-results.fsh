@@ -54,6 +54,10 @@ Description: "A request for a laboratory investigation arising from the screenin
 * specimen ^comment = "References the base Specimen resource. This guide does not yet profile it."
 
 * reason MS
+* reason only CodeableReference(HRObservation or HRBloodPressure or HRDiagnosticReport or HRDocumentReference)
+* reason ^short = "Why the investigation was requested"
+* reason ^comment = "A positive dipstick is what prompts the blood investigations in one protocol, so the reason is frequently an observation already recorded at the same visit rather than free text."
+
 * note MS
 
 

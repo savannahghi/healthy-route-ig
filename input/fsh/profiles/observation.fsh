@@ -79,11 +79,15 @@ Description: "Any measurement taken from a participant during the screening visi
 * method ^requirements = "An eGFR is a number produced by an equation, and the equation is not recoverable from the number. Recording it here is what allows a value calculated by CKD-EPI 2021 to be distinguished from one calculated by an earlier formula."
 
 * derivedFrom MS
+* derivedFrom only Reference(HRObservation or HRBloodPressure or HRImagingStudy)
 * derivedFrom ^short = "Inputs this result was calculated from"
+* derivedFrom ^comment = "Both profiles of Observation are admitted, because HRBloodPressure derives from the blood pressure profile FHIR core ships rather than from HRObservation and is not a specialisation of it. ImagingStudy is admitted so that a value predicted from the retinal photographs can name them."
 * derivedFrom ^requirements = "An eGFR derives from a creatinine; a mean blood pressure derives from the individual readings. Recording the inputs makes the calculation checkable rather than asserted."
 
 * hasMember MS
+* hasMember only Reference(HRObservation or HRBloodPressure)
 * hasMember ^short = "Members of a panel"
+* hasMember ^comment = "Members are measurements. The base resource also admits QuestionnaireResponse and MolecularSequence, neither of which is a member of a panel in this study."
 
 * interpretation MS
 * note MS
@@ -105,6 +109,15 @@ Description: "One blood pressure reading, or the mean of several."
 
 * encounter 1..1 MS
 * encounter only Reference(HREncounter)
+
+// The bp profile slices code.coding and the component codes, and each slice has
+// a minimum of one while the sliced element itself has a minimum of zero. A
+// snapshot generated from that reports the slices as adding up to more than the
+// element permits. Raising the element to match the slices it already requires
+// resolves it without changing what a conforming instance must contain.
+* code.coding 1..*
+* component[SystolicBP].code.coding 1..*
+* component[DiastolicBP].code.coding 1..*
 
 * derivedFrom MS
 * derivedFrom only Reference(HRBloodPressure)

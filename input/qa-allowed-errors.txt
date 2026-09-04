@@ -1,0 +1,29 @@
+# Validation errors this build accepts, and why.
+#
+# Every entry is a substring of the message text as it appears in
+# output/qa-eslintcompact.txt. An error whose message contains an entry below is
+# reported as accepted rather than failing the build; every other error fails it.
+#
+# Each entry MUST be preceded by at least one comment line giving the reason.
+# scripts/check-qa.js refuses to run otherwise, so an entry cannot be added
+# without a recorded justification and a reviewer cannot miss one that was.
+#
+# Entries are for defects outside this repository. An error that can be fixed
+# here is fixed here.
+
+# The publisher stamps a profile-summary extension onto every profile derived
+# from another profile, then cannot resolve the URL it just wrote: the extension
+# belongs to hl7.fhir.uv.tools.r5, whose newest published version is 1.1.2 and
+# does not define it. There is no version to upgrade to. This appeared when
+# HRBloodPressure became the first profile-of-a-profile in the guide, and
+# suppressing it through input/ignoreWarnings.txt does not work because that
+# mechanism applies to warnings and hints and not to errors. Reviewed against
+# publisher 2.3.4.
+No definition could be found for URL value 'http://hl7.org/fhir/tools/StructureDefinition/profile-summary'
+
+# The description of the binding on ServiceRequest.code links to a page that
+# HL7 has removed from its own specification site. The link is generated from
+# the base resource definition and appears on every page rendering that element,
+# so the count rises with the number of pages rather than with anything in this
+# guide. Reviewed against FHIR R5 5.0.0.
+The link 'http://hl7.org/fhir/R5/valueset-diagnostic-requests.html' for "here" cannot be resolved

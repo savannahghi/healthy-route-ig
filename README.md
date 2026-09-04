@@ -72,7 +72,8 @@ Requires Node 20 or later and Java 17 or later.
 npm ci
 npm run sushi      # compile FSH to fsh-generated/
 npm run build      # SUSHI followed by the HL7 IG Publisher
-npm run qa         # fail on publisher errors, or on a reference to a
+npm run qa         # fail on any validation error not listed in
+                   # input/qa-allowed-errors.txt, and on a reference to a
                    # base resource this guide profiles
 ```
 
@@ -87,6 +88,7 @@ input/fsh/extensions/          extensions required by the profiles
 input/fsh/profiles/            profile definitions
 input/fsh/terminology/         locally defined code systems and value sets
 input/pagecontent/             narrative pages, one per resource area
+input/qa-allowed-errors.txt    validation errors accepted, each with its reason
 scripts/                       publisher download, build, and the gates
 ```
 
