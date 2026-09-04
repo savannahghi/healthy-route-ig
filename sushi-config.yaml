@@ -36,6 +36,22 @@ parameters:
   show-inherited-invariants: false
   path-expansion-params: '../../input/_resources/expansion-params.json'
 
+# Explicit so that page titles are controlled here rather than inferred from
+# the first heading of each file.
+pages:
+  index.md:
+    title: Home
+  patient.md:
+    title: Participant
+  consent.md:
+    title: Consent
+  documents.md:
+    title: Documents
+
 menu:
   Home: index.html
+  Resources:
+    Participant: patient.html
+    Consent: consent.html
+    Documents: documents.html
   Artifacts: artifacts.html
