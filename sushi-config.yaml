@@ -51,6 +51,8 @@ pages:
     title: Sites and people
   study.md:
     title: Study and participation
+  measurement.md:
+    title: Visit and measurement
 
 menu:
   Home: index.html
@@ -60,4 +62,5 @@ menu:
     Documents: documents.html
     Sites and people: sites.html
     Study and participation: study.html
+    Visit and measurement: measurement.html
   Artifacts: artifacts.html
