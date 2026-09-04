@@ -5,6 +5,10 @@ template/
 fsh-generated/
 input-cache/
 
+# Written to the repository root by the publisher, derived from the narrative
+# pages on every build.
+Requirements-fromNarrative.json
+
 # Tooling
 node_modules/
 publisher.jar

@@ -9,9 +9,9 @@ country's approved protocol takes precedence over this guide for that country.
 
 ## Scope
 
-This release defines the participant, consent, document, and site and staff
-profiles. Study participation, measurement, imaging metadata, referral, export
-and audit are in preparation.
+This release defines the participant, consent, document, site and staff, study
+participation, and visit and measurement profiles. The algorithm's output, the
+referral loop, export and audit are in preparation.
 
 | Artefact | Kind | Purpose |
 | --- | --- | --- |
@@ -24,6 +24,15 @@ and audit are in preparation.
 | `HROrganization` | Organization | A hospital running the study, or another party to it |
 | `HRLocation` | Location | A clinic within a site, where participants are approached |
 | `HRPractitioner` | Practitioner | A member of the study team |
+| `HRResearchStudy` | ResearchStudy | A country's approved protocol, its parties, sites and targets |
+| `HRResearchSubject` | ResearchSubject | One participant's enrolment, and the consent that permitted it |
+| `HREncounter` | Encounter | The single screening visit |
+| `HRObservation` | Observation | Every measurement — laboratory, dipstick and anthropometry |
+| `HRBloodPressure` | Observation | Derived from the `bp` profile FHIR core ships |
+| `HRServiceRequest` | ServiceRequest | A request for a laboratory investigation |
+| `HRDiagnosticReport` | DiagnosticReport | What the laboratory returned |
+| `HRImagingStudy` | ImagingStudy | The retinal photographs, one series per eye |
+| `HRDipstickProteinCS` | CodeSystem | The dipstick scale printed on the data collection tool |
 | `HRTenant` | Extension | Identifies the owning site tenant |
 | `HRAgeYears` | Extension | Age in completed years, substituting for `birthDate` on export |
 
@@ -46,9 +55,13 @@ These govern what goes into a change and what waits for one.
    already modelled cannot be de-identified.
 4. **Examples ship with the profile.** An example is the cheapest proof that a
    profile can be populated by the workflow it claims to describe.
-5. **Country variance is instance data, never a profile.** The participating
+5. **Profile the shape, not the analyte.** Constrain where the datatype alone
+   leaves a value uncontrolled; do not where it does not. A profile per
+   laboratory test would mean a release of this guide every time a laboratory
+   adds one.
+6. **Country variance is instance data, never a profile.** The participating
    countries differ in thresholds and eligibility, not in structure.
-6. **The protocol outranks any other source.** Where product intent and an
+7. **The protocol outranks any other source.** Where product intent and an
    approved protocol disagree, the protocol is correct.
 
 ## Building
