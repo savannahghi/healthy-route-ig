@@ -4,7 +4,7 @@
 // de-identification boundary:
 //
 //   HRPatient        Held within a site tenant. Carries identifiers.
-//   HRExportPatient  Transferred to the sponsor. Identifying elements prohibited.
+//   HRExportPatient  Transferred out of the tenant. Identifying elements prohibited.
 //
 // The separation is deliberate. Expressing the export constraint as cardinality
 // rather than as a documented transformation means that a de-identification
@@ -17,7 +17,7 @@ Title: "Healthy Route Patient"
 Description: "A study participant as held within a site tenant."
 * ^status = #draft
 * ^experimental = false
-* ^purpose = "Supports operation of the study at a site: participant lookup at registration, prevention of duplicate enrolment, and linkage of clinical observations to the correct individual. This is not the form in which participant data is transferred to the sponsor; see HRExportPatient."
+* ^purpose = "Supports operation of the study at a site: participant lookup at registration, prevention of duplicate enrolment, and linkage of clinical observations to the correct individual. This is not the form in which participant data leaves the tenant; see HRExportPatient."
 
 * extension contains HRTenant named tenant 1..1 MS
 * extension[tenant] ^short = "Owning site tenant"
@@ -31,7 +31,7 @@ Description: "A study participant as held within a site tenant."
 
 * identifier[participantId] ^short = "OptimalHealth participant identifier"
 * identifier[participantId] ^definition = "The identifier issued to the participant at registration. It serves three roles: participant identifier within the tenant, study identifier on the case report form, and the value entered on the retinal camera at image capture."
-* identifier[participantId] ^requirements = "A single identifier across all three roles allows images captured on the device to be matched to the participant record at the sponsor without any additional key being shared between the parties."
+* identifier[participantId] ^requirements = "A single identifier across all three roles allows images captured on the device to be matched to the participant record at the receiving party without any additional key being shared between them."
 * identifier[participantId] ^comment = "Opaque: the value encodes nothing about the person or the site. Retained unchanged across rescreening, so a participant who is rescreened is not issued a second identifier. Held in Patient.identifier and not in Resource.id, because resource identifiers appear in request URLs, server logs and cache keys, none of which are covered by de-identification of resource content."
 * identifier[participantId].system 1..1 MS
 * identifier[participantId].system = "https://fhir.savannahghi.org/sid/optimalhealth-participant"
@@ -61,7 +61,7 @@ Profile: HRExportPatient
 Parent: Patient
 Id: hr-export-patient
 Title: "Healthy Route Patient (Export)"
-Description: "A study participant as transferred to the sponsor."
+Description: "A study participant in the form transferred out of a site tenant."
 * ^status = #draft
 * ^experimental = false
 * ^purpose = "Defines the Patient content permitted to leave a tenant. Direct identifiers are constrained to a cardinality of 0..0 so that a resource containing them fails validation against this profile."

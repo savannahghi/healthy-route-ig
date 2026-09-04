@@ -4,7 +4,7 @@ The participant, in the two forms the study holds them.
 
 A validation study of this kind holds the same person twice. The site needs to
 recognise a returning participant, avoid enrolling them a second time, and match
-their record to the paper form in the site file. The sponsor needs age, sex and a
+their record to the paper form in the site file. The receiving party needs age, sex and a
 key that links a retinal image to a laboratory result, and needs nothing else.
 
 Those are not two views of one record. They are two records with different
@@ -14,7 +14,7 @@ leaves the country it was collected in.
 | Profile | Held | Contains |
 | --- | --- | --- |
 | [HRPatient](StructureDefinition-hr-patient.html) | within a site tenant | name, date of birth, contact number, participant identifier |
-| [HRExportPatient](StructureDefinition-hr-export-patient.html) | transferred to the sponsor | participant identifier, sex, age in completed years |
+| [HRExportPatient](StructureDefinition-hr-export-patient.html) | transferred out of the tenant | participant identifier, sex, age in completed years |
 
 ### The constraint is cardinality, not documentation
 
@@ -54,7 +54,7 @@ One opaque identifier, issued at registration, does three jobs:
 - it is the value typed into the retinal camera at image capture
 
 A single identifier across all three means an image captured on the device can be
-matched to the participant record at the sponsor without any second key passing
+matched to the participant record at the receiving party without any second key passing
 between the parties.
 
 ```
