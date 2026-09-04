@@ -9,9 +9,9 @@ country's approved protocol takes precedence over this guide for that country.
 
 ## Scope
 
-This release defines the participant, consent and document profiles. Sites and
-people, study participation, measurement, imaging metadata, referral, export and
-audit are in preparation.
+This release defines the participant, consent, document, and site and staff
+profiles. Study participation, measurement, imaging metadata, referral, export
+and audit are in preparation.
 
 | Artefact | Kind | Purpose |
 | --- | --- | --- |
@@ -21,6 +21,9 @@ audit are in preparation.
 | `HRDocumentReference` | DocumentReference | Any document the study holds |
 | `HRConsentEvidence` | DocumentReference | The photographed page a participant signed |
 | `HRConsentPermissionCS` | CodeSystem | The three permissions a participant is asked to grant |
+| `HROrganization` | Organization | A hospital running the study, or another party to it |
+| `HRLocation` | Location | A clinic within a site, where participants are approached |
+| `HRPractitioner` | Practitioner | A member of the study team |
 | `HRTenant` | Extension | Identifies the owning site tenant |
 | `HRAgeYears` | Extension | Age in completed years, substituting for `birthDate` on export |
 

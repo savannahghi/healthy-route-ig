@@ -10,3 +10,5 @@ Alias: $doc-relationship = http://hl7.org/fhir/document-relationship-type
 // Local. Slicing Consent.category by coding.system requires the system as a
 // literal, so it cannot be expressed by referring to the CodeSystem by name.
 Alias: $hr-consent-permission = https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-consent-permission
+Alias: $v3-RoleCode = http://terminology.hl7.org/CodeSystem/v3-RoleCode
+Alias: $organization-type = http://terminology.hl7.org/CodeSystem/organization-type

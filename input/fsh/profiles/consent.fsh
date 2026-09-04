@@ -68,12 +68,12 @@ Description: "The record that a participant granted or refused one permission, a
 * grantor ^comment = "The participant. Recorded separately from subject because the two differ where consent is given by a legal representative, which this study does not currently permit but which the resource must not preclude."
 
 * grantee 1..* MS
-* grantee only Reference(Organization)
+* grantee only Reference(HROrganization)
 * grantee ^short = "Party the permission is granted to"
 * grantee ^requirements = "The information sheet names the parties who will hold the data. Where a permission extends beyond the site to the sponsor, both appear here, and a permission naming only the site does not authorise transfer."
 
 * controller MS
-* controller only Reference(Organization)
+* controller only Reference(HROrganization)
 * controller ^short = "Data controller"
 
 * decision 1..1 MS
@@ -104,7 +104,7 @@ Description: "The record that a participant granted or refused one permission, a
 * verification 1..1 MS
 * verification.verified 1..1 MS
 * verification.verifiedBy 1..1 MS
-* verification.verifiedBy only Reference(Practitioner)
+* verification.verifiedBy only Reference(HRPractitioner)
 * verification.verifiedBy ^short = "Person who took consent"
 * verification.verifiedBy ^requirements = "Good clinical practice requires that consent be taken by a person authorised to do so on the delegation log, and the protocol requires that person to sign the form. Recording who took it is what allows that authorisation to be checked after the fact."
 * verification.verifiedBy ^comment = "The individual, not the organisation and not the role they held. The base resource admits all three; an organisation cannot be delegated to take consent, and recording the role rather than the person would leave the identity of the signatory on the paper form unmatched in the record. Where the delegation itself needs to be established, a PractitionerRole referring to the same practitioner carries it."

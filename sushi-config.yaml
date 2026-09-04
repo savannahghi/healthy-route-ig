@@ -47,6 +47,8 @@ pages:
     title: Consent
   documents.md:
     title: Documents
+  sites.md:
+    title: Sites and people
 
 menu:
   Home: index.html
@@ -54,4 +56,5 @@ menu:
     Participant: patient.html
     Consent: consent.html
     Documents: documents.html
+    Sites and people: sites.html
   Artifacts: artifacts.html

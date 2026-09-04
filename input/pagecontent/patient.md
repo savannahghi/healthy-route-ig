@@ -96,7 +96,9 @@ recorded and age is derived to the precision available.
 
 ### Tenant
 
-Every resource in this guide carries the
+Every resource holding participant data carries the
 [tenant extension](StructureDefinition-hr-tenant.html). Records are partitioned
 by site, and partition membership is a property of the record rather than of the
-storage location it happens to sit in.
+storage location it happens to sit in. The resources describing
+[sites and people](sites.html) do not carry it, because they describe the
+partitions rather than sitting inside one.
