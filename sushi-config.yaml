@@ -49,6 +49,8 @@ pages:
     title: Documents
   sites.md:
     title: Sites and people
+  study.md:
+    title: Study and participation
 
 menu:
   Home: index.html
@@ -57,4 +59,5 @@ menu:
     Consent: consent.html
     Documents: documents.html
     Sites and people: sites.html
+    Study and participation: study.html
   Artifacts: artifacts.html

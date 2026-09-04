@@ -16,7 +16,7 @@ and audit are in preparation.
 | Artefact | Kind | Purpose |
 | --- | --- | --- |
 | `HRPatient` | Patient | A participant as held within a site tenant |
-| `HRExportPatient` | Patient | A participant as transferred to the sponsor |
+| `HRExportPatient` | Patient | A participant in the form transferred out of a site tenant |
 | `HRConsent` | Consent | That a participant granted or refused one permission |
 | `HRDocumentReference` | DocumentReference | Any document the study holds |
 | `HRConsentEvidence` | DocumentReference | The photographed page a participant signed |
@@ -93,7 +93,7 @@ build artefact.
 ## Versioning
 
 Semantic versioning. The guide remains at `status: draft` until the profiles are
-agreed with the sponsor.
+agreed with the sponsors and the collaborator.
 
 ## Licence
 

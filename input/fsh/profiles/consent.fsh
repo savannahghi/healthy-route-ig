@@ -70,7 +70,7 @@ Description: "The record that a participant granted or refused one permission, a
 * grantee 1..* MS
 * grantee only Reference(HROrganization)
 * grantee ^short = "Party the permission is granted to"
-* grantee ^requirements = "The information sheet names the parties who will hold the data. Where a permission extends beyond the site to the sponsor, both appear here, and a permission naming only the site does not authorise transfer."
+* grantee ^requirements = "The information sheet names the parties who will hold the data. Where a permission extends beyond the site to a party receiving the exported data, both appear here, and a permission naming only the site does not authorise transfer."
 
 * controller MS
 * controller only Reference(HROrganization)

@@ -12,3 +12,7 @@ Alias: $doc-relationship = http://hl7.org/fhir/document-relationship-type
 Alias: $hr-consent-permission = https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-consent-permission
 Alias: $v3-RoleCode = http://terminology.hl7.org/CodeSystem/v3-RoleCode
 Alias: $organization-type = http://terminology.hl7.org/CodeSystem/organization-type
+Alias: $party-role = http://terminology.hl7.org/CodeSystem/research-study-party-role
+Alias: $subject-state = http://terminology.hl7.org/CodeSystem/research-subject-state
+Alias: $prim-purp-type = http://terminology.hl7.org/CodeSystem/research-study-prim-purp-type
+Alias: $iso3166 = urn:iso:std:iso:3166
