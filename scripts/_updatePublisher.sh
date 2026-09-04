@@ -10,7 +10,7 @@
 #
 set -euo pipefail
 
-VERSION="${IG_PUBLISHER_VERSION:-2.3.3}"
+VERSION="${IG_PUBLISHER_VERSION:-2.3.4}"
 JAR="publisher.jar"
 PART="${JAR}.part"
 URL="https://github.com/HL7/fhir-ig-publisher/releases/download/${VERSION}/publisher.jar"
