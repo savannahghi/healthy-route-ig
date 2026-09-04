@@ -2,7 +2,9 @@ The protocol as a resource, and one participant's enrolment onto it.
 
 ### This is where the countries differ
 
-It is also the only place they differ, and that is deliberate.
+It is the only place they differ in what the guide models today, and that is
+deliberate. It is not yet established for what it does not model — see
+[the limit of the claim](#the-limit-of-the-claim) below.
 
 The participating countries run separate protocols with separate ethics
 approvals, separate sponsors, separate site lists and different case and control
@@ -14,6 +16,18 @@ So [HRResearchStudy](StructureDefinition-hr-research-study.html) is one profile,
 and each country is one instance of it. `region` carries the country, `site`
 carries that country's sites, `recruitment.targetNumber` carries its target, and
 `version` carries the protocol version those numbers came from.
+
+### The limit of the claim
+
+The protocols diverge substantially in the material still in preparation. One
+collects anthropometry, lifestyle history and laboratory investigations the other
+does not. The two specify different blood pressure procedures: one times three
+readings around the retinal imaging, the other takes a triplicate after a rest
+period and uses the mean of the last two.
+
+Whether that is instance data or a structural difference is a question for the
+measurement profiles. It is stated here rather than discovered later, because the
+architecture rests on the answer being the former.
 
 ### The sponsor is not the party funding it
 

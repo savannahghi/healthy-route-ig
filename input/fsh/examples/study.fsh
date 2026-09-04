@@ -1,9 +1,10 @@
 // Examples for the study and participation profiles.
 //
 // Two study instances of one profile, differing only in instance data. This is
-// the whole argument for keeping country variance out of the profiles: the
-// countries differ in region, sites, targets and sponsor, and in nothing that a
-// StructureDefinition would express.
+// the argument for keeping country variance out of the profiles, and it holds
+// for everything the guide models so far. It is not yet established for the
+// measurement profiles still in preparation, where the protocols specify
+// different procedures rather than different values.
 //
 // Names, identifiers and site counts are invented. The real ones belong to
 // unpublished protocols and this repository is public.
@@ -38,7 +39,7 @@ Instance: ExampleStudyCountryB
 InstanceOf: HRResearchStudy
 Usage: #example
 Title: "Example study, country B"
-Description: "A second country's protocol. Structurally identical to country A and different in every value that matters: region, sponsor, sites and the split between cases and controls."
+Description: "A second country's protocol, structurally identical to country A and differing in region, sponsor and period. Both instances reference the same example site, because the guide defines one; the real studies run three sites and two respectively."
 * identifier[0].system = "https://example.org/sid/protocol"
 * identifier[0].value = "HR-B-001"
 * title = "Validation of a retinal image algorithm for prediction of reduced kidney function, country B"

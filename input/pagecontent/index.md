@@ -38,10 +38,14 @@ is enforced by the same tooling that validates every other conformance rule. See
 [participant](patient.html).
 
 **Country variance is instance data, never a profile.** The participating
-countries differ in thresholds, eligibility and sample size — not in structure.
-Those differences belong in `ResearchStudy` and `PlanDefinition` instances. There
-is deliberately no country-specific profile in this guide, and there will not be
-one.
+countries differ in thresholds, eligibility and the split between cases and
+controls, and those differences belong in `ResearchStudy` and `PlanDefinition`
+instances. There is deliberately no country-specific profile in this guide.
+
+This holds for everything modelled so far. The protocols also differ in
+procedures the guide does not yet cover, and whether those can be carried as
+instance data is settled by the measurement profiles rather than assumed here.
+See [study and participation](study.html).
 
 #### The participant identifier
 

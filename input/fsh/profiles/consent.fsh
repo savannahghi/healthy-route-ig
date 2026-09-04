@@ -64,8 +64,8 @@ Description: "The record that a participant granted or refused one permission, a
 * period ^comment = "Distinct from the retention period stated in the information sheet. Present where the permission itself is time limited."
 
 * grantor 1..1 MS
-* grantor only Reference(HRPatient)
-* grantor ^comment = "The participant. Recorded separately from subject because the two differ where consent is given by a legal representative, which this study does not currently permit but which the resource must not preclude."
+* grantor only Reference(HRPatient or RelatedPerson)
+* grantor ^comment = "Ordinarily the participant. RelatedPerson is admitted because both protocols provide for consent given by a legally authorised representative, and an earlier version of this profile constrained the element to Patient while its own comment said the resource must not preclude that. Where a representative consents, subject remains the participant and grantor is the representative, which is the distinction the two elements exist to carry."
 
 * grantee 1..* MS
 * grantee only Reference(HROrganization)

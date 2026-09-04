@@ -104,13 +104,23 @@ for (const sd of definitions) {
     }
     if (targets.size === 0) continue;
 
-    // A reference that already admits a profile from this guide is satisfied.
-    const local = [...targets].some((t) => !t.startsWith(BASE));
-    if (local) continue;
+    // An element may name several targets, some local and some base. Each is
+    // judged on its own: a base target is exempt only where a local profile of
+    // that same resource type sits alongside it, which is redundant rather than
+    // wrong. Exempting the whole element as soon as any local profile appeared
+    // would hide an unprofiled target behind a profiled sibling.
+    const covered = new Set(
+      [...targets]
+        .filter((t) => !t.startsWith(BASE))
+        .map((t) => definitions.find((d) => d.url === t.split('|')[0])?.type)
+        .filter(Boolean)
+    );
 
     for (const target of targets) {
+      if (!target.startsWith(BASE)) continue;
       // Canonicals may carry a version suffix, as PlanDefinition|5.0.0 does.
       const resource = target.slice(BASE.length).split('|')[0];
+      if (covered.has(resource)) continue;
       const where = `${sd.id}: ${element.id}`;
       if (profiledTypes.has(resource)) {
         violations.push(
