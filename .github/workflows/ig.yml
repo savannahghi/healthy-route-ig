@@ -22,13 +22,14 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
+      # pipefail so the step fails on SUSHI's own exit code rather than on
+      # tee's. Matching the log text instead was the earlier approach and it is
+      # the same defect the QA gate had: a summary line that says "1 Error" is
+      # prose, and a gate that stops recognising the prose reports success.
       - name: Compile FSH
-        run: npx sushi build . 2>&1 | tee sushi.log
-      - name: Fail on SUSHI errors
         run: |
-          if grep -qE '[1-9][0-9]* Error' sushi.log; then
-            echo "::error::SUSHI reported errors"; exit 1
-          fi
+          set -o pipefail
+          npx sushi build . 2>&1 | tee sushi.log
       - uses: actions/upload-artifact@v4
         with:
           name: fsh-generated
