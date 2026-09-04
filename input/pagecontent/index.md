@@ -14,35 +14,51 @@ The study runs in five countries under one approved protocol per country, with
 approximately 500 participants in each.
 
 > Each country's approved protocol takes precedence over this guide for that
-> country.
+> country. Where this guide and a protocol disagree, the protocol is correct.
 
 #### Scope of this release
 
-This release defines the Patient profiles only. Profiles for consent,
-participation, measurement, imaging metadata, referral and export are in
-preparation and will be added in subsequent releases.
+| Area | Status |
+| --- | --- |
+| [Participant](patient.html) | defined |
+| [Consent](consent.html) | defined |
+| [Documents](documents.html) | defined |
+| Sites, people and study participation | in preparation |
+| Encounter, measurement and specimens | in preparation |
+| Imaging metadata and algorithm output | in preparation |
+| Referral, export and audit | in preparation |
 
-#### The de-identification boundary
+#### Two principles carried through every profile
 
-Participant data exists in two forms, and this guide constrains both.
+**The de-identification boundary is expressed as cardinality.** Participant data
+exists in two forms and this guide constrains both. Elements that may not leave a
+site tenant are set to a cardinality of `0..0` on the export profile, so a
+resource containing one fails validation rather than passing review. The boundary
+is enforced by the same tooling that validates every other conformance rule. See
+[participant](patient.html).
 
-`HRPatient` is held within a site tenant and carries the identifiers required to
-operate the study locally. `HRExportPatient` is the form transferred to the
-sponsor, in which direct identifiers are constrained to a cardinality of 0..0.
+**Country variance is instance data, never a profile.** The participating
+countries differ in thresholds, eligibility and sample size — not in structure.
+Those differences belong in `ResearchStudy` and `PlanDefinition` instances. There
+is deliberately no country-specific profile in this guide, and there will not be
+one.
 
-The constraint is expressed as cardinality rather than as a documented
-transformation so that a resource containing a direct identifier fails
-validation against the export profile. De-identification is therefore verifiable
-by the same tooling that validates every other conformance rule.
-
-#### Identifiers
+#### The participant identifier
 
 A single opaque identifier, issued at registration, serves as the participant
 identifier within the tenant, the study identifier on the case report form, and
 the value entered on the retinal camera at image capture. It is retained
 unchanged across rescreening.
 
-The identifier system is `https://fhir.savannahghi.org/sid/optimalhealth-participant`.
+```
+https://fhir.savannahghi.org/sid/optimalhealth-participant
+```
+
+#### Tenancy
+
+Every resource carries the [tenant extension](StructureDefinition-hr-tenant.html).
+Records are partitioned by site, and partition membership is a property of the
+record rather than of the storage location it happens to occupy.
 
 #### Dependencies
 

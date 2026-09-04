@@ -9,15 +9,41 @@ country's approved protocol takes precedence over this guide for that country.
 
 ## Scope
 
-This release defines the Patient profiles. Profiles for consent, participation,
-measurement, imaging metadata, referral and export are in preparation.
+This release defines the participant, consent and document profiles. Sites and
+people, study participation, measurement, imaging metadata, referral, export and
+audit are in preparation.
 
-| Artefact | Purpose |
-| --- | --- |
-| `HRPatient` | A participant as held within a site tenant |
-| `HRExportPatient` | A participant as transferred to the sponsor |
-| `HRTenant` | Identifies the owning site tenant |
-| `HRAgeYears` | Age in completed years, substituting for `birthDate` on export |
+| Artefact | Kind | Purpose |
+| --- | --- | --- |
+| `HRPatient` | Patient | A participant as held within a site tenant |
+| `HRExportPatient` | Patient | A participant as transferred to the sponsor |
+| `HRConsent` | Consent | That a participant granted or refused one permission |
+| `HRDocumentReference` | DocumentReference | Any document the study holds |
+| `HRConsentEvidence` | DocumentReference | The photographed page a participant signed |
+| `HRConsentPermissionCS` | CodeSystem | The three permissions a participant is asked to grant |
+| `HRTenant` | Extension | Identifies the owning site tenant |
+| `HRAgeYears` | Extension | Age in completed years, substituting for `birthDate` on export |
+
+Narrative documentation for each of these is under `input/pagecontent/` and is
+rendered as the Resources menu of the built guide.
+
+## Design rules
+
+These govern what goes into a change and what waits for one.
+
+1. **One increment, one pull request, one signed commit.** `main` requires
+   linear history, signed commits and both status checks.
+2. **Nothing references what does not exist.** SUSHI fails the build on an
+   unresolved profile reference, so dependency order is the build order.
+3. **The export counterpart ships with its profile**, never as a later
+   de-identification change. Deferring it risks discovering that something
+   already modelled cannot be de-identified.
+4. **Examples ship with the profile.** An example is the cheapest proof that a
+   profile can be populated by the workflow it claims to describe.
+5. **Country variance is instance data, never a profile.** The participating
+   countries differ in thresholds and eligibility, not in structure.
+6. **The protocol outranks any other source.** Where product intent and an
+   approved protocol disagree, the protocol is correct.
 
 ## Building
 
@@ -39,7 +65,8 @@ rendered guide to `output/`.
 input/fsh/aliases.fsh          aliases for external terminologies
 input/fsh/extensions/          extensions required by the profiles
 input/fsh/profiles/            profile definitions
-input/pagecontent/             narrative pages
+input/fsh/terminology/         locally defined code systems and value sets
+input/pagecontent/             narrative pages, one per resource area
 scripts/                       publisher download, build, and QA gate
 ```
 
