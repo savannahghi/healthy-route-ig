@@ -45,7 +45,7 @@ Description: "Any measurement taken from a participant during the screening visi
 
 * code 1..1 MS
 * code ^short = "What was measured"
-* code ^comment = "LOINC. The codes this study relies on are 5804-0 for the urine dipstick protein, 2160-0 for serum creatinine, 98979-8 for eGFR by the CKD-EPI 2021 equation, 4548-4 for HbA1c and 9318-7 for the urine albumin-to-creatinine ratio. Note the eGFR code: 62238-1 is the generic CKD-EPI formula and 98979-8 is the 2021 revision with the race coefficient removed, which is the one the protocols specify."
+* code ^comment = "LOINC where it has a code with the question's meaning, the Healthy Route measurement code system otherwise. The codes this study relies on are 20454-5 for the urine dipstick protein, which is an ordinal presence and not the quantitative 5804-0; 2160-0 for serum creatinine reported in mg/dL and 14682-9 for umol/L, because LOINC separates mass from molar concentration and the code follows the unit the laboratory reported; 98979-8 for eGFR by the CKD-EPI 2021 equation; 4548-4 for HbA1c; 9318-7 for the urine albumin-to-creatinine ratio in mg/g and 32294-1 in mg/mmol; 1558-6 for fasting glucose in mg/dL and 14771-0 in mmol/L. Note the eGFR code: 62238-1 is the generic CKD-EPI formula and 98979-8 is the 2021 revision with the race coefficient removed, which is the one the protocols specify."
 
 * subject 1..1 MS
 * subject only Reference(HRPatient)
@@ -68,7 +68,7 @@ Description: "Any measurement taken from a participant during the screening visi
 * dataAbsentReason ^requirements = "A sample that haemolysed and a measurement nobody took are both absent values, and the difference matters to an analysis that has to decide whether to impute. The hr-obs-value invariant requires one or the other."
 
 * specimen MS
-* specimen ^comment = "References the base Specimen resource. This guide does not yet profile it."
+* specimen only Reference(HRSpecimen)
 
 * device MS
 * device ^short = "Instrument used"
@@ -102,8 +102,15 @@ Description: "One blood pressure reading, or the mean of several."
 * ^experimental = false
 * ^purpose = "Adds the tenancy and encounter requirements this guide places on every measurement to the blood pressure profile FHIR core already defines. The component slicing, the LOINC codes for systolic and diastolic and the mmHg units are inherited and are not restated here."
 
-* extension contains HRTenant named tenant 1..1 MS
+* extension contains
+    HRTenant named tenant 1..1 MS and
+    HRReadingSequence named sequence 0..1 MS and
+    HRReadingPosition named position 0..1 MS and
+    HRReadingDevice named device 0..1 MS
 * extension[tenant] ^short = "Owning site tenant"
+* extension[sequence] ^short = "Which of the three readings"
+* extension[position] ^short = "Before or after retinal capture"
+* extension[device] ^short = "Which monitor"
 
 * subject only Reference(HRPatient)
 
