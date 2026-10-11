@@ -1,0 +1,297 @@
+
+// Four measurements as quantities, three blood pressure readings on the core
+// blood pressure profile with the reading's number, monitor and position as
+// extensions, and the time of retinal capture as an Observation of its own.
+// Body mass index, the waist-to-hip ratio, the mean and the reading sequence
+// are the rule set's. Each reading's time comes from its own item; everything
+// else is timed at the response.
+
+map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractVitals" = "HRExtractVitals"
+
+uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
+uses "http://hl7.org/fhir/StructureDefinition/Observation" alias Observation as target
+
+group HRExtractVitals(source qr : QR, target bundle : Bundle) {
+  qr -> bundle.type = 'transaction' "type";
+
+  qr.item as it where (linkId = '8302-2') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then Shared(qr, it, obs, e) "base";
+      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.category = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+          qr -> cd.code = 'vital-signs' "categoryCode";
+          qr -> cd.display = 'Vital Signs' "categoryDisplay";
+        } "categoryCoding";
+      } "category";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://loinc.org' "codeSystem";
+          qr -> cd.code = '8302-2' "codeCode";
+          qr -> cd.display = 'Body height' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      qr.authored as t -> obs.effective = t "effective";
+      a.value as v -> obs.value = create('Quantity') as q then {
+        v -> q.value = v "value";
+        qr -> q.system = 'http://unitsofmeasure.org' "system";
+        qr -> q.code = 'cm' "unitCode";
+        qr -> q.unit = 'cm' "unit";
+      } "quantity";
+    } "obs";
+  } "height";
+
+  qr.item as it where (linkId = '29463-7') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then Shared(qr, it, obs, e) "base";
+      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.category = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+          qr -> cd.code = 'vital-signs' "categoryCode";
+          qr -> cd.display = 'Vital Signs' "categoryDisplay";
+        } "categoryCoding";
+      } "category";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://loinc.org' "codeSystem";
+          qr -> cd.code = '29463-7' "codeCode";
+          qr -> cd.display = 'Body weight' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      qr.authored as t -> obs.effective = t "effective";
+      a.value as v -> obs.value = create('Quantity') as q then {
+        v -> q.value = v "value";
+        qr -> q.system = 'http://unitsofmeasure.org' "system";
+        qr -> q.code = 'kg' "unitCode";
+        qr -> q.unit = 'kg' "unit";
+      } "quantity";
+    } "obs";
+  } "weight";
+
+  qr.item as it where (linkId = '8280-0') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then Shared(qr, it, obs, e) "base";
+      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.category = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+          qr -> cd.code = 'vital-signs' "categoryCode";
+          qr -> cd.display = 'Vital Signs' "categoryDisplay";
+        } "categoryCoding";
+      } "category";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://loinc.org' "codeSystem";
+          qr -> cd.code = '8280-0' "codeCode";
+          qr -> cd.display = 'Waist Circumference at umbilicus by Tape measure' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      qr.authored as t -> obs.effective = t "effective";
+      a.value as v -> obs.value = create('Quantity') as q then {
+        v -> q.value = v "value";
+        qr -> q.system = 'http://unitsofmeasure.org' "system";
+        qr -> q.code = 'cm' "unitCode";
+        qr -> q.unit = 'cm' "unit";
+      } "quantity";
+    } "obs";
+  } "waist";
+
+  qr.item as it where (linkId = 'hip-circumference') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then Shared(qr, it, obs, e) "base";
+      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.category = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+          qr -> cd.code = 'vital-signs' "categoryCode";
+          qr -> cd.display = 'Vital Signs' "categoryDisplay";
+        } "categoryCoding";
+      } "category";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'hip-circumference' "codeCode";
+          qr -> cd.display = 'Hip circumference' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      qr.authored as t -> obs.effective = t "effective";
+      a.value as v -> obs.value = create('Quantity') as q then {
+        v -> q.value = v "value";
+        qr -> q.system = 'http://unitsofmeasure.org' "system";
+        qr -> q.code = 'cm' "unitCode";
+        qr -> q.unit = 'cm' "unit";
+      } "quantity";
+    } "obs";
+  } "hip";
+
+  qr.item as g where (linkId = 'bp-reading-1') -> bundle.entry as e, e.resource = create('Observation') as obs then {
+    qr -> obs then Reading(qr, g, obs, e) "reading";
+    g.item as si where (linkId = 'bp-reading-1.8480-6') then {
+      si.answer first as sa then { sa.value as sv -> obs then Systolic(qr, sv, obs) "systolic"; } "answer";
+    } "systolicItem";
+    g.item as di where (linkId = 'bp-reading-1.8462-4') then {
+      di.answer first as da then { da.value as dv -> obs then Diastolic(qr, dv, obs) "diastolic"; } "answer";
+    } "diastolicItem";
+    g.item as ti where (linkId = 'bp-reading-1.time') then {
+      ti.answer first as ta then { ta.value as tv -> obs.effective = tv "effective"; } "answer";
+    } "timeItem";
+    qr -> obs.extension as x then {
+      qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
+      qr -> x.value = 1 "value";
+    } "sequence";
+  } "reading1";
+
+  qr.item as g where (linkId = 'bp-reading-2') -> bundle.entry as e, e.resource = create('Observation') as obs then {
+    qr -> obs then Reading(qr, g, obs, e) "reading";
+    g.item as si where (linkId = 'bp-reading-2.8480-6') then {
+      si.answer first as sa then { sa.value as sv -> obs then Systolic(qr, sv, obs) "systolic"; } "answer";
+    } "systolicItem";
+    g.item as di where (linkId = 'bp-reading-2.8462-4') then {
+      di.answer first as da then { da.value as dv -> obs then Diastolic(qr, dv, obs) "diastolic"; } "answer";
+    } "diastolicItem";
+    g.item as ti where (linkId = 'bp-reading-2.time') then {
+      ti.answer first as ta then { ta.value as tv -> obs.effective = tv "effective"; } "answer";
+    } "timeItem";
+    qr -> obs.extension as x then {
+      qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
+      qr -> x.value = 2 "value";
+    } "sequence";
+    g.item as pi where (linkId = 'bp-reading-2.bp-position') then {
+      pi.answer first as pa then {
+        pa.value as pv -> obs.extension as x then {
+          qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-position' "url";
+          pv -> x.value = create('CodeableConcept') as concept, concept.coding = pv "value";
+        } "extension";
+      } "answer";
+    } "position";
+  } "reading2";
+
+  qr.item as g where (linkId = 'bp-reading-3') -> bundle.entry as e, e.resource = create('Observation') as obs then {
+    qr -> obs then Reading(qr, g, obs, e) "reading";
+    g.item as si where (linkId = 'bp-reading-3.8480-6') then {
+      si.answer first as sa then { sa.value as sv -> obs then Systolic(qr, sv, obs) "systolic"; } "answer";
+    } "systolicItem";
+    g.item as di where (linkId = 'bp-reading-3.8462-4') then {
+      di.answer first as da then { da.value as dv -> obs then Diastolic(qr, dv, obs) "diastolic"; } "answer";
+    } "diastolicItem";
+    g.item as ti where (linkId = 'bp-reading-3.time') then {
+      ti.answer first as ta then { ta.value as tv -> obs.effective = tv "effective"; } "answer";
+    } "timeItem";
+    qr -> obs.extension as x then {
+      qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
+      qr -> x.value = 3 "value";
+    } "sequence";
+  } "reading3";
+
+  qr.item as it where (linkId = 'retinal-capture-time') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then Shared(qr, it, obs, e) "base";
+      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.category = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+          qr -> cd.code = 'procedure' "categoryCode";
+          qr -> cd.display = 'Procedure' "categoryDisplay";
+        } "categoryCoding";
+      } "category";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'retinal-capture-time' "codeCode";
+          qr -> cd.display = 'Time of retinal capture' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.effective = v "effective";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "captureTime";
+}
+
+// One reading on the core blood pressure profile: the panel code, the monitor
+// as a component, and the shared identity. The group item's linkId names it.
+group Reading(source qr : QR, source g, target obs : Observation, target e) {
+  qr -> obs then Shared(qr, g, obs, e) "base";
+  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-blood-pressure' "profile";
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+      qr -> cd.code = 'vital-signs' "categoryCode";
+      qr -> cd.display = 'Vital Signs' "categoryDisplay";
+    } "categoryCoding";
+  } "category";
+  qr -> obs.code = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://loinc.org' "codeSystem";
+      qr -> cd.code = '85354-9' "codeCode";
+      qr -> cd.display = 'Blood pressure panel with all children optional' "codeDisplay";
+    } "codeCoding";
+  } "code";
+  qr.item as d where (linkId = 'bp-device') then {
+    d.answer first as da then {
+      da.value as dv -> obs.extension as x then {
+        qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-device' "url";
+        dv -> x.value = create('CodeableConcept') as concept, concept.coding = dv "value";
+      } "extension";
+    } "answer";
+  } "device";
+}
+
+group Systolic(source qr : QR, source sv, target obs : Observation) {
+  sv -> obs.component as comp then {
+    qr -> comp.code = create('CodeableConcept') as cv then {
+      qr -> cv.coding = create('Coding') as cd then {
+        qr -> cd.system = 'http://loinc.org' "codeSystem";
+        qr -> cd.code = '8480-6' "codeCode";
+        qr -> cd.display = 'Systolic blood pressure' "codeDisplay";
+      } "codeCoding";
+    } "code";
+    sv -> comp.value = create('Quantity') as q then {
+      sv -> q.value = sv "value";
+      qr -> q.system = 'http://unitsofmeasure.org' "system";
+      qr -> q.code = 'mm[Hg]' "unitCode";
+      qr -> q.unit = 'mmHg' "unit";
+    } "quantity";
+  } "component";
+}
+
+group Diastolic(source qr : QR, source dv, target obs : Observation) {
+  dv -> obs.component as comp then {
+    qr -> comp.code = create('CodeableConcept') as cv then {
+      qr -> cv.coding = create('Coding') as cd then {
+        qr -> cd.system = 'http://loinc.org' "codeSystem";
+        qr -> cd.code = '8462-4' "codeCode";
+        qr -> cd.display = 'Diastolic blood pressure' "codeDisplay";
+      } "codeCoding";
+    } "code";
+    dv -> comp.value = create('Quantity') as q then {
+      dv -> q.value = dv "value";
+      qr -> q.system = 'http://unitsofmeasure.org' "system";
+      qr -> q.code = 'mm[Hg]' "unitCode";
+      qr -> q.unit = 'mmHg' "unit";
+    } "quantity";
+  } "component";
+}
+
+// Identity, tags, tenant, subject, encounter and performer. The profile is set
+// here for a measurement and overridden by Reading for a blood pressure.
+group Shared(source qr : QR, source it, target obs : Observation, target e) {
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    it.linkId as k -> append(qid, '-', k) as idText, obs.id = cast(idText, 'id') "id";
+    it.linkId as k -> e.fullUrl = append('Observation/', qid, '-', k) "fullUrl";
+    it.linkId as k -> e.request as rq then {
+      qr -> rq.method = 'PUT' "method";
+      qr -> rq.url = append('Observation/', qid, '-', k) "url";
+    } "request";
+  } "ids";
+  qr.meta as qm then {
+    qm.tag as t -> obs.meta as m, m.tag = t "tag";
+  } "tags";
+  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr -> obs.status = 'final' "status";
+  qr.subject as s -> obs.subject = s "subject";
+  qr.encounter as en -> obs.encounter = en "encounter";
+  qr.author as au -> obs.performer = au "performer";
+}

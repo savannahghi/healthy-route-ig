@@ -72,6 +72,12 @@ jobs:
       - name: Gate on QA errors
         run: npm run qa
 
+      # The maps are replayed against their example responses with the same
+      # R5 engine the study's FHIR store runs, and the Bundles compared with
+      # the ones checked in. A map that compiles is not a map that works.
+      - name: Replay the maps
+        run: tests/run-maps.sh
+
       # While the repo is private, this artifact IS the deliverable.
       # Reviewers download the zip; no Pages site needed.
       - uses: actions/upload-artifact@v4

@@ -1,0 +1,154 @@
+
+// Eight answers kept as Observations under their item codes: four counts as
+// integers, three habits as coded answers, one count of hours. The values the
+// study derives from them belong to the rule set, not to this map.
+
+map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractDietActivity" = "HRExtractDietActivity"
+
+uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
+uses "http://hl7.org/fhir/StructureDefinition/Observation" alias Observation as target
+
+group HRExtractDietActivity(source qr : QR, target bundle : Bundle) {
+  qr -> bundle.type = 'transaction' "type";
+
+  qr.item as it where (linkId = 'fruit-days') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'fruit-days' "codeCode";
+          qr -> cd.display = 'Days fruit eaten in a usual week' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "fruit";
+
+  qr.item as it where (linkId = 'veg-days') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'veg-days' "codeCode";
+          qr -> cd.display = 'Days vegetables eaten in a usual week' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "veg";
+
+  qr.item as it where (linkId = 'salt-added') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'salt-added' "codeCode";
+          qr -> cd.display = 'Salt added at the table' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
+    } "obs";
+  } "salt";
+
+  qr.item as it where (linkId = 'sugar-drinks') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'sugar-drinks' "codeCode";
+          qr -> cd.display = 'Sugar-sweetened drinks' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
+    } "obs";
+  } "sugar";
+
+  qr.item as it where (linkId = 'work-activity') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'work-activity' "codeCode";
+          qr -> cd.display = 'Physical activity at work' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
+    } "obs";
+  } "work";
+
+  qr.item as it where (linkId = 'activity-days') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'activity-days' "codeCode";
+          qr -> cd.display = 'Days of moderate or vigorous activity in a usual week' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "activityDays";
+
+  qr.item as it where (linkId = 'activity-minutes') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'activity-minutes' "codeCode";
+          qr -> cd.display = 'Minutes of moderate or vigorous activity on those days' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "activityMinutes";
+
+  qr.item as it where (linkId = 'seated-hours') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'seated-hours' "codeCode";
+          qr -> cd.display = 'Hours seated in a usual day' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "seated";
+}
+
+group SurveyObservation(source qr : QR, source it, target obs : Observation, target e) {
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    it.linkId as k -> append(qid, '-', k) as idText, obs.id = cast(idText, 'id') "id";
+    it.linkId as k -> e.fullUrl = append('Observation/', qid, '-', k) "fullUrl";
+    it.linkId as k -> e.request as rq then {
+      qr -> rq.method = 'PUT' "method";
+      qr -> rq.url = append('Observation/', qid, '-', k) "url";
+    } "request";
+  } "ids";
+  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr.meta as qm then {
+    qm.tag as t -> obs.meta as m, m.tag = t "tag";
+  } "tags";
+  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr -> obs.status = 'final' "status";
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "surveySystem";
+      qr -> cd.code = 'survey' "surveyCode";
+      qr -> cd.display = 'Survey' "surveyDisplay";
+    } "surveyCoding";
+  } "survey";
+  qr.subject as s -> obs.subject = s "subject";
+  qr.encounter as en -> obs.encounter = en "encounter";
+  qr.authored as t -> obs.effective = t "effective";
+  qr.author as au -> obs.performer = au "performer";
+}

@@ -1,0 +1,724 @@
+{
+  "entry": [
+    {
+      "fullUrl": "DiagnosticReport/qr-laboratory-0001-report",
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/qr-laboratory-0001-report"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "LAB",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "11502-2",
+              "display": "Laboratory report",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:08:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleSamplesEncounter",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-report",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-diagnostic-report"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "DiagnosticReport",
+        "result": [
+          {
+            "reference": "Observation/qr-laboratory-0001-2160-0"
+          },
+          {
+            "reference": "Observation/qr-laboratory-0001-4548-4"
+          },
+          {
+            "reference": "Observation/qr-laboratory-0001-9318-7"
+          },
+          {
+            "reference": "Observation/qr-laboratory-0001-1558-6"
+          },
+          {
+            "reference": "Observation/qr-laboratory-0001-hiv-test"
+          },
+          {
+            "reference": "Observation/qr-laboratory-0001-fbc-taken"
+          }
+        ],
+        "specimen": [
+          {
+            "reference": "Specimen/qr-laboratory-0001-specimen-blood"
+          },
+          {
+            "reference": "Specimen/qr-laboratory-0001-specimen-urine"
+          }
+        ],
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-laboratory-0001-1558-6",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-laboratory-0001-1558-6"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "14771-0",
+              "display": "Fasting glucose [Moles/volume] in Serum or Plasma",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:08:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleSamplesEncounter",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-1558-6",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "Observation",
+        "specimen": {
+          "reference": "Specimen/qr-laboratory-0001-specimen-blood"
+        },
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "unit": "mmol/L",
+          "value": 5.4
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-laboratory-0001-2160-0",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-laboratory-0001-2160-0"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "14682-9",
+              "display": "Creatinine [Moles/volume] in Serum or Plasma",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:08:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleSamplesEncounter",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-2160-0",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "Observation",
+        "specimen": {
+          "reference": "Specimen/qr-laboratory-0001-specimen-blood"
+        },
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "umol/L",
+          "system": "http://unitsofmeasure.org",
+          "unit": "umol/L",
+          "value": 110
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-laboratory-0001-4548-4",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-laboratory-0001-4548-4"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "4548-4",
+              "display": "Hemoglobin A1c/Hemoglobin.total in Blood",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:08:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleSamplesEncounter",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-4548-4",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "Observation",
+        "specimen": {
+          "reference": "Specimen/qr-laboratory-0001-specimen-blood"
+        },
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "%",
+          "system": "http://unitsofmeasure.org",
+          "unit": "%",
+          "value": 5.9
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-laboratory-0001-9318-7",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-laboratory-0001-9318-7"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9318-7",
+              "display": "Albumin/Creatinine [Mass Ratio] in Urine",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:08:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleSamplesEncounter",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-9318-7",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "Observation",
+        "specimen": {
+          "reference": "Specimen/qr-laboratory-0001-specimen-urine"
+        },
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "mg/g",
+          "system": "http://unitsofmeasure.org",
+          "unit": "mg/g",
+          "value": 45
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-laboratory-0001-fbc-taken",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-laboratory-0001-fbc-taken"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "fbc-taken",
+              "display": "Full blood count taken",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:08:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleSamplesEncounter",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-fbc-taken",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": true
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-laboratory-0001-hiv-test",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-laboratory-0001-hiv-test"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "hiv-test",
+              "display": "HIV test result",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:08:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleSamplesEncounter",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-hiv-test",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "Observation",
+        "specimen": {
+          "reference": "Specimen/qr-laboratory-0001-specimen-blood"
+        },
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "non-reactive",
+              "display": "Non-reactive",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-reactive"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "Specimen/qr-laboratory-0001-specimen-blood",
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/qr-laboratory-0001-specimen-blood"
+      },
+      "resource": {
+        "collection": {
+          "collectedDateTime": "2026-10-02T10:08:00+03:00",
+          "collector": {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-specimen-blood",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-specimen"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "Specimen",
+        "status": "available",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "type": {
+          "coding": [
+            {
+              "code": "BLD",
+              "display": "Whole blood",
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0487"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "Specimen/qr-laboratory-0001-specimen-urine",
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/qr-laboratory-0001-specimen-urine"
+      },
+      "resource": {
+        "collection": {
+          "collectedDateTime": "2026-10-02T10:08:00+03:00",
+          "collector": {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-laboratory-0001-specimen-urine",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-specimen"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "Specimen",
+        "status": "available",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "type": {
+          "coding": [
+            {
+              "code": "UR",
+              "display": "Urine",
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0487"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "resourceType": "Bundle",
+  "type": "transaction"
+}

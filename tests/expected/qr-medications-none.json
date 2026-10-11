@@ -1,0 +1,87 @@
+{
+  "entry": [
+    {
+      "fullUrl": "Observation/qr-medications-0002-medications-none",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-medications-0002-medications-none"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "medications-none",
+              "display": "No current medication",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-medications-0002-medications-none",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": true
+      }
+    }
+  ],
+  "resourceType": "Bundle",
+  "type": "transaction"
+}

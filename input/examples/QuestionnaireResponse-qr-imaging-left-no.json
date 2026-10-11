@@ -1,0 +1,115 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "qr-imaging-0002",
+  "meta": {
+    "tag": [
+      {
+        "system": "https://fhir.savannahghi.org/tag/study",
+        "code": "0192f7a0-0000-7000-8000-00000000c001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/site",
+        "code": "0192f7a0-0000-7000-8000-00000000e001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/participant",
+        "code": "0192f7a0-0000-7000-8000-000000001001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/visit",
+        "code": "0192f7b1-0000-7000-8000-000000000a01"
+      }
+    ]
+  },
+  "extension": [
+    {
+      "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+      "valueIdentifier": {
+        "system": "https://example.org/sid/tenant",
+        "value": "site-a"
+      }
+    }
+  ],
+  "questionnaire": "https://fhir.savannahghi.org/ig/healthy-route/Questionnaire/hr-imaging-ug|0.1.0",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/ExampleParticipant",
+    "type": "Patient"
+  },
+  "encounter": {
+    "reference": "Encounter/ExampleImagingEncounter",
+    "type": "Encounter"
+  },
+  "authored": "2026-10-02T11:30:00+03:00",
+  "author": {
+    "reference": "Practitioner/ExampleStudyNurse",
+    "type": "Practitioner",
+    "display": "Example study nurse"
+  },
+  "item": [
+    {
+      "linkId": "pack-id",
+      "answer": [
+        {
+          "valueString": "OPT-2610-0056"
+        }
+      ]
+    },
+    {
+      "linkId": "imaging-date",
+      "answer": [
+        {
+          "valueDate": "2026-10-02"
+        }
+      ]
+    },
+    {
+      "linkId": "retinal-capture-time",
+      "answer": [
+        {
+          "valueDateTime": "2026-10-02T11:05:00+03:00"
+        }
+      ]
+    },
+    {
+      "linkId": "images-dilated",
+      "answer": [
+        {
+          "valueBoolean": true
+        }
+      ]
+    },
+    {
+      "linkId": "images-right",
+      "answer": [
+        {
+          "valueBoolean": true
+        }
+      ]
+    },
+    {
+      "linkId": "images-left",
+      "answer": [
+        {
+          "valueBoolean": false
+        }
+      ]
+    },
+    {
+      "linkId": "images-synced",
+      "answer": [
+        {
+          "valueBoolean": true
+        }
+      ]
+    },
+    {
+      "linkId": "images-reason",
+      "answer": [
+        {
+          "valueString": "Dense cataract in the left eye; no gradable image of the left retina"
+        }
+      ]
+    }
+  ]
+}

@@ -28,13 +28,79 @@ contact:
       - system: url
         value: https://savannahghi.org
 
-# No external package dependencies. Both extensions in this guide are defined
-# locally. A dependency is added when the guide first references an artefact it
-# does not define.
+# The one external dependency: SDC, for the extension that names the
+# StructureMap a Questionnaire is extracted with. SDC has no R5 release, so
+# the R4 package is used for the one extension definition it supplies.
+dependencies:
+  hl7.fhir.uv.sdc: 4.0.0
 
 parameters:
   show-inherited-invariants: false
   path-expansion-params: '../../input/_resources/expansion-params.json'
+
+# The example responses are JSON under input/examples; each is marked as an
+# example of the Questionnaire it answers so the artifacts page lists it there.
+resources:
+  QuestionnaireResponse/qr-history-0001:
+    name: "Example response: history"
+    description: "Every history question answered; two of the reported diagnoses are Yes."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-diet-activity-0001:
+    name: "Example response: diet and activity"
+    description: "Every diet and activity question answered."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-vitals-0001:
+    name: "Example response: vitals"
+    description: "Four measurements and three timed readings around the retinal capture."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-laboratory-0001:
+    name: "Example response: laboratory results"
+    description: "Results in the units the laboratory reported: creatinine in umol/L, glucose in mmol/L."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-medications-0001:
+    name: "Example response: medications"
+    description: "Two medicines, one from the catalogue and one the catalogue does not list."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-medications-0002:
+    name: "Example response: medications"
+    description: "No current medication."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-imaging-0001:
+    name: "Example response: imaging"
+    description: "Both eyes captured and synced."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-imaging-0002:
+    name: "Example response: imaging"
+    description: "The left eye not captured, with the reason."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-eligibility-0001:
+    name: "Example response: eligibility"
+    description: "Every inclusion met, a documented eGFR inside the window, no exclusion."
+    exampleBoolean: true
+
+# The maps are compiled from input/maps by the publisher; their names and
+# descriptions live here because the mapping language carries neither.
+  StructureMap/HRExtractEligibility:
+    name: "Extract the eligibility checklist"
+    description: "Every criterion as an Observation under its item code; the documented eGFR dated by the day it was documented."
+  StructureMap/HRExtractHistory:
+    name: "Extract the history form"
+    description: "An Observation per answer, and a Condition for each of diabetes, hypertension and chronic kidney disease answered Yes."
+  StructureMap/HRExtractMedications:
+    name: "Extract the medications form"
+    description: "No current medication as an Observation; each medicine as a MedicationStatement against the catalogue code."
+  StructureMap/HRExtractDietActivity:
+    name: "Extract the diet and activity form"
+    description: "An Observation per answer; the derived values are the rule set's."
+  StructureMap/HRExtractVitals:
+    name: "Extract the vitals form"
+    description: "Four measurements as quantities, three timed blood pressure readings with their number, position and monitor, and the time of retinal capture."
+  StructureMap/HRExtractLaboratory:
+    name: "Extract the laboratory results form"
+    description: "Two specimens, an Observation per result in the reported unit with the LOINC code chosen by the unit, and a report gathering them."
+  StructureMap/HRExtractImaging:
+    name: "Extract the imaging form"
+    description: "One ImagingStudy for the pack with a series per eye captured, and the four answers as Observations."
 
 # Explicit so that page titles are controlled here rather than inferred from
 # the first heading of each file.
@@ -53,6 +119,8 @@ pages:
     title: Study and participation
   measurement.md:
     title: Visit and measurement
+  forms.md:
+    title: Forms and maps
 
 menu:
   Home: index.html
@@ -63,4 +131,5 @@ menu:
     Sites and people: sites.html
     Study and participation: study.html
     Visit and measurement: measurement.html
+    Forms and maps: forms.html
   Artifacts: artifacts.html

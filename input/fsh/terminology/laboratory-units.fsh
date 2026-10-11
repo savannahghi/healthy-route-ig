@@ -12,9 +12,9 @@ Title: "Laboratory Units Value Set"
 Description: "The UCUM units a site's laboratory may report the study's results in."
 * ^status = #draft
 * ^experimental = false
-* $ucum#umol/L "micromole per litre"
-* $ucum#mg/dL "milligram per decilitre"
-* $ucum#mmol/L "millimole per litre"
-* $ucum#mg/g "milligram per gram"
-* $ucum#mg/mmol "milligram per millimole"
-* $ucum#% "percent"
+* $ucum#umol/L
+* $ucum#mg/dL
+* $ucum#mmol/L
+* $ucum#mg/g
+* $ucum#mg/mmol
+* $ucum#%
