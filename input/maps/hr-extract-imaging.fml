@@ -1,0 +1,177 @@
+
+// One ImagingStudy for the pack, with a series for each eye answered Yes, and
+// the four answers kept as Observations so the screen-failure rule reads them
+// plainly. The time of retinal capture dates the study; the Observation of
+// that time is the vitals form's, which asks the same question.
+
+map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractImaging" = "HRExtractImaging"
+
+uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
+uses "http://hl7.org/fhir/StructureDefinition/Observation" alias Observation as target
+uses "http://hl7.org/fhir/StructureDefinition/ImagingStudy" alias ImagingStudy as target
+
+group HRExtractImaging(source qr : QR, target bundle : Bundle) {
+  qr -> bundle.type = 'transaction' "type";
+
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    qr.item as pi where (linkId = 'pack-id') then {
+      pi.answer first as pa then {
+        pa.value as pack -> bundle.entry as e, e.resource = create('ImagingStudy') as st then {
+          qr -> append(qid, '-imaging-study') as idText, st.id = cast(idText, 'id') "id";
+          qr -> e.fullUrl = append('ImagingStudy/', qid, '-imaging-study') "fullUrl";
+          qr -> e.request as rq then {
+            qr -> rq.method = 'PUT' "method";
+            qr -> rq.url = append('ImagingStudy/', qid, '-imaging-study') "url";
+          } "request";
+          qr -> st.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-imaging-study' "profile";
+          qr.meta as qm then {
+            qm.tag as t -> st.meta as m, m.tag = t "tag";
+          } "tags";
+          qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> st.extension = x "tenant";
+          pack -> st.identifier as ident then {
+            qr -> ident.system = 'https://fhir.savannahghi.org/sid/optomed-pack' "system";
+            pack -> ident.value = pack "value";
+          } "identifier";
+          qr where (item.where(linkId = 'images-right').answer.value = true or item.where(linkId = 'images-left').answer.value = true) -> st.status = 'available' "available";
+          qr where ((item.where(linkId = 'images-right').answer.value = true or item.where(linkId = 'images-left').answer.value = true).not()) -> st.status = 'cancelled' "cancelled";
+          qr -> st.modality = create('CodeableConcept') as cv then {
+            qr -> cv.coding = create('Coding') as cd then {
+              qr -> cd.system = 'http://dicom.nema.org/resources/ontology/DCM' "modalitySystem";
+              qr -> cd.code = 'OP' "modalityCode";
+              qr -> cd.display = 'Ophthalmic Photography' "modalityDisplay";
+            } "modalityCoding";
+          } "modality";
+          qr.subject as s -> st.subject = s "subject";
+          qr.encounter as en -> st.encounter = en "encounter";
+          qr.item as ti where (linkId = 'retinal-capture-time') then {
+            ti.answer first as ta then { ta.value as tv -> st.started = tv "started"; } "answer";
+          } "started";
+          qr.item as r where (linkId = 'images-right' and answer.value = true) -> st.series as ser then {
+            pack -> append(pack, '-R') as uidText, ser.uid = cast(uidText, 'id') "uid";
+            qr -> ser.modality = create('CodeableConcept') as cv then {
+              qr -> cv.coding = create('Coding') as cd then {
+                qr -> cd.system = 'http://dicom.nema.org/resources/ontology/DCM' "modalitySystem";
+                qr -> cd.code = 'OP' "modalityCode";
+                qr -> cd.display = 'Ophthalmic Photography' "modalityDisplay";
+              } "modalityCoding";
+            } "modality";
+            qr -> ser.laterality = create('CodeableConcept') as cv then {
+              qr -> cv.coding = create('Coding') as cd then {
+                qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-eye' "lateralitySystem";
+                qr -> cd.code = 'right' "lateralityCode";
+                qr -> cd.display = 'Right eye' "lateralityDisplay";
+              } "lateralityCoding";
+            } "laterality";
+            qr -> ser.description = 'Right eye' "description";
+          } "right";
+          qr.item as l where (linkId = 'images-left' and answer.value = true) -> st.series as ser then {
+            pack -> append(pack, '-L') as uidText, ser.uid = cast(uidText, 'id') "uid";
+            qr -> ser.modality = create('CodeableConcept') as cv then {
+              qr -> cv.coding = create('Coding') as cd then {
+                qr -> cd.system = 'http://dicom.nema.org/resources/ontology/DCM' "modalitySystem";
+                qr -> cd.code = 'OP' "modalityCode";
+                qr -> cd.display = 'Ophthalmic Photography' "modalityDisplay";
+              } "modalityCoding";
+            } "modality";
+            qr -> ser.laterality = create('CodeableConcept') as cv then {
+              qr -> cv.coding = create('Coding') as cd then {
+                qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-eye' "lateralitySystem";
+                qr -> cd.code = 'left' "lateralityCode";
+                qr -> cd.display = 'Left eye' "lateralityDisplay";
+              } "lateralityCoding";
+            } "laterality";
+            qr -> ser.description = 'Left eye' "description";
+          } "left";
+          qr.item as ri where (linkId = 'images-reason') then {
+            ri.answer first as ra then { ra.value as rv -> st.note as n, n.text = rv "note"; } "answer";
+          } "reason";
+        } "study";
+      } "answer";
+    } "pack";
+
+    qr.item as it where (linkId = 'images-dilated') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Answer(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'images-dilated' "codeCode";
+            qr -> cd.display = 'Images taken with dilation' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "dilated";
+
+    qr.item as it where (linkId = 'images-right') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Answer(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'images-right' "codeCode";
+            qr -> cd.display = 'Image captured of the right eye' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "rightAnswer";
+
+    qr.item as it where (linkId = 'images-left') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Answer(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'images-left' "codeCode";
+            qr -> cd.display = 'Image captured of the left eye' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "leftAnswer";
+
+    qr.item as it where (linkId = 'images-synced') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Answer(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'images-synced' "codeCode";
+            qr -> cd.display = 'Images synced to the device cloud storage' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "synced";
+  } "response";
+}
+
+group Answer(source qr : QR, source it, target obs : Observation, target e) {
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    it.linkId as k -> append(qid, '-', k) as idText, obs.id = cast(idText, 'id') "id";
+    it.linkId as k -> e.fullUrl = append('Observation/', qid, '-', k) "fullUrl";
+    it.linkId as k -> e.request as rq then {
+      qr -> rq.method = 'PUT' "method";
+      qr -> rq.url = append('Observation/', qid, '-', k) "url";
+    } "request";
+  } "ids";
+  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr.meta as qm then {
+    qm.tag as t -> obs.meta as m, m.tag = t "tag";
+  } "tags";
+  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr -> obs.status = 'final' "status";
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+      qr -> cd.code = 'imaging' "categoryCode";
+      qr -> cd.display = 'Imaging' "categoryDisplay";
+    } "categoryCoding";
+  } "category";
+  qr.subject as s -> obs.subject = s "subject";
+  qr.encounter as en -> obs.encounter = en "encounter";
+  qr.authored as t -> obs.effective = t "effective";
+  qr.author as au -> obs.performer = au "performer";
+}

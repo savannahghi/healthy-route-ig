@@ -1,0 +1,202 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "qr-vitals-0001",
+  "meta": {
+    "tag": [
+      {
+        "system": "https://fhir.savannahghi.org/tag/study",
+        "code": "0192f7a0-0000-7000-8000-00000000c001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/site",
+        "code": "0192f7a0-0000-7000-8000-00000000e001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/participant",
+        "code": "0192f7a0-0000-7000-8000-000000001001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/visit",
+        "code": "0192f7b1-0000-7000-8000-000000000a01"
+      }
+    ]
+  },
+  "extension": [
+    {
+      "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+      "valueIdentifier": {
+        "system": "https://example.org/sid/tenant",
+        "value": "site-a"
+      }
+    }
+  ],
+  "questionnaire": "https://fhir.savannahghi.org/ig/healthy-route/Questionnaire/hr-vitals-ug|0.1.0",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/ExampleParticipant",
+    "type": "Patient"
+  },
+  "encounter": {
+    "reference": "Encounter/ExampleScreeningVisit",
+    "type": "Encounter"
+  },
+  "authored": "2026-10-02T10:20:00+03:00",
+  "author": {
+    "reference": "Practitioner/ExampleStudyNurse",
+    "type": "Practitioner",
+    "display": "Example study nurse"
+  },
+  "item": [
+    {
+      "linkId": "8302-2",
+      "answer": [
+        {
+          "valueDecimal": 162
+        }
+      ]
+    },
+    {
+      "linkId": "29463-7",
+      "answer": [
+        {
+          "valueDecimal": 71
+        }
+      ]
+    },
+    {
+      "linkId": "8280-0",
+      "answer": [
+        {
+          "valueDecimal": 92
+        }
+      ]
+    },
+    {
+      "linkId": "hip-circumference",
+      "answer": [
+        {
+          "valueDecimal": 104
+        }
+      ]
+    },
+    {
+      "linkId": "bp-device",
+      "answer": [
+        {
+          "valueCoding": {
+            "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-bp-device",
+            "code": "omron-m6",
+            "display": "Omron M6"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "bp-reading-1",
+      "item": [
+        {
+          "linkId": "bp-reading-1.8480-6",
+          "answer": [
+            {
+              "valueDecimal": 148
+            }
+          ]
+        },
+        {
+          "linkId": "bp-reading-1.8462-4",
+          "answer": [
+            {
+              "valueDecimal": 92
+            }
+          ]
+        },
+        {
+          "linkId": "bp-reading-1.time",
+          "answer": [
+            {
+              "valueDateTime": "2026-10-02T09:00:00+03:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "bp-reading-2",
+      "item": [
+        {
+          "linkId": "bp-reading-2.bp-position",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-bp-position",
+                "code": "before-capture",
+                "display": "Before retinal capture"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "bp-reading-2.8480-6",
+          "answer": [
+            {
+              "valueDecimal": 142
+            }
+          ]
+        },
+        {
+          "linkId": "bp-reading-2.8462-4",
+          "answer": [
+            {
+              "valueDecimal": 90
+            }
+          ]
+        },
+        {
+          "linkId": "bp-reading-2.time",
+          "answer": [
+            {
+              "valueDateTime": "2026-10-02T10:00:00+03:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "retinal-capture-time",
+      "answer": [
+        {
+          "valueDateTime": "2026-10-02T10:05:00+03:00"
+        }
+      ]
+    },
+    {
+      "linkId": "bp-reading-3",
+      "item": [
+        {
+          "linkId": "bp-reading-3.8480-6",
+          "answer": [
+            {
+              "valueDecimal": 138
+            }
+          ]
+        },
+        {
+          "linkId": "bp-reading-3.8462-4",
+          "answer": [
+            {
+              "valueDecimal": 88
+            }
+          ]
+        },
+        {
+          "linkId": "bp-reading-3.time",
+          "answer": [
+            {
+              "valueDateTime": "2026-10-02T10:15:00+03:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

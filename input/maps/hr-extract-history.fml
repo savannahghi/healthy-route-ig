@@ -1,0 +1,254 @@
+
+// The history form: eight answers kept as Observations under their item codes,
+// and a Condition for each of diabetes, hypertension and chronic kidney
+// disease answered Yes. Every resource takes the response's tags and tenant,
+// its subject and encounter, and an id derived from the response id and the
+// item's linkId, so that saving the same response again replaces what the
+// first save wrote instead of duplicating it.
+
+map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractHistory" = "HRExtractHistory"
+
+uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
+uses "http://hl7.org/fhir/StructureDefinition/Observation" alias Observation as target
+uses "http://hl7.org/fhir/StructureDefinition/Condition" alias Condition as target
+
+group HRExtractHistory(source qr : QR, target bundle : Bundle) {
+  qr -> bundle.type = 'transaction' "type";
+
+  qr.item as it where (linkId = 'history-dm') then {
+    it.answer first as a then {
+      a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'history-dm' "codeCode";
+            qr -> cd.display = 'Diabetes, reported' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+      a where (value = true) -> bundle.entry as e, e.resource = create('Condition') as cond then {
+        qr -> cond then ReportedCondition(qr, it, cond, e) "base";
+        qr -> cond.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://id.who.int/icd/release/11/mms' "codeSystem";
+            qr -> cd.code = '5A14' "codeCode";
+            qr -> cd.display = 'Diabetes mellitus, type unspecified' "codeDisplay";
+          } "codeCoding";
+        } "code";
+      } "condition";
+    } "answer";
+  } "dm";
+
+  qr.item as it where (linkId = 'history-htn') then {
+    it.answer first as a then {
+      a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'history-htn' "codeCode";
+            qr -> cd.display = 'Hypertension, reported' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+      a where (value = true) -> bundle.entry as e, e.resource = create('Condition') as cond then {
+        qr -> cond then ReportedCondition(qr, it, cond, e) "base";
+        qr -> cond.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://id.who.int/icd/release/11/mms' "codeSystem";
+            qr -> cd.code = 'BA00' "codeCode";
+            qr -> cd.display = 'Essential hypertension' "codeDisplay";
+          } "codeCoding";
+        } "code";
+      } "condition";
+    } "answer";
+  } "htn";
+
+  qr.item as it where (linkId = 'history-ckd') then {
+    it.answer first as a then {
+      a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'history-ckd' "codeCode";
+            qr -> cd.display = 'Chronic kidney disease, reported' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+      a where (value = true) -> bundle.entry as e, e.resource = create('Condition') as cond then {
+        qr -> cond then ReportedCondition(qr, it, cond, e) "base";
+        qr -> cond.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://id.who.int/icd/release/11/mms' "codeSystem";
+            qr -> cd.code = 'GB61' "codeCode";
+            qr -> cd.display = 'Chronic kidney disease' "codeDisplay";
+          } "codeCoding";
+        } "code";
+      } "condition";
+    } "answer";
+  } "ckd";
+
+  qr.item as it where (linkId = 'history-hiv') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'history-hiv' "codeCode";
+          qr -> cd.display = 'HIV, reported' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "hiv";
+
+  qr.item as it where (linkId = 'history-heart') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'history-heart' "codeCode";
+          qr -> cd.display = 'Heart disease, reported' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "heart";
+
+  qr.item as it where (linkId = 'history-traditional') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'history-traditional' "codeCode";
+          qr -> cd.display = 'Traditional medicine use' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = v "value";
+    } "obs";
+  } "traditional";
+
+  qr.item as it where (linkId = 'history-alcohol') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.category = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "socialHistorySystem";
+          qr -> cd.code = 'social-history' "socialHistoryCode";
+          qr -> cd.display = 'Social History' "socialHistoryDisplay";
+        } "socialHistoryCoding";
+      } "socialHistory";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'history-alcohol' "codeCode";
+          qr -> cd.display = 'Alcohol use' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
+    } "obs";
+  } "alcohol";
+
+  qr.item as it where (linkId = '72166-2') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.category = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "socialHistorySystem";
+          qr -> cd.code = 'social-history' "socialHistoryCode";
+          qr -> cd.display = 'Social History' "socialHistoryDisplay";
+        } "socialHistoryCoding";
+      } "socialHistory";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'http://loinc.org' "codeSystem";
+          qr -> cd.code = '72166-2' "codeCode";
+          qr -> cd.display = 'Tobacco smoking status' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
+    } "obs";
+  } "smoking";
+}
+
+// What every answer-as-Observation shares. The id is the response id followed
+// by the item's linkId, which is why a linkId is never longer than the id type
+// allows once the response id is in front of it.
+group SurveyObservation(source qr : QR, source it, target obs : Observation, target e) {
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    it.linkId as k -> append(qid, '-', k) as idText, obs.id = cast(idText, 'id') "id";
+    it.linkId as k -> e.fullUrl = append('Observation/', qid, '-', k) "fullUrl";
+    it.linkId as k -> e.request as rq then {
+      qr -> rq.method = 'PUT' "method";
+      qr -> rq.url = append('Observation/', qid, '-', k) "url";
+    } "request";
+  } "ids";
+  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr.meta as qm then {
+    qm.tag as t -> obs.meta as m, m.tag = t "tag";
+  } "tags";
+  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr -> obs.status = 'final' "status";
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "surveySystem";
+      qr -> cd.code = 'survey' "surveyCode";
+      qr -> cd.display = 'Survey' "surveyDisplay";
+    } "surveyCoding";
+  } "survey";
+  qr.subject as s -> obs.subject = s "subject";
+  qr.encounter as en -> obs.encounter = en "encounter";
+  qr.authored as t -> obs.effective = t "effective";
+  qr.author as au -> obs.performer = au "performer";
+}
+
+// A Yes to a reported diagnosis, asserted as a Condition that points back at
+// the answer it came from.
+group ReportedCondition(source qr : QR, source it, target cond : Condition, target e) {
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    it.linkId as k -> append(qid, '-', k, '-condition') as idText, cond.id = cast(idText, 'id') "id";
+    it.linkId as k -> e.fullUrl = append('Condition/', qid, '-', k, '-condition') "fullUrl";
+    it.linkId as k -> e.request as rq then {
+      qr -> rq.method = 'PUT' "method";
+      qr -> rq.url = append('Condition/', qid, '-', k, '-condition') "url";
+    } "request";
+    it.linkId as k -> cond.evidence as ev, ev.reference = create('Reference') as ref, ref.reference = append('Observation/', qid, '-', k) "evidence";
+  } "ids";
+  qr -> cond.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-condition' "profile";
+  qr.meta as qm then {
+    qm.tag as t -> cond.meta as m, m.tag = t "tag";
+  } "tags";
+  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> cond.extension = x "tenant";
+  qr -> cond.clinicalStatus = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/condition-clinical' "clinicalSystem";
+      qr -> cd.code = 'active' "clinicalCode";
+      qr -> cd.display = 'Active' "clinicalDisplay";
+    } "clinicalCoding";
+  } "clinical";
+  qr -> cond.verificationStatus = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/condition-ver-status' "verificationSystem";
+      qr -> cd.code = 'unconfirmed' "verificationCode";
+      qr -> cd.display = 'Unconfirmed' "verificationDisplay";
+    } "verificationCoding";
+  } "verification";
+  qr -> cond.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/condition-category' "categorySystem";
+      qr -> cd.code = 'problem-list-item' "categoryCode";
+      qr -> cd.display = 'Problem List Item' "categoryDisplay";
+    } "categoryCoding";
+  } "category";
+  qr.subject as s -> cond.subject = s "subject";
+  qr.encounter as en -> cond.encounter = en "encounter";
+  qr.authored as t -> cond.recordedDate = t "recorded";
+}

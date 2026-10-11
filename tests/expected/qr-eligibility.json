@@ -1,0 +1,685 @@
+{
+  "entry": [
+    {
+      "fullUrl": "Observation/qr-eligibility-0001-20454-5",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-eligibility-0001-20454-5"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "20454-5",
+              "display": "Protein [Presence] in Urine by Test strip",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-eligibility-0001-20454-5",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1plus",
+              "display": "+1",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-dipstick-protein"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-eligibility-0001-capable-of-consent",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-eligibility-0001-capable-of-consent"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "capable-of-consent",
+              "display": "Capable of giving signed informed consent",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-eligibility-0001-capable-of-consent",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": true
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-eligibility-0001-documented-egfr",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-eligibility-0001-documented-egfr"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "display": "Laboratory",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "documented-egfr",
+              "display": "Documented eGFR",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-05-20",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-eligibility-0001-documented-egfr",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "mL/min/{1.73_m2}",
+          "system": "http://unitsofmeasure.org",
+          "unit": "mL/min/1.73m2",
+          "value": 48
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-eligibility-0001-excl-emergency",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-eligibility-0001-excl-emergency"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "excl-emergency",
+              "display": "Hypertensive, hyperglycaemic or hypoglycaemic emergency",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-eligibility-0001-excl-emergency",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": false
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-eligibility-0001-excl-eye-condition",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-eligibility-0001-excl-eye-condition"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "excl-eye-condition",
+              "display": "Eye condition precluding retinal imaging",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-eligibility-0001-excl-eye-condition",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": false
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-eligibility-0001-excl-involvement",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-eligibility-0001-excl-involvement"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "excl-involvement",
+              "display": "Involvement in the planning or conduct of the study",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-eligibility-0001-excl-involvement",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": false
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-eligibility-0001-excl-noncompliance",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-eligibility-0001-excl-noncompliance"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "excl-noncompliance",
+              "display": "Unlikely to comply with study procedures",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-eligibility-0001-excl-noncompliance",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": false
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-eligibility-0001-excl-undesirable",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-eligibility-0001-excl-undesirable"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "excl-undesirable",
+              "display": "Condition making participation undesirable",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-eligibility-0001-excl-undesirable",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": false
+      }
+    }
+  ],
+  "resourceType": "Bundle",
+  "type": "transaction"
+}

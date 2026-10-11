@@ -1,0 +1,206 @@
+{
+  "entry": [
+    {
+      "fullUrl": "MedicationStatement/qr-medications-0001-medicine-GE-10210",
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/qr-medications-0001-medicine-GE-10210"
+      },
+      "resource": {
+        "dateAsserted": "2026-10-02T09:10:00+03:00",
+        "dosage": [
+          {
+            "route": {
+              "coding": [
+                {
+                  "code": "oral",
+                  "display": "Oral",
+                  "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-medicine-route"
+                }
+              ]
+            },
+            "timing": {
+              "code": {
+                "coding": [
+                  {
+                    "code": "once-daily",
+                    "display": "Once a day",
+                    "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-medicine-frequency"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-medications-0001-medicine-GE-10210",
+        "informationSource": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "medication": {
+          "concept": {
+            "coding": [
+              {
+                "code": "GE-10210",
+                "display": "Amlodipine 5mg tablet",
+                "system": "https://fhir.savannahghi.org/CodeSystem/hr-medicine"
+              }
+            ],
+            "text": "Amlodipine 5mg tablet"
+          }
+        },
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-medication-statement"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "note": [
+          {
+            "text": "5 mg, strength as recorded"
+          },
+          {
+            "text": "Tablet, form as recorded"
+          }
+        ],
+        "reason": [
+          {
+            "concept": {
+              "text": "Blood pressure"
+            }
+          }
+        ],
+        "resourceType": "MedicationStatement",
+        "status": "recorded",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:<uuid>",
+      "request": {
+        "method": "POST",
+        "url": "MedicationStatement"
+      },
+      "resource": {
+        "dateAsserted": "2026-10-02T09:10:00+03:00",
+        "dosage": [
+          {
+            "route": {
+              "coding": [
+                {
+                  "code": "oral",
+                  "display": "Oral",
+                  "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-medicine-route"
+                }
+              ]
+            },
+            "timing": {
+              "code": {
+                "coding": [
+                  {
+                    "code": "as-needed",
+                    "display": "When needed",
+                    "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-medicine-frequency"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "<uuid>",
+        "informationSource": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "medication": {
+          "concept": {
+            "text": "Herbal tonic"
+          }
+        },
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-medication-statement"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "resourceType": "MedicationStatement",
+        "status": "recorded",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        }
+      }
+    }
+  ],
+  "resourceType": "Bundle",
+  "type": "transaction"
+}

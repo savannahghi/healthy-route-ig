@@ -1,0 +1,182 @@
+
+// Every criterion kept as an Observation under its item code: the inclusions,
+// the documented eGFR dated by the day it was documented, the dipstick, and the
+// five exclusions. The outcome and the cohort are the rule set's.
+
+map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractEligibility" = "HRExtractEligibility"
+
+uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
+uses "http://hl7.org/fhir/StructureDefinition/Observation" alias Observation as target
+
+group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
+  qr -> bundle.type = 'transaction' "type";
+
+  qr.item as grp where (linkId = 'inclusions') then {
+    grp.item as it where (linkId = 'capable-of-consent') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Criterion(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'capable-of-consent' "codeCode";
+            qr -> cd.display = 'Capable of giving signed informed consent' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "capable";
+
+    grp.item as it where (linkId = 'documented-egfr') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Criterion(qr, it, obs, e) "base";
+        qr -> obs.category = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "laboratorySystem";
+            qr -> cd.code = 'laboratory' "laboratoryCode";
+            qr -> cd.display = 'Laboratory' "laboratoryDisplay";
+          } "laboratoryCoding";
+        } "laboratory";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'documented-egfr' "codeCode";
+            qr -> cd.display = 'Documented eGFR' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        grp.item as di where (linkId = 'documented-egfr.date') then {
+          di.answer first as da then { da.value as dv -> obs.effective = cast(dv, 'dateTime') "effective"; } "answer";
+        } "date";
+        a.value as v -> obs.value = create('Quantity') as q then {
+          v -> q.value = v "value";
+          qr -> q.system = 'http://unitsofmeasure.org' "system";
+          qr -> q.code = 'mL/min/{1.73_m2}' "unitCode";
+          qr -> q.unit = 'mL/min/1.73m2' "unit";
+        } "quantity";
+      } "obs";
+    } "egfr";
+
+    grp.item as it where (linkId = '20454-5') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Criterion(qr, it, obs, e) "base";
+        qr -> obs.category = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "laboratorySystem";
+            qr -> cd.code = 'laboratory' "laboratoryCode";
+            qr -> cd.display = 'Laboratory' "laboratoryDisplay";
+          } "laboratoryCoding";
+        } "laboratory";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://loinc.org' "codeSystem";
+            qr -> cd.code = '20454-5' "codeCode";
+            qr -> cd.display = 'Protein [Presence] in Urine by Test strip' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
+      } "obs";
+    } "dipstick";
+  } "inclusions";
+
+  qr.item as grp where (linkId = 'exclusions') then {
+    grp.item as it where (linkId = 'excl-undesirable') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Criterion(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'excl-undesirable' "codeCode";
+            qr -> cd.display = 'Condition making participation undesirable' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "undesirable";
+    grp.item as it where (linkId = 'excl-eye-condition') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Criterion(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'excl-eye-condition' "codeCode";
+            qr -> cd.display = 'Eye condition precluding retinal imaging' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "eye";
+    grp.item as it where (linkId = 'excl-emergency') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Criterion(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'excl-emergency' "codeCode";
+            qr -> cd.display = 'Hypertensive, hyperglycaemic or hypoglycaemic emergency' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "emergency";
+    grp.item as it where (linkId = 'excl-involvement') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Criterion(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'excl-involvement' "codeCode";
+            qr -> cd.display = 'Involvement in the planning or conduct of the study' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "involvement";
+    grp.item as it where (linkId = 'excl-noncompliance') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Criterion(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'excl-noncompliance' "codeCode";
+            qr -> cd.display = 'Unlikely to comply with study procedures' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "noncompliance";
+  } "exclusions";
+}
+
+group Criterion(source qr : QR, source it, target obs : Observation, target e) {
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    it.linkId as k -> append(qid, '-', k) as idText, obs.id = cast(idText, 'id') "id";
+    it.linkId as k -> e.fullUrl = append('Observation/', qid, '-', k) "fullUrl";
+    it.linkId as k -> e.request as rq then {
+      qr -> rq.method = 'PUT' "method";
+      qr -> rq.url = append('Observation/', qid, '-', k) "url";
+    } "request";
+  } "ids";
+  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr.meta as qm then {
+    qm.tag as t -> obs.meta as m, m.tag = t "tag";
+  } "tags";
+  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr -> obs.status = 'final' "status";
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+      qr -> cd.code = 'survey' "categoryCode";
+      qr -> cd.display = 'Survey' "categoryDisplay";
+    } "categoryCoding";
+  } "category";
+  qr.subject as s -> obs.subject = s "subject";
+  qr.encounter as en -> obs.encounter = en "encounter";
+  qr.author as au -> obs.performer = au "performer";
+}

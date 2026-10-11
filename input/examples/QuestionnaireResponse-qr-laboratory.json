@@ -1,0 +1,147 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "qr-laboratory-0001",
+  "meta": {
+    "tag": [
+      {
+        "system": "https://fhir.savannahghi.org/tag/study",
+        "code": "0192f7a0-0000-7000-8000-00000000c001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/site",
+        "code": "0192f7a0-0000-7000-8000-00000000e001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/participant",
+        "code": "0192f7a0-0000-7000-8000-000000001001"
+      },
+      {
+        "system": "https://fhir.savannahghi.org/tag/visit",
+        "code": "0192f7b1-0000-7000-8000-000000000a01"
+      }
+    ]
+  },
+  "extension": [
+    {
+      "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+      "valueIdentifier": {
+        "system": "https://example.org/sid/tenant",
+        "value": "site-a"
+      }
+    }
+  ],
+  "questionnaire": "https://fhir.savannahghi.org/ig/healthy-route/Questionnaire/hr-laboratory-ug|0.1.0",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/ExampleParticipant",
+    "type": "Patient"
+  },
+  "encounter": {
+    "reference": "Encounter/ExampleSamplesEncounter",
+    "type": "Encounter"
+  },
+  "authored": "2026-10-03T14:00:00+03:00",
+  "author": {
+    "reference": "Practitioner/ExampleStudyNurse",
+    "type": "Practitioner",
+    "display": "Example study nurse"
+  },
+  "item": [
+    {
+      "linkId": "samples-collected",
+      "answer": [
+        {
+          "valueDateTime": "2026-10-02T10:08:00+03:00"
+        }
+      ]
+    },
+    {
+      "linkId": "2160-0",
+      "answer": [
+        {
+          "valueDecimal": 110
+        }
+      ]
+    },
+    {
+      "linkId": "2160-0.unit",
+      "answer": [
+        {
+          "valueCoding": {
+            "system": "http://unitsofmeasure.org",
+            "code": "umol/L",
+            "display": "umol/L"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "4548-4",
+      "answer": [
+        {
+          "valueDecimal": 5.9
+        }
+      ]
+    },
+    {
+      "linkId": "9318-7",
+      "answer": [
+        {
+          "valueDecimal": 45
+        }
+      ]
+    },
+    {
+      "linkId": "9318-7.unit",
+      "answer": [
+        {
+          "valueCoding": {
+            "system": "http://unitsofmeasure.org",
+            "code": "mg/g",
+            "display": "mg/g"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "1558-6",
+      "answer": [
+        {
+          "valueDecimal": 5.4
+        }
+      ]
+    },
+    {
+      "linkId": "1558-6.unit",
+      "answer": [
+        {
+          "valueCoding": {
+            "system": "http://unitsofmeasure.org",
+            "code": "mmol/L",
+            "display": "mmol/L"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "hiv-test",
+      "answer": [
+        {
+          "valueCoding": {
+            "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-reactive",
+            "code": "non-reactive",
+            "display": "Non-reactive"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "fbc-taken",
+      "answer": [
+        {
+          "valueBoolean": true
+        }
+      ]
+    }
+  ]
+}

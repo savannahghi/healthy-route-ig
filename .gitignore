@@ -16,3 +16,7 @@ publisher.jar
 
 # OS
 .DS_Store
+# The map replay writes here; the expected Bundles are committed under tests/expected.
+tests/actual/
+# Python writes this when one test script imports another.
+__pycache__/

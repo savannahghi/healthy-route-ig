@@ -1,0 +1,839 @@
+{
+  "entry": [
+    {
+      "fullUrl": "Observation/qr-vitals-0001-29463-7",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-29463-7"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "29463-7",
+              "display": "Body weight",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:20:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-29463-7",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "kg",
+          "system": "http://unitsofmeasure.org",
+          "unit": "kg",
+          "value": 71
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-8280-0",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-8280-0"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "8280-0",
+              "display": "Waist Circumference at umbilicus by Tape measure",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:20:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-8280-0",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "cm",
+          "system": "http://unitsofmeasure.org",
+          "unit": "cm",
+          "value": 92
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-8302-2",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-8302-2"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "8302-2",
+              "display": "Body height",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:20:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-8302-2",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "cm",
+          "system": "http://unitsofmeasure.org",
+          "unit": "cm",
+          "value": 162
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-bp-reading-1",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-bp-reading-1"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "85354-9",
+              "display": "Blood pressure panel with all children optional",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg",
+              "value": 148
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg",
+              "value": 92
+            }
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T09:00:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          },
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-device",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "omron-m6",
+                  "display": "Omron M6",
+                  "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-bp-device"
+                }
+              ]
+            }
+          },
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence",
+            "valueInteger": 1
+          }
+        ],
+        "id": "qr-vitals-0001-bp-reading-1",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-blood-pressure"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-bp-reading-2",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-bp-reading-2"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "85354-9",
+              "display": "Blood pressure panel with all children optional",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg",
+              "value": 142
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg",
+              "value": 90
+            }
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T10:00:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          },
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-device",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "omron-m6",
+                  "display": "Omron M6",
+                  "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-bp-device"
+                }
+              ]
+            }
+          },
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence",
+            "valueInteger": 2
+          },
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-position",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "before-capture",
+                  "display": "Before retinal capture",
+                  "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-bp-position"
+                }
+              ]
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-bp-reading-2",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-blood-pressure"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-bp-reading-3",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-bp-reading-3"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "85354-9",
+              "display": "Blood pressure panel with all children optional",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg",
+              "value": 138
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg",
+              "value": 88
+            }
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T10:15:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          },
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-device",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "omron-m6",
+                  "display": "Omron M6",
+                  "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-bp-device"
+                }
+              ]
+            }
+          },
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence",
+            "valueInteger": 3
+          }
+        ],
+        "id": "qr-vitals-0001-bp-reading-3",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-blood-pressure"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-hip-circumference",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-hip-circumference"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "hip-circumference",
+              "display": "Hip circumference",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:20:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-hip-circumference",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "cm",
+          "system": "http://unitsofmeasure.org",
+          "unit": "cm",
+          "value": 104
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-retinal-capture-time",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-retinal-capture-time"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "procedure",
+                "display": "Procedure",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "retinal-capture-time",
+              "display": "Time of retinal capture",
+              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T10:05:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-retinal-capture-time",
+        "meta": {
+          "profile": [
+            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.savannahghi.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.savannahghi.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.savannahghi.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.savannahghi.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueDateTime": "2026-10-02T10:05:00+03:00"
+      }
+    }
+  ],
+  "resourceType": "Bundle",
+  "type": "transaction"
+}

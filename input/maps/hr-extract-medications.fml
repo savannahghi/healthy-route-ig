@@ -1,0 +1,122 @@
+
+// No current medication is an Observation, so that an absent list can be told
+// from one not yet taken. Each medicine is a MedicationStatement against the
+// catalogue code, with how it is taken on the study's scales. A medicine the
+// catalogue does not list is carried as text and gets a fresh id, so a
+// re-saved response must clear what the first save wrote before it commits;
+// the service does that by the response tag.
+
+map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractMedications" = "HRExtractMedications"
+
+uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
+uses "http://hl7.org/fhir/StructureDefinition/Observation" alias Observation as target
+uses "http://hl7.org/fhir/StructureDefinition/MedicationStatement" alias MedicationStatement as target
+
+group HRExtractMedications(source qr : QR, target bundle : Bundle) {
+  qr -> bundle.type = 'transaction' "type";
+
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    qr.item as it where (linkId = 'medications-current') then {
+      it.answer first as a where (value = false) -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> append(qid, '-medications-none') as idText, obs.id = cast(idText, 'id') "id";
+        qr -> e.fullUrl = append('Observation/', qid, '-medications-none') "fullUrl";
+        qr -> e.request as rq then {
+          qr -> rq.method = 'PUT' "method";
+          qr -> rq.url = append('Observation/', qid, '-medications-none') "url";
+        } "request";
+        qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+        qr.meta as qm then {
+          qm.tag as t -> obs.meta as m, m.tag = t "tag";
+        } "tags";
+        qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+        qr -> obs.status = 'final' "status";
+        qr -> obs.category = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+            qr -> cd.code = 'survey' "categoryCode";
+            qr -> cd.display = 'Survey' "categoryDisplay";
+          } "categoryCoding";
+        } "category";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'medications-none' "codeCode";
+            qr -> cd.display = 'No current medication' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.subject as s -> obs.subject = s "subject";
+        qr.encounter as en -> obs.encounter = en "encounter";
+        qr.authored as t -> obs.effective = t "effective";
+        qr.author as au -> obs.performer = au "performer";
+        qr -> obs.value = true "value";
+      } "none";
+    } "current";
+
+    qr.item as g where (linkId = 'medicine') -> bundle.entry as e, e.resource = create('MedicationStatement') as ms then {
+      g.item as ci where (linkId = 'medicine.code') then {
+        ci.answer first as ca then {
+          ca.value : Coding as cv then {
+            cv.code as c -> append(qid, '-medicine-', c) as idText, ms.id = cast(idText, 'id') "id";
+            cv.code as c -> e.fullUrl = append('MedicationStatement/', qid, '-medicine-', c) "fullUrl";
+            cv.code as c -> e.request as rq then {
+              qr -> rq.method = 'PUT' "method";
+              qr -> rq.url = append('MedicationStatement/', qid, '-medicine-', c) "url";
+            } "request";
+            cv -> ms.medication = create('CodeableReference') as cr, cr.concept = create('CodeableConcept') as concept then {
+              cv -> concept.coding = cv "coding";
+              cv.display as d -> concept.text = d "text";
+            } "medication";
+          } "coded";
+          ca.value : string as sv then {
+            qr -> ms.id = uuid() as newId, e.fullUrl = append('urn:uuid:', newId) "id";
+            qr -> e.request as rq then {
+              qr -> rq.method = 'POST' "method";
+              qr -> rq.url = 'MedicationStatement' "url";
+            } "request";
+            sv -> ms.medication = create('CodeableReference') as cr, cr.concept = create('CodeableConcept') as concept, concept.text = sv "medication";
+          } "unlisted";
+        } "answer";
+      } "code";
+      qr -> ms.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-medication-statement' "profile";
+      qr.meta as qm then {
+        qm.tag as t -> ms.meta as m, m.tag = t "tag";
+      } "tags";
+      qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> ms.extension = x "tenant";
+      qr -> ms.status = 'recorded' "status";
+      qr.subject as s -> ms.subject = s "subject";
+      qr.encounter as en -> ms.encounter = en "encounter";
+      qr.authored as t -> ms.dateAsserted = t "asserted";
+      qr.author as au -> ms.informationSource = au "source";
+      qr -> ms.dosage as dos then {
+        g.item as ri where (linkId = 'medicine.route') then {
+          ri.answer first as ra then {
+            ra.value as rv -> dos.route = create('CodeableConcept') as concept, concept.coding = rv "route";
+          } "answer";
+        } "routeItem";
+        g.item as fi where (linkId = 'medicine.frequency') then {
+          fi.answer first as fa then {
+            fa.value as fv -> dos.timing as tm, tm.code = create('CodeableConcept') as concept, concept.coding = fv "frequency";
+          } "answer";
+        } "frequencyItem";
+      } "dosage";
+      g.item as si where (linkId = 'medicine.strength') then {
+        si.answer first as sa then {
+          sa.value as sv -> ms.note as n, n.text = append(sv, ', strength as recorded') "strength";
+        } "answer";
+      } "strengthItem";
+      g.item as fo where (linkId = 'medicine.form') then {
+        fo.answer first as fa then {
+          fa.value as fv then {
+            fv.display as d -> ms.note as n, n.text = append(d, ', form as recorded') "form";
+          } "coding";
+        } "answer";
+      } "formItem";
+      g.item as re where (linkId = 'medicine.reason') then {
+        re.answer first as ra then {
+          ra.value as rv -> ms.reason = create('CodeableReference') as cr, cr.concept = create('CodeableConcept') as concept, concept.text = rv "reason";
+        } "answer";
+      } "reasonItem";
+    } "medicine";
+  } "response";
+}

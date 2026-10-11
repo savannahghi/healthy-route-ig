@@ -27,3 +27,18 @@ No definition could be found for URL value 'http://hl7.org/fhir/tools/StructureD
 # so the count rises with the number of pages rather than with anything in this
 # guide. Reviewed against FHIR R5 5.0.0.
 The link 'http://hl7.org/fhir/R5/valueset-diagnostic-requests.html' for "here" cannot be resolved
+
+# The Questionnaires name the StructureMap that extracts them through the SDC
+# extension sdc-questionnaire-targetStructureMap, which is what the study's
+# FHIR store keys its $extract operation on. SDC has no FHIR R5 release, so the
+# R4 package supplies the one extension definition, and the publisher reports
+# the version difference for it and for the two packages it depends on. The
+# extension's definition does not differ between the versions. Reviewed against
+# hl7.fhir.uv.sdc 4.0.0.
+while the IG 'hl7.fhir.uv.sdc' is from version 4.0.1
+
+# The terminology package SDC 4.0.0 depends on. Same reason as the entry above.
+while the package 'hl7.terminology.r4#
+
+# The extensions package SDC 4.0.0 depends on. Same reason as the entry above.
+while the package 'hl7.fhir.uv.extensions.r4#

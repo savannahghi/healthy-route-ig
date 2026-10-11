@@ -19,6 +19,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Examples for the interview, a reported condition, a reported medicine, the
   samples and the visit parts.
 
+- The seven Uganda visit forms as Questionnaires, with item keys equal to the
+  codes their answers become.
+- One StructureMap per form, under `input/maps`, turning a response into the
+  resources this guide profiles with ids derived from the response.
+- An example response per form, and a replay test that runs every example
+  through its map with the R5 engine and compares the Bundle with the one
+  committed under `tests/expected`.
+- `tests/run-on-hapi.py`, which runs every example on a real HAPI R5 server with
+  the SIL `$extract` provider, commits the Bundle, saves it again to prove the ids
+  are reused, and validates every resource against the profile it declares.
+- A narrative page on the forms, their keys and what each becomes.
+
 ### Changed
 
 - The urine dipstick is coded 20454-5, the ordinal presence, instead of the
