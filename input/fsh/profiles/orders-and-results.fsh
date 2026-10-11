@@ -51,7 +51,7 @@ Description: "A request for a laboratory investigation arising from the screenin
 * performer ^short = "Laboratory or team member who will do it"
 
 * specimen MS
-* specimen ^comment = "References the base Specimen resource. This guide does not yet profile it."
+* specimen only Reference(HRSpecimen)
 
 * reason MS
 * reason only CodeableReference(HRObservation or HRBloodPressure or HRDiagnosticReport or HRDocumentReference)
@@ -102,7 +102,7 @@ Description: "What a laboratory returned for one participant, gathering the indi
 * basedOn only Reference(HRServiceRequest)
 
 * specimen MS
-* specimen ^comment = "References the base Specimen resource. This guide does not yet profile it."
+* specimen only Reference(HRSpecimen)
 
 * conclusion MS
 * presentedForm MS
@@ -147,6 +147,7 @@ Description: "The retinal photographs taken from one participant, one series per
 * series.uid 1..1 MS
 * series.modality 1..1 MS
 * series.laterality 1..1 MS
+* series.laterality from HREyeVS (required)
 * series.laterality ^requirements = "Which eye. Required, where the base resource makes it optional. A prediction attributed to the wrong eye is not detectable after the fact, and laterality is the only thing distinguishing two otherwise identical series."
 * series.started MS
 * series.bodySite MS

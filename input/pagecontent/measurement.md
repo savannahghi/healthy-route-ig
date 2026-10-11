@@ -20,6 +20,39 @@ different disease prevalence from one drawn mostly from general out-patients.
 Predictive values move with prevalence, so `Encounter.location` is where an
 analysis finds out which population it is actually looking at.
 
+### A visit, and its dated parts
+
+Both protocols let the samples and the retinal photography fall up to 28 days
+after consent. So a visit is one parent encounter typed `visit`, and a child
+encounter for each part that carries its own date: `samples` and `imaging`,
+typed from the [visit part](CodeSystem-hr-encounter-type.html) code system and
+pointing at the parent through `partOf`. The 28-day window is then a query over
+the children's dates rather than a note on the visit.
+
+### The forms, and the codes their questions take
+
+The site fills in forms during the visit: the interview, the medicines, diet and
+activity, the anthropometry and blood pressure readings, the laboratory results
+and the imaging. Each answer becomes a resource. A question takes a LOINC code
+where LOINC has one with exactly its meaning, and a code from the
+[Healthy Route measurement](CodeSystem-hr-measurement.html) code system
+otherwise. That code is both the question's `linkId` and the `Observation.code`
+its answer becomes, so the map from one to the other is the identity.
+
+The coded answers take short scales printed on the forms, each a code system of
+its own: use status, the frequency scale, physical activity at work, reactive or
+non-reactive, the blood pressure position and monitor, and which eye. The
+laboratory reports in the site's own [units](ValueSet-hr-lab-unit-vs.html), and
+the LOINC code of a result follows the unit the laboratory reported.
+
+A Yes to diabetes, hypertension or chronic kidney disease on the interview is
+also an [HRCondition](StructureDefinition-hr-condition.html), unconfirmed and
+traceable to the answer. A medicine the participant reports is an
+[HRMedicationStatement](StructureDefinition-hr-medication-statement.html) against
+the study's medicine catalogue. The samples the results came from are an
+[HRSpecimen](StructureDefinition-hr-specimen.html), which carries the collection
+time the window is checked against.
+
 ### One profile for every measurement
 
 [HRObservation](StructureDefinition-hr-observation.html) carries creatinine,

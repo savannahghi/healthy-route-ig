@@ -3,7 +3,10 @@
 // One participant, one visit, everything measured during it. The protocols
 // describe a single cross-sectional contact: an interview, blood pressure,
 // a urine dipstick, blood and urine samples, and retinal photography of both
-// eyes. There is no follow-up visit and no admission.
+// eyes. There is no follow-up visit and no admission. The samples and the
+// photography may each fall up to 28 days after consent, so the visit is one
+// parent encounter and a dated child encounter for each part, typed from the
+// visit part code system and pointing at the parent through partOf.
 //
 // The encounter is the spine the measurements hang from. Every Observation,
 // ServiceRequest, DiagnosticReport and ImagingStudy in this guide requires one,
@@ -15,7 +18,7 @@ Profile: HREncounter
 Parent: Encounter
 Id: hr-encounter
 Title: "Healthy Route Screening Visit"
-Description: "The single visit at which a participant is screened, measured and photographed."
+Description: "The single visit at which a participant is screened, measured and photographed, or one dated part of it."
 * ^status = #draft
 * ^experimental = false
 * ^purpose = "Groups everything collected from one participant on one occasion, and records where it happened. The clinic a participant was seen in is a source of spectrum variation that has to survive to analysis, and it is a property of the visit rather than of the participant."
@@ -24,6 +27,16 @@ Description: "The single visit at which a participant is screened, measured and 
 * extension[tenant] ^short = "Owning site tenant"
 
 * status 1..1 MS
+
+* type 1..* MS
+* type from HREncounterTypeVS (required)
+* type ^short = "The visit, or which part of it"
+* type ^comment = "One of the visit part codes. The parent carries visit; a child carries the part whose date it holds."
+
+* partOf MS
+* partOf only Reference(HREncounter)
+* partOf ^short = "The visit this part belongs to"
+* partOf ^comment = "Present on a child encounter and absent on the visit itself. The 28-day window is a query over the child encounters' dates."
 
 * class 1..* MS
 * class ^comment = "R5 changed this from a single Coding to a repeating CodeableConcept. Ambulatory for every visit in this study; there is no admission and no follow-up contact."
