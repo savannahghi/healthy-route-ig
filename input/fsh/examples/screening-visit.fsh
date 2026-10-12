@@ -15,6 +15,7 @@ Title: "Example screening visit"
 Description: "The single cross-sectional visit at which everything is collected. The clinic is recorded because disease prevalence differs between clinics, and predictive values move with prevalence."
 * extension[tenant].valueIdentifier.system = "https://example.org/sid/tenant"
 * extension[tenant].valueIdentifier.value = "site-a"
+* extension[researchStudy].valueReference = Reference(ExampleStudyCountryA)
 * status = #completed
 * type[0] = HREncounterTypeCS#visit
 * class = $v3-ActCode#AMB "ambulatory"
@@ -25,37 +26,6 @@ Description: "The single cross-sectional visit at which everything is collected.
 * location[0].location = Reference(ExampleRenalClinic)
 * participant[0].actor = Reference(ExampleStudyNurse)
 
-Instance: ExampleSamplesEncounter
-InstanceOf: HREncounter
-Usage: #example
-Title: "Example visit part: samples"
-Description: "The day the blood and urine were drawn, as a part of the visit with its own date. Here it is the visit day; the protocols allow it up to 28 days after consent."
-* extension[tenant].valueIdentifier.system = "https://example.org/sid/tenant"
-* extension[tenant].valueIdentifier.value = "site-a"
-* status = #completed
-* type[0] = HREncounterTypeCS#samples
-* class = $v3-ActCode#AMB "ambulatory"
-* subject = Reference(ExampleParticipant)
-* partOf = Reference(ExampleScreeningVisit)
-* actualPeriod.start = "2026-04-14T10:05:00+03:00"
-* actualPeriod.end = "2026-04-14T10:15:00+03:00"
-* serviceProvider = Reference(ExampleStudySite)
-
-Instance: ExampleImagingEncounter
-InstanceOf: HREncounter
-Usage: #example
-Title: "Example visit part: imaging"
-Description: "The day the retina was photographed, as a part of the visit with its own date."
-* extension[tenant].valueIdentifier.system = "https://example.org/sid/tenant"
-* extension[tenant].valueIdentifier.value = "site-a"
-* status = #completed
-* type[0] = HREncounterTypeCS#imaging
-* class = $v3-ActCode#AMB "ambulatory"
-* subject = Reference(ExampleParticipant)
-* partOf = Reference(ExampleScreeningVisit)
-* actualPeriod.start = "2026-04-14T10:50:00+03:00"
-* actualPeriod.end = "2026-04-14T11:10:00+03:00"
-* serviceProvider = Reference(ExampleStudySite)
 
 
 // --- Blood pressure: three readings, then the derived value -----------------
@@ -224,7 +194,7 @@ Description: "The measured value the eGFR is calculated from."
 * category[0] = $obs-category#laboratory
 * code = $loinc#2160-0 "Creatinine [Mass/volume] in Serum or Plasma"
 * subject = Reference(ExampleParticipant)
-* encounter = Reference(ExampleSamplesEncounter)
+* encounter = Reference(ExampleScreeningVisit)
 * specimen = Reference(ExampleBloodSample)
 * effectiveDateTime = "2026-04-14T10:10:00+03:00"
 * performer[0] = Reference(ExampleStudySite)
@@ -241,7 +211,7 @@ Description: "A calculated value, not a measured one. derivedFrom names the crea
 * category[0] = $obs-category#laboratory
 * code = $loinc#98979-8 "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI 2021)/1.73 sq M"
 * subject = Reference(ExampleParticipant)
-* encounter = Reference(ExampleSamplesEncounter)
+* encounter = Reference(ExampleScreeningVisit)
 * effectiveDateTime = "2026-04-14T10:10:00+03:00"
 * performer[0] = Reference(ExampleStudySite)
 * valueQuantity = 47 'mL/min/{1.73_m2}' "mL/min/1.73m2"
@@ -259,7 +229,7 @@ Description: "The protocols define type 2 diabetes as HbA1c above 6.5% or on the
 * category[0] = $obs-category#laboratory
 * code = $loinc#4548-4 "Hemoglobin A1c/Hemoglobin.total in Blood"
 * subject = Reference(ExampleParticipant)
-* encounter = Reference(ExampleSamplesEncounter)
+* encounter = Reference(ExampleScreeningVisit)
 * specimen = Reference(ExampleBloodSample)
 * effectiveDateTime = "2026-04-14T10:10:00+03:00"
 * performer[0] = Reference(ExampleStudySite)
@@ -276,7 +246,7 @@ Description: "Measured for risk stratification. One protocol states explicitly t
 * category[0] = $obs-category#laboratory
 * code = $loinc#9318-7 "Albumin/Creatinine [Mass Ratio] in Urine"
 * subject = Reference(ExampleParticipant)
-* encounter = Reference(ExampleSamplesEncounter)
+* encounter = Reference(ExampleScreeningVisit)
 * specimen = Reference(ExampleUrineSample)
 * effectiveDateTime = "2026-04-14T10:10:00+03:00"
 * performer[0] = Reference(ExampleStudySite)
@@ -293,7 +263,7 @@ Description: "What the laboratory returned, gathering the four results it issued
 * category[0] = $obs-category#laboratory
 * code.text = "Healthy Route screening laboratory panel"
 * subject = Reference(ExampleParticipant)
-* encounter = Reference(ExampleSamplesEncounter)
+* encounter = Reference(ExampleScreeningVisit)
 * specimen[0] = Reference(ExampleBloodSample)
 * specimen[1] = Reference(ExampleUrineSample)
 * effectiveDateTime = "2026-04-14T10:10:00+03:00"
@@ -318,7 +288,7 @@ Description: "The material the algorithm under validation consumes. One series p
 * status = #available
 * modality[0] = $dcm#OP "Ophthalmic Photography"
 * subject = Reference(ExampleParticipant)
-* encounter = Reference(ExampleImagingEncounter)
+* encounter = Reference(ExampleScreeningVisit)
 * started = "2026-04-14T10:55:00+03:00"
 * location = Reference(ExampleRenalClinic)
 * referrer = Reference(ExampleStudyNurse)

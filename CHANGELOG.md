@@ -4,6 +4,12 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- `HRResearchStudy.recruitment` and its `targetNumber` are optional. The study
+  service does not record a target yet, and a required element would fail every
+  study it writes.
+
 ### Added
 
 - The visit forms' terminology: the `hr-measurement` code system for the
@@ -12,12 +18,15 @@ This project adheres to [Semantic Versioning](https://semver.org/).
   non-reactive, the blood pressure reading position and monitor, and the eye;
   the medicine route, dose form and frequency scales; the laboratory units.
 - `HRCondition`, `HRMedicationStatement` and `HRSpecimen`.
-- `HREncounter.type` from a visit part code system, and `partOf`, so the samples
-  and the imaging can carry their own dates inside one visit.
+- `HREncounter.type` from an encounter type code system whose one code is the
+  study visit. The visit is one encounter; the samples and the imaging keep
+  their own dates on the resources they become.
+- `HREncounter` names its study through HL7's `workflow-researchStudy`
+  extension, since an R5 Encounter has no element for it.
 - The blood pressure reading's sequence, position and monitor as extensions on
   `HRBloodPressure`, because the core profile closes components to quantities.
-- Examples for the interview, a reported condition, a reported medicine, the
-  samples and the visit parts.
+- Examples for the interview, a reported condition, a reported medicine and the
+  samples.
 
 - The seven Uganda visit forms as Questionnaires, with item keys equal to the
   codes their answers become.

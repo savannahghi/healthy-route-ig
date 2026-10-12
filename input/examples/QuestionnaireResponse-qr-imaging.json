@@ -37,7 +37,7 @@
     "type": "Patient"
   },
   "encounter": {
-    "reference": "Encounter/ExampleImagingEncounter",
+    "reference": "Encounter/ExampleScreeningVisit",
     "type": "Encounter"
   },
   "authored": "2026-10-02T10:30:00+03:00",

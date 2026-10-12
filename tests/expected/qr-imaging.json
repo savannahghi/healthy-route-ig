@@ -8,7 +8,7 @@
       },
       "resource": {
         "encounter": {
-          "reference": "Encounter/ExampleImagingEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -145,7 +145,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:30:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleImagingEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -226,7 +226,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:30:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleImagingEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -307,7 +307,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:30:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleImagingEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -388,7 +388,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:30:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleImagingEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
