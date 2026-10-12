@@ -69,10 +69,10 @@ Description: "A country's approved protocol, and the parties, sites and targets 
 * progressStatus MS
 * progressStatus ^short = "Whether recruitment is open"
 
-* recruitment 1..1 MS
-* recruitment.targetNumber 1..1 MS
+* recruitment MS
+* recruitment.targetNumber MS
 * recruitment.targetNumber ^requirements = "The target is what an interim enrolment count is judged against, and a study reporting progress without one is reporting a number with no denominator."
-* recruitment.targetNumber ^comment = "The total is the same in both current protocols; what differs is the split between cases and controls. This element is a single integer and cannot carry that split. ResearchStudy.comparisonGroup is where it belongs and is not yet profiled, so the split is currently recorded nowhere in this guide."
+* recruitment.targetNumber ^comment = "The total is the same in both current protocols; what differs is the split between cases and controls. This element is a single integer and cannot carry that split. ResearchStudy.comparisonGroup is where it belongs and is not yet profiled, so the split is currently recorded nowhere in this guide. Optional because the study service does not record a target yet; a study that has one carries it here."
 * recruitment.actualNumber MS
 
 * objective MS

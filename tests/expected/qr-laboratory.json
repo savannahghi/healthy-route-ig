@@ -29,7 +29,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:08:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleSamplesEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -130,7 +130,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:08:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleSamplesEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -212,7 +212,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:08:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleSamplesEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -294,7 +294,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:08:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleSamplesEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -376,7 +376,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:08:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleSamplesEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -458,7 +458,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:08:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleSamplesEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [
@@ -532,7 +532,7 @@
         },
         "effectiveDateTime": "2026-10-02T10:08:00+03:00",
         "encounter": {
-          "reference": "Encounter/ExampleSamplesEncounter",
+          "reference": "Encounter/ExampleScreeningVisit",
           "type": "Encounter"
         },
         "extension": [

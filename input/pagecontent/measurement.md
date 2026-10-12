@@ -20,14 +20,20 @@ different disease prevalence from one drawn mostly from general out-patients.
 Predictive values move with prevalence, so `Encounter.location` is where an
 analysis finds out which population it is actually looking at.
 
-### A visit, and its dated parts
+### One encounter for the whole visit
 
 Both protocols let the samples and the retinal photography fall up to 28 days
-after consent. So a visit is one parent encounter typed `visit`, and a child
-encounter for each part that carries its own date: `samples` and `imaging`,
-typed from the [visit part](CodeSystem-hr-encounter-type.html) code system and
-pointing at the parent through `partOf`. The 28-day window is then a query over
-the children's dates rather than a note on the visit.
+after consent. The visit is still one encounter, typed `visit` from the
+[encounter type](CodeSystem-hr-encounter-type.html) code system. Everything
+recorded during it points at it and carries its own date: a laboratory result
+the time its sample was taken, an image the time it was captured. The 28-day
+window is then a query over those dates rather than a note on the visit.
+
+An R5 Encounter has no element for the study it was done for. The visit names
+its study through HL7's
+[research study](https://hl7.org/fhir/extensions/StructureDefinition-workflow-researchStudy.html)
+extension, so a reader can tell which study a visit belongs to without going
+through the participant.
 
 ### The forms, and the codes their questions take
 

@@ -4,9 +4,9 @@
 // describe a single cross-sectional contact: an interview, blood pressure,
 // a urine dipstick, blood and urine samples, and retinal photography of both
 // eyes. There is no follow-up visit and no admission. The samples and the
-// photography may each fall up to 28 days after consent, so the visit is one
-// parent encounter and a dated child encounter for each part, typed from the
-// visit part code system and pointing at the parent through partOf.
+// photography may each fall up to 28 days after consent, and the visit is still
+// one encounter: everything recorded during it points at it and carries its own
+// date, so the 28-day window is a query over those dates.
 //
 // The encounter is the spine the measurements hang from. Every Observation,
 // ServiceRequest, DiagnosticReport and ImagingStudy in this guide requires one,
@@ -26,17 +26,16 @@ Description: "The single visit at which a participant is screened, measured and 
 * extension contains HRTenant named tenant 1..1 MS
 * extension[tenant] ^short = "Owning site tenant"
 
+* extension contains http://hl7.org/fhir/StructureDefinition/workflow-researchStudy named researchStudy 1..1 MS
+* extension[researchStudy].value[x] only Reference(HRResearchStudy)
+* extension[researchStudy] ^short = "The study the visit belongs to"
+* extension[researchStudy] ^comment = "An R5 Encounter has no element for the study it was done for, and cannot point at the ResearchSubject. HL7's extension for an event done for a research study carries it, so a visit names its study without going through the participant."
+
 * status 1..1 MS
 
 * type 1..* MS
 * type from HREncounterTypeVS (required)
-* type ^short = "The visit, or which part of it"
-* type ^comment = "One of the visit part codes. The parent carries visit; a child carries the part whose date it holds."
-
-* partOf MS
-* partOf only Reference(HREncounter)
-* partOf ^short = "The visit this part belongs to"
-* partOf ^comment = "Present on a child encounter and absent on the visit itself. The 28-day window is a query over the child encounters' dates."
+* type ^short = "A study visit"
 
 * class 1..* MS
 * class ^comment = "R5 changed this from a single Coding to a repeating CodeableConcept. Ambulatory for every visit in this study; there is no admission and no follow-up contact."
