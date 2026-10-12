@@ -89,7 +89,8 @@ input/fsh/profiles/            profile definitions
 input/fsh/terminology/         locally defined code systems and value sets
 input/pagecontent/             narrative pages, one per resource area
 input/qa-allowed-errors.txt    validation errors accepted, each with its reason
-scripts/                       publisher download, build, and the gates
+scripts/                       publisher download, build, the gates, and the
+                               loader that puts the guide into a FHIR store
 ```
 
 ## Canonical URL
@@ -108,6 +109,18 @@ Two workflows run on every pull request. SUSHI compiles the FSH source and fails
 on any error. The IG Publisher then builds the full guide and the QA gate fails
 the job if the publisher reports errors. The rendered guide is retained as a
 build artefact.
+
+On `main`, a further job loads the guide's Questionnaires, StructureMaps,
+CodeSystems, ValueSets and StructureDefinitions from the built package into the
+study service's FHIR store, using `scripts/load-package.py`. To turn it on for a
+store, create a GitHub environment named as in the job's matrix (`testing` today)
+with four secrets: `HAPI_FHIR_BASE_URL`, the store's FHIR base URL;
+`OIDC_TOKEN_URL`, the Keycloak token endpoint; and `OIDC_CLIENT_ID` and
+`OIDC_CLIENT_SECRET`, a client the store accepts for writes under the client
+credentials grant. Then set the repository variable `LOAD_ENABLED` to `true`.
+Another store is one more name in the matrix and an environment of that name.
+The same four variables let you run the loader by hand:
+`python3 -I scripts/load-package.py output/package.tgz`.
 
 ## Versioning
 

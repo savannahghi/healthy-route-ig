@@ -50,6 +50,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
   the SIL `$extract` provider, commits the Bundle, saves it again to prove the ids
   are reused, and validates every resource against the profile it declares.
 - A narrative page on the forms, their keys and what each becomes.
+- A job that loads the guide's Questionnaires, StructureMaps, CodeSystems,
+  ValueSets and StructureDefinitions from the built package into the study
+  service's FHIR store, one GitHub environment per store (`testing` for now),
+  switched on by the repository variable `LOAD_ENABLED`. The loading lives in
+  `scripts/load-package.py`, which `tests/run-on-hapi.py` now uses too. Runs on
+  `main` queue instead of cancelling each other, so a load or a site sync is
+  never stopped part way.
 
 ### Changed
 

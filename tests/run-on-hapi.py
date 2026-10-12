@@ -10,6 +10,10 @@ response: stores it, validates it against its Questionnaire, runs $extract on th
 server, commits the Bundle, saves it again to prove a re-save reuses the ids, and
 validates every committed resource against the profile it declares.
 
+The conformance resources go in through scripts/load-package.py, the loader the
+deployment workflow runs, so a store this script passes on is loaded the way a
+deployed one is.
+
 It writes to the server it is pointed at: conformance resources, the guide's
 examples and the extracted resources. Point it at a local stack or a store kept
 for testing, never one holding real records.
@@ -20,7 +24,13 @@ for testing, never one holding real records.
 The hapi-fhir-interceptors repository's docker compose stack is a ready server:
 it listens on 8190 and its Keycloak realm issues tokens on 8181.
 """
-import glob, json, os, sys, tarfile, time, urllib.parse, urllib.request, urllib.error
+import glob, importlib.util, json, os, sys, time, urllib.parse, urllib.request, urllib.error
+
+_spec = importlib.util.spec_from_file_location(
+    "load_package", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scripts", "load-package.py"))
+loader = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(loader)
+issues = loader.issues
 
 BASE = os.environ.get("FHIR_BASE", "http://localhost:8190/fhir")
 PKG = sys.argv[1]
@@ -52,13 +62,6 @@ def call(method, path, body=None, ok=(200, 201)):
             try: return e.code, json.loads(text)
             except Exception: return e.code, {"raw": text[:500]}
 
-def issues(oo, levels=("error", "fatal")):
-    out = []
-    for i in (oo or {}).get("issue", []):
-        if i.get("severity") in levels:
-            out.append(((i.get("expression") or i.get("location") or ["?"])[0], (i.get("diagnostics") or i.get("details", {}).get("text") or "")[:220]))
-    return out
-
 # terminology noise: code systems this local server does not hold
 NOISE = ("loinc.org", "id.who.int/icd", "unitsofmeasure", "hr-medicine", "terminology.hl7.org/CodeSystem/v2-0487", "v2-0074",
          "dicom.nema.org", "could not be validated", "Unknown code system", "not found and could not", "A definition for CodeSystem",
@@ -87,20 +90,9 @@ else:
 print("HAPI is up")
 
 # --- load the package ---------------------------------------------------------
-tf = tarfile.open(PKG)
-conf, examples = [], []
-for m in tf.getmembers():
-    if not m.name.endswith(".json") or m.name.endswith("package.json") or "/." in m.name or "/other/" in m.name or "/openapi/" in m.name: continue
-    r = json.load(tf.extractfile(m))
-    if not isinstance(r, dict) or "resourceType" not in r or "id" not in r: continue
-    if "/example/" in m.name: examples.append(r)
-    elif r["resourceType"] in ("CodeSystem", "ValueSet", "StructureDefinition", "Questionnaire", "StructureMap"): conf.append(r)
-order = {"CodeSystem": 0, "ValueSet": 1, "StructureDefinition": 2, "StructureMap": 3, "Questionnaire": 4}
-failed = 0
-for r in sorted(conf, key=lambda r: order[r["resourceType"]]):
-    s, body = call("PUT", f"/{r['resourceType']}/{r['id']}", r)
-    if s not in (200, 201):
-        failed += 1; print("  LOAD FAIL", r["resourceType"], r["id"], s, issues(body)[:2] or body)
+pkg = loader.Package(PKG)
+conf, examples = pkg.conformance, pkg.examples
+failed = sum(1 for _, s, _ in loader.load(call, conf) if not loader.ok(s))
 print(f"loaded {len(conf) - failed}/{len(conf)} conformance resources")
 
 # maps compiled from a working tree, loaded over the package's copies
@@ -121,10 +113,7 @@ print(f"loaded the guide's {len(others)} example instances: HTTP {s}", "" if s =
 print("\n== value set expansion ==")
 time.sleep(10)
 for r in sorted([c for c in conf if c["resourceType"] == "ValueSet"], key=lambda r: r["id"]):
-    for attempt in range(12):
-        s, body = call("GET", "/ValueSet/$expand?url=" + urllib.parse.quote(r["url"], safe=""))
-        if s == 200 and body.get("expansion", {}).get("contains"): break
-        time.sleep(5)
+    s, body = loader.expand(call, r)
     n = len(body.get("expansion", {}).get("contains", [])) if s == 200 else None
     shown = ", ".join(c.get("display") or c["code"] for c in body.get("expansion", {}).get("contains", [])[:4]) if s == 200 else issues(body)[:1]
     print(f"  {r['id']:28} HTTP {s}  {n} codes  {shown}")
