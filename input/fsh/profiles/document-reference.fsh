@@ -124,5 +124,8 @@ Description: "The photographed page a participant signed, referenced by the cons
 * securityLabel ^slicing.description = "Sliced by coding system to require a confidentiality classification while permitting additional labels."
 * securityLabel contains confidentiality 1..1 MS
 * securityLabel[confidentiality] = $v3-Confidentiality#R
+* securityLabel[confidentiality].coding 1..1 MS
+* securityLabel[confidentiality].coding.system 1..1 MS
+* securityLabel[confidentiality].coding.system = $v3-Confidentiality
 * securityLabel[confidentiality] ^short = "Restricted"
 * securityLabel[confidentiality] ^requirements = "Applied at creation rather than assigned by policy at read time, so that a copy of the resource carries its classification with it and does not depend on the server that serves it to apply one."

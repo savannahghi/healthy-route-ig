@@ -6,6 +6,17 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- `HRConsent` may record the whole signed form as one decision. The permission
+  code becomes optional, so a study that takes consent as one signature carries
+  HL7's generic patient consent category (LOINC 59284-0) instead, and
+  per-permission consents remain possible.
+
+### Fixed
+
+- `HRConsentEvidence.securityLabel` slices on the coding system, and the
+  confidentiality slice now fixes that system. Assigning only the code left the
+  discriminator without a value, so a validator could not match any label to the
+  slice and rejected every signed page.
 - `HRResearchStudy.recruitment` and its `targetNumber` are optional. The study
   service does not record a target yet, and a required element would fail every
   study it writes.

@@ -12,7 +12,8 @@
 // is not required and is not assumed; where a site chooses to hold one, it is
 // referenced from sourceReference and profiled as HRConsentEvidence.
 //
-// One Consent resource carries one permission. R5 offers an alternative —
+// One Consent resource carries one permission, or the whole signed form where
+// a study records consent as one decision. R5 offers an alternative —
 // a single Consent whose provisions carve exceptions out of a base decision —
 // and it is not used here. Consent.provision has no type element in R5, so
 // sibling provisions cannot each carry their own permit or deny; the decision
@@ -41,14 +42,14 @@ Description: "The record that a participant granted or refused one permission, a
 * category ^slicing.discriminator[0].type = #value
 * category ^slicing.discriminator[0].path = "coding.system"
 * category ^slicing.rules = #open
-* category ^slicing.description = "Sliced by coding system to require exactly one permission code while permitting the HL7 consent category codes alongside it."
-* category contains permission 1..1 MS
+* category ^slicing.description = "Sliced by coding system to allow at most one permission code while permitting the HL7 consent category codes alongside it."
+* category contains permission 0..1 MS
 * category[permission] from HRConsentPermissionVS (required)
 * category[permission] ^short = "Which permission this resource records"
 * category[permission].coding 1..1 MS
 * category[permission].coding.system 1..1 MS
 * category[permission].coding.system = $hr-consent-permission
-* category[permission] ^comment = "One permission per resource. A participant who is asked three questions on one form is represented by three resources sharing a date and a source reference."
+* category[permission] ^comment = "One permission per resource. A participant who is asked three questions on one form is represented by three resources sharing a date and a source reference. A study that records the signed form as one decision leaves this out and carries LOINC 59284-0 Patient Consent instead, so the resource covers the whole form."
 
 * subject 1..1 MS
 * subject only Reference(HRPatient)
