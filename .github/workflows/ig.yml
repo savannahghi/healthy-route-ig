@@ -6,9 +6,12 @@ on:
   pull_request:
   workflow_dispatch:
 
+# A newer push cancels a pull request's build, but not a run on main: that run
+# may be part way through loading the FHIR store or syncing the site, and
+# stopping it there leaves a mix of two releases. Runs on main queue instead.
 concurrency:
   group: ig-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   # Fast gate: runs on every push, catches most authoring mistakes in ~30s.
@@ -85,6 +88,53 @@ jobs:
           name: healthy-route-ig-site
           path: output/
           retention-days: 30
+
+      # The package alone, for the job that loads the FHIR store. It carries
+      # every profile with its snapshot and the maps the publisher compiled.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: guide-package
+          path: output/package.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  # Loads the guide's forms, maps, code systems, value sets and profiles into
+  # the study service's FHIR store, one GitHub environment per store. Only a
+  # build that passed the QA gate and the map replay gets here. Inert until the
+  # repository variable LOAD_ENABLED is 'true', so pushes to main do not fail
+  # before the environments exist. It has to be a repository variable: the if
+  # below is read before the job has an environment, so an environment's own
+  # variables are not visible to it. Each environment needs the secrets
+  # HAPI_FHIR_BASE_URL, OIDC_TOKEN_URL, OIDC_CLIENT_ID and OIDC_CLIENT_SECRET.
+  load-fhir-store:
+    name: Load into the FHIR store (${{ matrix.environment }})
+    runs-on: ubuntu-latest
+    needs: publish
+    if: github.ref == 'refs/heads/main' && vars.LOAD_ENABLED == 'true'
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        # Another store is one more name here, and a GitHub environment of the
+        # same name holding its four secrets.
+        environment: [testing]
+    environment:
+      name: ${{ matrix.environment }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: guide-package
+          path: package/
+      - name: Load the guide's resources
+        env:
+          HAPI_FHIR_BASE_URL: ${{ secrets.HAPI_FHIR_BASE_URL }}
+          OIDC_TOKEN_URL: ${{ secrets.OIDC_TOKEN_URL }}
+          OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
+          OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
+        run: python3 -I scripts/load-package.py package/package.tgz
 
   # Publishes to fhir.savannahghi.org. Inert until the AWS secrets exist,
   # so it costs nothing while the repo is private.
