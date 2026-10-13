@@ -34,7 +34,7 @@ issues = loader.issues
 
 BASE = os.environ.get("FHIR_BASE", "http://localhost:8190/fhir")
 PKG = sys.argv[1]
-IGURL = "https://fhir.savannahghi.org/ig/healthy-route"
+IGURL = "https://fhir.optimalhealth.org/ig/healthy-route"
 
 def token():
     fields = {"client_id": os.environ.get("CLIENT_ID", "fhir-test-client")}

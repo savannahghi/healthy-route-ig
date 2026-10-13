@@ -58,7 +58,7 @@ matched to the participant record at the receiving party without any second key 
 between the parties.
 
 ```
-https://fhir.savannahghi.org/sid/optimalhealth-participant
+https://fhir.optimalhealth.org/sid/optimalhealth-participant
 ```
 
 It encodes nothing about the person or the site, and it is retained unchanged

@@ -16,9 +16,14 @@
 // a release: forms, maps and terminology ship together, and a study amendment
 // names the release it was approved with. A superseded release stays
 // retrievable for the participants judged under it.
+//
+// A form is tagged with the identifier of the study it belongs to. The study
+// service lists a study's forms by that tag, so these are found by the Uganda
+// study once it is created with the identifier HR-UG.
 
 RuleSet: HRForm(id, name, title, map)
 * id = "{id}"
+* meta.tag[+] = $optimalhealth-study#HR-UG "Healthy Route Uganda"
 * name = "{name}"
 * title = "{title}"
 * status = #draft
@@ -27,7 +32,7 @@ RuleSet: HRForm(id, name, title, map)
 * date = "2026-10-10"
 * publisher = "Savannah Informatics"
 * extension[+].url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-targetStructureMap"
-* extension[=].valueCanonical = "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/{map}"
+* extension[=].valueCanonical = "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/{map}"
 
 RuleSet: Unit(unit, display)
 * item[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/questionnaire-unit"
@@ -184,7 +189,7 @@ Description: "Every medicine taken now, including traditional or over-the-counte
 * item[=].item[=].text = "Medication name"
 * item[=].item[=].type = #coding
 * item[=].item[=].required = true
-* item[=].item[=].answerValueSet = "https://fhir.savannahghi.org/ValueSet/hr-medicine"
+* item[=].item[=].answerValueSet = "https://fhir.optimalhealth.org/ValueSet/hr-medicine"
 * item[=].item[=].answerConstraint = #optionsOrString
 * item[=].item[+].linkId = "medicine.strength"
 * item[=].item[=].text = "Strength"

@@ -32,7 +32,7 @@ for example in input/examples/QuestionnaireResponse-*.json; do
   form=$(python3 -c "import json,sys; q=json.load(open(sys.argv[1]))['questionnaire']; print(q.rsplit('/',1)[1].split('|')[0])" "$example")
   stem=${form#hr-}; stem=${stem%-ug}; stem=${stem%-gh}
   mapname=HRExtract$(python3 -c "import sys; print(''.join(w.capitalize() for w in sys.argv[1].split('-')))" "$stem")
-  url="https://fhir.savannahghi.org/ig/healthy-route/StructureMap/$mapname"
+  url="https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/$mapname"
   actual="tests/actual/$name.json"
 
   java -Djava.net.preferIPv4Stack=true -jar "$VALIDATOR" transform "$url" -version 5.0 -tx "$TX" -ssrf-protection-enabled=false \
