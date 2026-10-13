@@ -6,7 +6,7 @@
 // item's linkId, so that saving the same response again replaces what the
 // first save wrote instead of duplicating it.
 
-map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractHistory" = "HRExtractHistory"
+map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractHistory" = "HRExtractHistory"
 
 uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
 uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
@@ -22,7 +22,7 @@ group HRExtractHistory(source qr : QR, target bundle : Bundle) {
         qr -> obs then SurveyObservation(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'history-dm' "codeCode";
             qr -> cd.display = 'Diabetes, reported' "codeDisplay";
           } "codeCoding";
@@ -48,7 +48,7 @@ group HRExtractHistory(source qr : QR, target bundle : Bundle) {
         qr -> obs then SurveyObservation(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'history-htn' "codeCode";
             qr -> cd.display = 'Hypertension, reported' "codeDisplay";
           } "codeCoding";
@@ -74,7 +74,7 @@ group HRExtractHistory(source qr : QR, target bundle : Bundle) {
         qr -> obs then SurveyObservation(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'history-ckd' "codeCode";
             qr -> cd.display = 'Chronic kidney disease, reported' "codeDisplay";
           } "codeCoding";
@@ -99,7 +99,7 @@ group HRExtractHistory(source qr : QR, target bundle : Bundle) {
       qr -> obs then SurveyObservation(qr, it, obs, e) "base";
       qr -> obs.code = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
           qr -> cd.code = 'history-hiv' "codeCode";
           qr -> cd.display = 'HIV, reported' "codeDisplay";
         } "codeCoding";
@@ -113,7 +113,7 @@ group HRExtractHistory(source qr : QR, target bundle : Bundle) {
       qr -> obs then SurveyObservation(qr, it, obs, e) "base";
       qr -> obs.code = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
           qr -> cd.code = 'history-heart' "codeCode";
           qr -> cd.display = 'Heart disease, reported' "codeDisplay";
         } "codeCoding";
@@ -127,7 +127,7 @@ group HRExtractHistory(source qr : QR, target bundle : Bundle) {
       qr -> obs then SurveyObservation(qr, it, obs, e) "base";
       qr -> obs.code = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
           qr -> cd.code = 'history-traditional' "codeCode";
           qr -> cd.display = 'Traditional medicine use' "codeDisplay";
         } "codeCoding";
@@ -148,7 +148,7 @@ group HRExtractHistory(source qr : QR, target bundle : Bundle) {
       } "socialHistory";
       qr -> obs.code = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
           qr -> cd.code = 'history-alcohol' "codeCode";
           qr -> cd.display = 'Alcohol use' "codeDisplay";
         } "codeCoding";
@@ -191,11 +191,11 @@ group SurveyObservation(source qr : QR, source it, target obs : Observation, tar
       qr -> rq.url = append('Observation/', qid, '-', k) "url";
     } "request";
   } "ids";
-  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
   qr.meta as qm then {
     qm.tag as t -> obs.meta as m, m.tag = t "tag";
   } "tags";
-  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr.extension as x where (url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
   qr -> obs.status = 'final' "status";
   qr -> obs.category = create('CodeableConcept') as cv then {
     qr -> cv.coding = create('Coding') as cd then {
@@ -222,11 +222,11 @@ group ReportedCondition(source qr : QR, source it, target cond : Condition, targ
     } "request";
     it.linkId as k -> cond.evidence as ev, ev.reference = create('Reference') as ref, ref.reference = append('Observation/', qid, '-', k) "evidence";
   } "ids";
-  qr -> cond.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-condition' "profile";
+  qr -> cond.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-condition' "profile";
   qr.meta as qm then {
     qm.tag as t -> cond.meta as m, m.tag = t "tag";
   } "tags";
-  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> cond.extension = x "tenant";
+  qr.extension as x where (url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant') -> cond.extension = x "tenant";
   qr -> cond.clinicalStatus = create('CodeableConcept') as cv then {
     qr -> cv.coding = create('Coding') as cd then {
       qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/condition-clinical' "clinicalSystem";

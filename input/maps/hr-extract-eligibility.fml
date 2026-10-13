@@ -3,7 +3,7 @@
 // the documented eGFR dated by the day it was documented, the dipstick, and the
 // five exclusions. The outcome and the cohort are the rule set's.
 
-map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractEligibility" = "HRExtractEligibility"
+map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractEligibility" = "HRExtractEligibility"
 
 uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
 uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
@@ -18,7 +18,7 @@ group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
         qr -> obs then Criterion(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'capable-of-consent' "codeCode";
             qr -> cd.display = 'Capable of giving signed informed consent' "codeDisplay";
           } "codeCoding";
@@ -40,7 +40,7 @@ group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
         } "laboratory";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'documented-egfr' "codeCode";
             qr -> cd.display = 'Documented eGFR' "codeDisplay";
           } "codeCoding";
@@ -86,7 +86,7 @@ group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
         qr -> obs then Criterion(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'excl-undesirable' "codeCode";
             qr -> cd.display = 'Condition making participation undesirable' "codeDisplay";
           } "codeCoding";
@@ -100,7 +100,7 @@ group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
         qr -> obs then Criterion(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'excl-eye-condition' "codeCode";
             qr -> cd.display = 'Eye condition precluding retinal imaging' "codeDisplay";
           } "codeCoding";
@@ -114,7 +114,7 @@ group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
         qr -> obs then Criterion(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'excl-emergency' "codeCode";
             qr -> cd.display = 'Hypertensive, hyperglycaemic or hypoglycaemic emergency' "codeDisplay";
           } "codeCoding";
@@ -128,7 +128,7 @@ group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
         qr -> obs then Criterion(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'excl-involvement' "codeCode";
             qr -> cd.display = 'Involvement in the planning or conduct of the study' "codeDisplay";
           } "codeCoding";
@@ -142,7 +142,7 @@ group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
         qr -> obs then Criterion(qr, it, obs, e) "base";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
             qr -> cd.code = 'excl-noncompliance' "codeCode";
             qr -> cd.display = 'Unlikely to comply with study procedures' "codeDisplay";
           } "codeCoding";
@@ -163,11 +163,11 @@ group Criterion(source qr : QR, source it, target obs : Observation, target e) {
       qr -> rq.url = append('Observation/', qid, '-', k) "url";
     } "request";
   } "ids";
-  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
   qr.meta as qm then {
     qm.tag as t -> obs.meta as m, m.tag = t "tag";
   } "tags";
-  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr.extension as x where (url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
   qr -> obs.status = 'final' "status";
   qr -> obs.category = create('CodeableConcept') as cv then {
     qr -> cv.coding = create('Coding') as cd then {

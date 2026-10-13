@@ -6,7 +6,7 @@
 // are the rule set's. Each reading's time comes from its own item; everything
 // else is timed at the response.
 
-map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractVitals" = "HRExtractVitals"
+map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractVitals" = "HRExtractVitals"
 
 uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
 uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
@@ -18,7 +18,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
   qr.item as it where (linkId = '8302-2') then {
     it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
       qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
       qr -> obs.category = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
           qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
@@ -46,7 +46,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
   qr.item as it where (linkId = '29463-7') then {
     it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
       qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
       qr -> obs.category = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
           qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
@@ -74,7 +74,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
   qr.item as it where (linkId = '8280-0') then {
     it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
       qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
       qr -> obs.category = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
           qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
@@ -102,7 +102,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
   qr.item as it where (linkId = 'hip-circumference') then {
     it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
       qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
       qr -> obs.category = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
           qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
@@ -112,7 +112,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       } "category";
       qr -> obs.code = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
           qr -> cd.code = 'hip-circumference' "codeCode";
           qr -> cd.display = 'Hip circumference' "codeDisplay";
         } "codeCoding";
@@ -139,7 +139,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       ti.answer first as ta then { ta.value as tv -> obs.effective = tv "effective"; } "answer";
     } "timeItem";
     qr -> obs.extension as x then {
-      qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
+      qr -> x.url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
       qr -> x.value = 1 "value";
     } "sequence";
   } "reading1";
@@ -156,13 +156,13 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       ti.answer first as ta then { ta.value as tv -> obs.effective = tv "effective"; } "answer";
     } "timeItem";
     qr -> obs.extension as x then {
-      qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
+      qr -> x.url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
       qr -> x.value = 2 "value";
     } "sequence";
     g.item as pi where (linkId = 'bp-reading-2.bp-position') then {
       pi.answer first as pa then {
         pa.value as pv -> obs.extension as x then {
-          qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-position' "url";
+          qr -> x.url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-reading-position' "url";
           pv -> x.value = create('CodeableConcept') as concept, concept.coding = pv "value";
         } "extension";
       } "answer";
@@ -181,7 +181,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       ti.answer first as ta then { ta.value as tv -> obs.effective = tv "effective"; } "answer";
     } "timeItem";
     qr -> obs.extension as x then {
-      qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
+      qr -> x.url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-reading-sequence' "url";
       qr -> x.value = 3 "value";
     } "sequence";
   } "reading3";
@@ -189,7 +189,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
   qr.item as it where (linkId = 'retinal-capture-time') then {
     it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
       qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
       qr -> obs.category = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
           qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
@@ -199,7 +199,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       } "category";
       qr -> obs.code = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
           qr -> cd.code = 'retinal-capture-time' "codeCode";
           qr -> cd.display = 'Time of retinal capture' "codeDisplay";
         } "codeCoding";
@@ -214,7 +214,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
 // as a component, and the shared identity. The group item's linkId names it.
 group Reading(source qr : QR, source g, target obs : Observation, target e) {
   qr -> obs then Shared(qr, g, obs, e) "base";
-  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-blood-pressure' "profile";
+  qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-blood-pressure' "profile";
   qr -> obs.category = create('CodeableConcept') as cv then {
     qr -> cv.coding = create('Coding') as cd then {
       qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
@@ -232,7 +232,7 @@ group Reading(source qr : QR, source g, target obs : Observation, target e) {
   qr.item as d where (linkId = 'bp-device') then {
     d.answer first as da then {
       da.value as dv -> obs.extension as x then {
-        qr -> x.url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-reading-device' "url";
+        qr -> x.url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-reading-device' "url";
         dv -> x.value = create('CodeableConcept') as concept, concept.coding = dv "value";
       } "extension";
     } "answer";
@@ -289,7 +289,7 @@ group Shared(source qr : QR, source it, target obs : Observation, target e) {
   qr.meta as qm then {
     qm.tag as t -> obs.meta as m, m.tag = t "tag";
   } "tags";
-  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr.extension as x where (url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
   qr -> obs.status = 'final' "status";
   qr.subject as s -> obs.subject = s "subject";
   qr.encounter as en -> obs.encounter = en "encounter";

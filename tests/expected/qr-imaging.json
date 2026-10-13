@@ -13,7 +13,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -23,30 +23,30 @@
         "id": "qr-imaging-0001-imaging-study",
         "identifier": [
           {
-            "system": "https://fhir.savannahghi.org/sid/optomed-pack",
+            "system": "https://fhir.optimalhealth.org/sid/optomed-pack",
             "value": "OPT-2610-0055"
           }
         ],
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-imaging-study"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-imaging-study"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -70,7 +70,7 @@
                 {
                   "code": "right",
                   "display": "Right eye",
-                  "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-eye"
+                  "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-eye"
                 }
               ]
             },
@@ -92,7 +92,7 @@
                 {
                   "code": "left",
                   "display": "Left eye",
-                  "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-eye"
+                  "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-eye"
                 }
               ]
             },
@@ -139,7 +139,7 @@
             {
               "code": "images-dilated",
               "display": "Images taken with dilation",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -150,7 +150,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -160,24 +160,24 @@
         "id": "qr-imaging-0001-images-dilated",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -220,7 +220,7 @@
             {
               "code": "images-left",
               "display": "Image captured of the left eye",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -231,7 +231,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -241,24 +241,24 @@
         "id": "qr-imaging-0001-images-left",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -301,7 +301,7 @@
             {
               "code": "images-right",
               "display": "Image captured of the right eye",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -312,7 +312,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -322,24 +322,24 @@
         "id": "qr-imaging-0001-images-right",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -382,7 +382,7 @@
             {
               "code": "images-synced",
               "display": "Images synced to the device cloud storage",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -393,7 +393,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -403,24 +403,24 @@
         "id": "qr-imaging-0001-images-synced",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },

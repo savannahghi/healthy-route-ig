@@ -136,10 +136,10 @@ jobs:
           OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
         run: python3 -I scripts/load-package.py package/package.tgz
 
-  # Publishes to fhir.savannahghi.org. Inert until the AWS secrets exist,
+  # Publishes to fhir.optimalhealth.org. Inert until the AWS secrets exist,
   # so it costs nothing while the repo is private.
   publish-site:
-    name: Publish to fhir.savannahghi.org
+    name: Publish to fhir.optimalhealth.org
     runs-on: ubuntu-latest
     needs: publish
     if: github.ref == 'refs/heads/main' && vars.PUBLISH_ENABLED == 'true'

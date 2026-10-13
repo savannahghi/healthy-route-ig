@@ -23,7 +23,7 @@
             {
               "code": "activity-days",
               "display": "Days of moderate or vigorous activity in a usual week",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -34,7 +34,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -44,24 +44,24 @@
         "id": "qr-diet-activity-0001-activity-days",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -104,7 +104,7 @@
             {
               "code": "activity-minutes",
               "display": "Minutes of moderate or vigorous activity on those days",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -115,7 +115,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -125,24 +125,24 @@
         "id": "qr-diet-activity-0001-activity-minutes",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -185,7 +185,7 @@
             {
               "code": "fruit-days",
               "display": "Days fruit eaten in a usual week",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -196,7 +196,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -206,24 +206,24 @@
         "id": "qr-diet-activity-0001-fruit-days",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -266,7 +266,7 @@
             {
               "code": "salt-added",
               "display": "Salt added at the table",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -277,7 +277,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -287,24 +287,24 @@
         "id": "qr-diet-activity-0001-salt-added",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -326,7 +326,7 @@
             {
               "code": "sometimes",
               "display": "Sometimes",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-frequency-scale"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-frequency-scale"
             }
           ]
         }
@@ -355,7 +355,7 @@
             {
               "code": "seated-hours",
               "display": "Hours seated in a usual day",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -366,7 +366,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -376,24 +376,24 @@
         "id": "qr-diet-activity-0001-seated-hours",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -436,7 +436,7 @@
             {
               "code": "sugar-drinks",
               "display": "Sugar-sweetened drinks",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -447,7 +447,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -457,24 +457,24 @@
         "id": "qr-diet-activity-0001-sugar-drinks",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -496,7 +496,7 @@
             {
               "code": "rarely",
               "display": "Rarely",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-frequency-scale"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-frequency-scale"
             }
           ]
         }
@@ -525,7 +525,7 @@
             {
               "code": "veg-days",
               "display": "Days vegetables eaten in a usual week",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -536,7 +536,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -546,24 +546,24 @@
         "id": "qr-diet-activity-0001-veg-days",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -606,7 +606,7 @@
             {
               "code": "work-activity",
               "display": "Physical activity at work",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
             }
           ]
         },
@@ -617,7 +617,7 @@
         },
         "extension": [
           {
-            "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
             "valueIdentifier": {
               "system": "https://example.org/sid/tenant",
               "value": "site-a"
@@ -627,24 +627,24 @@
         "id": "qr-diet-activity-0001-work-activity",
         "meta": {
           "profile": [
-            "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation"
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
           ],
           "tag": [
             {
               "code": "0192f7a0-0000-7000-8000-00000000c001",
-              "system": "https://fhir.savannahghi.org/tag/study"
+              "system": "https://fhir.optimalhealth.org/tag/study"
             },
             {
               "code": "0192f7a0-0000-7000-8000-00000000e001",
-              "system": "https://fhir.savannahghi.org/tag/site"
+              "system": "https://fhir.optimalhealth.org/tag/site"
             },
             {
               "code": "0192f7a0-0000-7000-8000-000000001001",
-              "system": "https://fhir.savannahghi.org/tag/participant"
+              "system": "https://fhir.optimalhealth.org/tag/participant"
             },
             {
               "code": "0192f7b1-0000-7000-8000-000000000a01",
-              "system": "https://fhir.savannahghi.org/tag/visit"
+              "system": "https://fhir.optimalhealth.org/tag/visit"
             }
           ]
         },
@@ -666,7 +666,7 @@
             {
               "code": "light",
               "display": "Mostly standing or walking",
-              "system": "https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-work-activity"
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-work-activity"
             }
           ]
         }

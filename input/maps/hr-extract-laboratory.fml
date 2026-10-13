@@ -5,7 +5,7 @@
 // concentration. The calculated eGFR is the rule set's and is not written
 // here.
 
-map "https://fhir.savannahghi.org/ig/healthy-route/StructureMap/HRExtractLaboratory" = "HRExtractLaboratory"
+map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractLaboratory" = "HRExtractLaboratory"
 
 uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
 uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
@@ -58,11 +58,11 @@ group HRExtractLaboratory(source qr : QR, target bundle : Bundle) {
         qr -> rq.method = 'PUT' "method";
         qr -> rq.url = append('DiagnosticReport/', qid, '-report') "url";
       } "request";
-      qr -> rep.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-diagnostic-report' "profile";
+      qr -> rep.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-diagnostic-report' "profile";
       qr.meta as qm then {
         qm.tag as t -> rep.meta as m, m.tag = t "tag";
       } "tags";
-      qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> rep.extension = x "tenant";
+      qr.extension as x where (url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant') -> rep.extension = x "tenant";
       qr -> rep.status = 'final' "status";
       qr -> rep.category = create('CodeableConcept') as cv then {
         qr -> cv.coding = create('Coding') as cd then {
@@ -215,7 +215,7 @@ group HRExtractLaboratory(source qr : QR, target bundle : Bundle) {
           qr -> obs.specimen = create('Reference') as r, r.reference = append('Specimen/', qid, '-specimen-blood') "specimen";
           qr -> obs.code = create('CodeableConcept') as cv then {
             qr -> cv.coding = create('Coding') as cd then {
-              qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+              qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
               qr -> cd.code = 'hiv-test' "codeCode";
               qr -> cd.display = 'HIV test result' "codeDisplay";
             } "codeCoding";
@@ -230,7 +230,7 @@ group HRExtractLaboratory(source qr : QR, target bundle : Bundle) {
           qr -> obs then Result(qr, it, obs, e) "base";
           qr -> obs.code = create('CodeableConcept') as cv then {
             qr -> cv.coding = create('Coding') as cd then {
-              qr -> cd.system = 'https://fhir.savannahghi.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+              qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
               qr -> cd.code = 'fbc-taken' "codeCode";
               qr -> cd.display = 'Full blood count taken' "codeDisplay";
             } "codeCoding";
@@ -245,11 +245,11 @@ group HRExtractLaboratory(source qr : QR, target bundle : Bundle) {
 
 // What both specimens share: the response's identity and the sample time.
 group Sample(source qr : QR, target sp : Specimen) {
-  qr -> sp.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-specimen' "profile";
+  qr -> sp.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-specimen' "profile";
   qr.meta as qm then {
     qm.tag as t -> sp.meta as m, m.tag = t "tag";
   } "tags";
-  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> sp.extension = x "tenant";
+  qr.extension as x where (url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant') -> sp.extension = x "tenant";
   qr -> sp.status = 'available' "status";
   qr.subject as s -> sp.subject = s "subject";
   qr.item as ci where (linkId = 'samples-collected') then {
@@ -271,11 +271,11 @@ group Result(source qr : QR, source it, target obs : Observation, target e) {
       qr -> rq.url = append('Observation/', qid, '-', k) "url";
     } "request";
   } "ids";
-  qr -> obs.meta as m, m.profile = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
   qr.meta as qm then {
     qm.tag as t -> obs.meta as m, m.tag = t "tag";
   } "tags";
-  qr.extension as x where (url = 'https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr.extension as x where (url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
   qr -> obs.status = 'final' "status";
   qr -> obs.category = create('CodeableConcept') as cv then {
     qr -> cv.coding = create('Coding') as cd then {

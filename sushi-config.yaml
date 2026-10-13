@@ -3,8 +3,8 @@
 # Canonical and packageId are the two hardest things to change later.
 # If they need to change, change them HERE and nowhere else.
 # ─────────────────────────────────────────────────────────────────────────────
-id: org.savannahghi.healthyroute
-canonical: https://fhir.savannahghi.org/ig/healthy-route
+id: org.optimalhealth.healthyroute
+canonical: https://fhir.optimalhealth.org/ig/healthy-route
 name: HealthyRouteIG
 title: "Healthy Route Implementation Guide"
 description: >-
@@ -20,13 +20,13 @@ license: MIT
 
 publisher:
   name: Savannah Informatics
-  url: https://savannahghi.org
+  url: https://optimalhealth.org
 
 contact:
   - name: Savannah Informatics
     telecom:
       - system: url
-        value: https://savannahghi.org
+        value: https://optimalhealth.org
 
 # The one external dependency: SDC, for the extension that names the
 # StructureMap a Questionnaire is extracted with. SDC has no R5 release, so

@@ -34,7 +34,7 @@ Description: "A study participant as held within a site tenant."
 * identifier[participantId] ^requirements = "A single identifier across all three roles allows images captured on the device to be matched to the participant record at the receiving party without any additional key being shared between them."
 * identifier[participantId] ^comment = "Opaque: the value encodes nothing about the person or the site. Retained unchanged across rescreening, so a participant who is rescreened is not issued a second identifier. Held in Patient.identifier and not in Resource.id, because resource identifiers appear in request URLs, server logs and cache keys, none of which are covered by de-identification of resource content."
 * identifier[participantId].system 1..1 MS
-* identifier[participantId].system = "https://fhir.savannahghi.org/sid/optimalhealth-participant"
+* identifier[participantId].system = "https://fhir.optimalhealth.org/sid/optimalhealth-participant"
 * identifier[participantId].value 1..1 MS
 
 * name 1..1 MS
@@ -72,7 +72,7 @@ Description: "A study participant in the form transferred out of a site tenant."
 * identifier ^short = "OptimalHealth participant identifier"
 * identifier ^comment = "The only identifier permitted. It is pseudonymous rather than anonymous: re-identification remains possible to the site holding the corresponding registration record, and to no other party."
 * identifier.system 1..1 MS
-* identifier.system = "https://fhir.savannahghi.org/sid/optimalhealth-participant"
+* identifier.system = "https://fhir.optimalhealth.org/sid/optimalhealth-participant"
 * identifier.value 1..1 MS
 
 * gender 1..1 MS

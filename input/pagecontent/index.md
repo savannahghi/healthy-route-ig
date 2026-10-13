@@ -55,7 +55,7 @@ the value entered on the retinal camera at image capture. It is retained
 unchanged across rescreening.
 
 ```
-https://fhir.savannahghi.org/sid/optimalhealth-participant
+https://fhir.optimalhealth.org/sid/optimalhealth-participant
 ```
 
 #### Tenancy

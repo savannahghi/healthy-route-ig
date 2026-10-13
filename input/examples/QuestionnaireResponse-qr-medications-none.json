@@ -4,33 +4,33 @@
   "meta": {
     "tag": [
       {
-        "system": "https://fhir.savannahghi.org/tag/study",
+        "system": "https://fhir.optimalhealth.org/tag/study",
         "code": "0192f7a0-0000-7000-8000-00000000c001"
       },
       {
-        "system": "https://fhir.savannahghi.org/tag/site",
+        "system": "https://fhir.optimalhealth.org/tag/site",
         "code": "0192f7a0-0000-7000-8000-00000000e001"
       },
       {
-        "system": "https://fhir.savannahghi.org/tag/participant",
+        "system": "https://fhir.optimalhealth.org/tag/participant",
         "code": "0192f7a0-0000-7000-8000-000000001001"
       },
       {
-        "system": "https://fhir.savannahghi.org/tag/visit",
+        "system": "https://fhir.optimalhealth.org/tag/visit",
         "code": "0192f7b1-0000-7000-8000-000000000a01"
       }
     ]
   },
   "extension": [
     {
-      "url": "https://fhir.savannahghi.org/ig/healthy-route/StructureDefinition/hr-tenant",
+      "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
       "valueIdentifier": {
         "system": "https://example.org/sid/tenant",
         "value": "site-a"
       }
     }
   ],
-  "questionnaire": "https://fhir.savannahghi.org/ig/healthy-route/Questionnaire/hr-medications-ug|0.1.0",
+  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-medications-ug|0.1.0",
   "status": "completed",
   "subject": {
     "reference": "Patient/ExampleParticipant",

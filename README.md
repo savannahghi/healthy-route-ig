@@ -96,7 +96,7 @@ scripts/                       publisher download, build, the gates, and the
 ## Canonical URL
 
 ```
-https://fhir.savannahghi.org/ig/healthy-route
+https://fhir.optimalhealth.org/ig/healthy-route
 ```
 
 The canonical URL and the package identifier are set in `sushi-config.yaml` and

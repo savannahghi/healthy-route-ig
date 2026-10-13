@@ -3,7 +3,7 @@
 ## The canonical is an identity, not a location
 
 ```
-https://fhir.savannahghi.org/ig/healthy-route
+https://fhir.optimalhealth.org/ig/healthy-route
 ```
 
 It is stamped into every generated resource and into any instance that declares
@@ -17,15 +17,15 @@ Making it resolve is about trust and tooling, not correctness.
 
 | Namespace | Used for | Stability |
 |---|---|---|
-| `https://fhir.savannahghi.org/ig/...` | IG canonicals | Change = regenerate the IG |
-| `https://fhir.savannahghi.org/sid/...` | Identifier systems | Change = invalidate data already in AstraZeneca's bucket |
+| `https://fhir.optimalhealth.org/ig/...` | IG canonicals | Change = regenerate the IG |
+| `https://fhir.optimalhealth.org/sid/...` | Identifier systems | Change = invalidate data already in AstraZeneca's bucket |
 
 The `sid` namespace is the more dangerous of the two. `optimalhealth-participant`
 ends up inside `Patient.identifier.system` on every exported record.
 
 ## Why not GitHub Pages
 
-Pages serves a repo at `<domain>/<repo-name>/`. Pointing `fhir.savannahghi.org`
+Pages serves a repo at `<domain>/<repo-name>/`. Pointing `fhir.optimalhealth.org`
 at `savannahghi.github.io` would serve this IG at `/healthy-route-ig/`, not at
 `/ig/healthy-route/` — bending the canonical to fit the hosting.
 
@@ -36,7 +36,7 @@ unchanged.
 ## Target layout
 
 ```
-fhir.savannahghi.org/
+fhir.optimalhealth.org/
 ├── index.html                        namespace landing page
 ├── ig/
 │   ├── healthy-route/                current release
@@ -57,7 +57,7 @@ Nothing needs to resolve. CI publishes the built site as a downloadable
 artifact; reviewers get a zip. **No DNS required.**
 
 ### Phase 2 — before external review
-Put a single static landing page at `fhir.savannahghi.org` explaining the
+Put a single static landing page at `fhir.optimalhealth.org` explaining the
 namespace. Costs nothing, and an AstraZeneca reviewer pasting the canonical into
 a browser gets an explanation instead of a 404.
 
