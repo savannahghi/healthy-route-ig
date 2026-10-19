@@ -20,6 +20,19 @@
 // A form is tagged with the identifier of the study it belongs to. The study
 // service lists a study's forms by that tag, so these are found by the Uganda
 // study once it is created with the identifier HR-UG.
+//
+// A value worked out from answers on the same form is an item on that form,
+// read-only, with the formula as an SDC calculated expression: body mass index,
+// waist-to-hip ratio and the mean blood pressure on vitals, the weekly activity
+// and the fruit and vegetable count on diet and activity, the eGFR on the
+// laboratory results. The screen recalculates it as the answers change, so the
+// person entering the answers sees the result and can never type it, and the
+// formula ships with the form's version, so a response says which formula gave
+// its value. The expressions read answers the way the Advantage formula builder
+// writes them, %resource.repeat(item).where(linkId='...').answer.valueDecimal,
+// so a form can be opened and edited there. A value that needs answers from
+// more than one form, such as the hypertension, diabetes and CKD flags, is not
+// on any form: the rule set computes it across the visit.
 
 RuleSet: HRForm(id, name, title, map)
 * id = "{id}"
@@ -43,6 +56,40 @@ RuleSet: Bounds(lo, hi)
 * item[=].extension[=].valueInteger = {lo}
 * item[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/maxValue"
 * item[=].extension[=].valueInteger = {hi}
+
+// A calculated item: read-only, its value the expression set on the next line.
+RuleSet: Calculated
+* item[=].readOnly = true
+* item[=].extension[+].url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression"
+* item[=].extension[=].valueExpression.language = #text/fhirpath
+
+// The same, for an item inside a group.
+RuleSet: CalculatedChild
+* item[=].item[=].readOnly = true
+* item[=].item[=].extension[+].url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression"
+* item[=].item[=].extension[=].valueExpression.language = #text/fhirpath
+
+// An item filled once from the launch context when the form opens, read-only.
+RuleSet: FromContext
+* item[=].readOnly = true
+* item[=].extension[+].url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression"
+* item[=].extension[=].valueExpression.language = #text/fhirpath
+
+// A named value the form's calculated expressions share, read as %{name}.
+RuleSet: Variable(name)
+* extension[+].url = "http://hl7.org/fhir/StructureDefinition/variable"
+* extension[=].valueExpression.name = #{name}
+* extension[=].valueExpression.language = #text/fhirpath
+
+// A resource the screen must supply when it opens the form, read as %{name}.
+RuleSet: LaunchContext(name, type, display, description)
+* extension[+].url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext"
+* extension[=].extension[+].url = "name"
+* extension[=].extension[=].valueCoding = http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext#{name} "{display}"
+* extension[=].extension[+].url = "type"
+* extension[=].extension[=].valueCode = #{type}
+* extension[=].extension[+].url = "description"
+* extension[=].extension[=].valueString = "{description}"
 
 
 // --- Eligibility ------------------------------------------------------------
@@ -219,7 +266,7 @@ Instance: HRDietActivityUG
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Measure: diet and activity, Uganda"
-Description: "Dietary habits and physical activity in a usual week. Recorded at the clinician's discretion; the derived values are the rule set's."
+Description: "Dietary habits and physical activity in a usual week. Recorded at the clinician's discretion. Whether fruit and vegetables are both eaten five days or more, the weekly minutes of activity and whether they meet the WHO recommendation are calculated on the form and cannot be typed."
 * insert HRForm(hr-diet-activity-ug, HRDietActivityUG, Measure: diet and activity\, Uganda, HRExtractDietActivity)
 
 * item[+].linkId = "fruit-days"
@@ -232,6 +279,12 @@ Description: "Dietary habits and physical activity in a usual week. Recorded at 
 * item[=].text = "Days vegetables eaten in a usual week"
 * item[=].type = #integer
 * insert Bounds(0, 7)
+* item[+].linkId = "fruit-veg-5plus"
+* item[=].code = HRMeasurementCS#fruit-veg-5plus
+* item[=].text = "Fruit and vegetables both eaten five days or more"
+* item[=].type = #boolean
+* insert Calculated
+* item[=].extension[=].valueExpression.expression = "%resource.repeat(item).where(linkId='fruit-days').answer.valueInteger >= 5 and %resource.repeat(item).where(linkId='veg-days').answer.valueInteger >= 5"
 * item[+].linkId = "salt-added"
 * item[=].code = HRMeasurementCS#salt-added
 * item[=].text = "Salt added at the table"
@@ -257,6 +310,18 @@ Description: "Dietary habits and physical activity in a usual week. Recorded at 
 * item[=].text = "Minutes of moderate or vigorous activity on those days"
 * item[=].type = #integer
 * insert Bounds(0, 1440)
+* item[+].linkId = "activity-weekly-minutes"
+* item[=].code = HRMeasurementCS#activity-weekly-minutes
+* item[=].text = "Minutes of moderate or vigorous activity a week"
+* item[=].type = #integer
+* insert Calculated
+* item[=].extension[=].valueExpression.expression = "%resource.repeat(item).where(linkId='activity-days').answer.valueInteger * %resource.repeat(item).where(linkId='activity-minutes').answer.valueInteger"
+* item[+].linkId = "activity-who-met"
+* item[=].code = HRMeasurementCS#activity-who-met
+* item[=].text = "Meets the WHO recommendation of 150 minutes a week"
+* item[=].type = #boolean
+* insert Calculated
+* item[=].extension[=].valueExpression.expression = "(%resource.repeat(item).where(linkId='activity-days').answer.valueInteger * %resource.repeat(item).where(linkId='activity-minutes').answer.valueInteger) >= 150"
 * item[+].linkId = "seated-hours"
 * item[=].code = HRMeasurementCS#seated-hours
 * item[=].text = "Hours seated in a usual day"
@@ -270,7 +335,7 @@ Instance: HRVitalsUG
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Measure: vitals, Uganda"
-Description: "Anthropometry and three timed blood pressure readings around the retinal capture. Body mass index, waist-to-hip ratio, the mean and the reading sequence are the rule set's."
+Description: "Anthropometry and three timed blood pressure readings around the retinal capture. Body mass index, the waist-to-hip ratio and the mean of readings two and three, which the Uganda protocol takes as the true blood pressure, are calculated on the form and cannot be typed. Whether the readings fit the protocol's sequence is the rule set's."
 * insert HRForm(hr-vitals-ug, HRVitalsUG, Measure: vitals\, Uganda, HRExtractVitals)
 
 * item[+].linkId = "8302-2"
@@ -297,6 +362,19 @@ Description: "Anthropometry and three timed blood pressure readings around the r
 * item[=].type = #decimal
 * item[=].required = true
 * insert Unit(cm, cm)
+* item[+].linkId = "39156-5"
+* item[=].code = $loinc#39156-5 "Body mass index (BMI) [Ratio]"
+* item[=].text = "Body mass index"
+* item[=].type = #decimal
+* insert Unit(kg/m2, kg/m2)
+* insert Calculated
+* item[=].extension[=].valueExpression.expression = "(%resource.repeat(item).where(linkId='29463-7').answer.valueDecimal / (%resource.repeat(item).where(linkId='8302-2').answer.valueDecimal / 100).power(2)).round(1)"
+* item[+].linkId = "waist-hip-ratio"
+* item[=].code = HRMeasurementCS#waist-hip-ratio
+* item[=].text = "Waist-to-hip ratio"
+* item[=].type = #decimal
+* insert Calculated
+* item[=].extension[=].valueExpression.expression = "(%resource.repeat(item).where(linkId='8280-0').answer.valueDecimal / %resource.repeat(item).where(linkId='hip-circumference').answer.valueDecimal).round(2)"
 * item[+].linkId = "bp-device"
 * item[=].code = HRMeasurementCS#bp-device
 * item[=].text = "Blood pressure monitor"
@@ -385,6 +463,26 @@ Description: "Anthropometry and three timed blood pressure readings around the r
 * item[=].item[=].type = #dateTime
 * item[=].item[=].required = true
 
+* item[+].linkId = "bp-mean"
+* item[=].text = "Blood pressure, the mean of readings 2 and 3"
+* item[=].type = #group
+* item[=].item[+].linkId = "bp-mean.8480-6"
+* item[=].item[=].code = $loinc#8480-6 "Systolic blood pressure"
+* item[=].item[=].text = "Systolic"
+* item[=].item[=].type = #decimal
+* item[=].item[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/questionnaire-unit"
+* item[=].item[=].extension[=].valueCoding = $ucum#mm[Hg] "mm[Hg]"
+* insert CalculatedChild
+* item[=].item[=].extension[=].valueExpression.expression = "((%resource.repeat(item).where(linkId='bp-reading-2.8480-6').answer.valueDecimal + %resource.repeat(item).where(linkId='bp-reading-3.8480-6').answer.valueDecimal) / 2).round(0)"
+* item[=].item[+].linkId = "bp-mean.8462-4"
+* item[=].item[=].code = $loinc#8462-4 "Diastolic blood pressure"
+* item[=].item[=].text = "Diastolic"
+* item[=].item[=].type = #decimal
+* item[=].item[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/questionnaire-unit"
+* item[=].item[=].extension[=].valueCoding = $ucum#mm[Hg] "mm[Hg]"
+* insert CalculatedChild
+* item[=].item[=].extension[=].valueExpression.expression = "((%resource.repeat(item).where(linkId='bp-reading-2.8462-4').answer.valueDecimal + %resource.repeat(item).where(linkId='bp-reading-3.8462-4').answer.valueDecimal) / 2).round(0)"
+
 
 // --- Laboratory results -------------------------------------------------------
 
@@ -392,8 +490,34 @@ Instance: HRLaboratoryUG
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Laboratory results, Uganda"
-Description: "The results as the laboratory reported them, in the unit it reported. The calculated eGFR is the rule set's and has no item."
+Description: "The results as the laboratory reported them, in the unit it reported. The eGFR is calculated on the form by CKD-EPI 2021 from the creatinine, shown with the creatinine in mg/dL and the age and sex it used, and none of them can be typed. The age and sex come from the participant's record when the form opens."
 * insert HRForm(hr-laboratory-ug, HRLaboratoryUG, Laboratory results\, Uganda, HRExtractLaboratory)
+* insert LaunchContext(patient, Patient, Patient, The participant: the eGFR takes their sex and date of birth.)
+* insert LaunchContext(encounter, Encounter, Encounter, The visit: the age the eGFR uses is the age on the day it started.)
+
+// CKD-EPI 2021, without the race coefficient, on creatinine in mg/dL:
+//   142 x min(Scr/k, 1)^a x max(Scr/k, 1)^-1.200 x 0.9938^age x 1.012 if female
+// with k 0.7 and a -0.241 for a woman, k 0.9 and a -0.302 for a man. A
+// creatinine in umol/L is divided by 88.4 first. Any other unit, sex or a
+// missing input gives no value rather than a wrong one.
+* insert Variable(creatinine)
+* extension[=].valueExpression.expression = "%resource.repeat(item).where(linkId='2160-0').answer.valueDecimal"
+* insert Variable(creatinineUnit)
+* extension[=].valueExpression.expression = "%resource.repeat(item).where(linkId='2160-0.unit').answer.valueCoding.code"
+* insert Variable(scr)
+* extension[=].valueExpression.expression = "iif(%creatinineUnit = 'mg/dL', %creatinine, iif(%creatinineUnit = 'umol/L', %creatinine / 88.4, {}))"
+* insert Variable(egfrAge)
+* extension[=].valueExpression.expression = "%resource.repeat(item).where(linkId='egfr-age').answer.valueInteger"
+* insert Variable(egfrSex)
+* extension[=].valueExpression.expression = "%resource.repeat(item).where(linkId='egfr-sex').answer.valueString"
+* insert Variable(kappa)
+* extension[=].valueExpression.expression = "iif(%egfrSex = 'female', 0.7, iif(%egfrSex = 'male', 0.9, {}))"
+* insert Variable(alpha)
+* extension[=].valueExpression.expression = "iif(%egfrSex = 'female', -0.241, iif(%egfrSex = 'male', -0.302, {}))"
+* insert Variable(sexFactor)
+* extension[=].valueExpression.expression = "iif(%egfrSex = 'female', 1.012, iif(%egfrSex = 'male', 1.0, {}))"
+* insert Variable(ratio)
+* extension[=].valueExpression.expression = "%scr / %kappa"
 
 * item[+].linkId = "samples-collected"
 * item[=].text = "Sample date and time"
@@ -409,6 +533,32 @@ Description: "The results as the laboratory reported them, in the unit it report
 * item[=].type = #coding
 * item[=].required = true
 * item[=].answerValueSet = Canonical(HRLabUnitVS)
+* item[+].linkId = "creatinine-converted"
+* item[=].code = HRMeasurementCS#creatinine-converted
+* item[=].text = "Serum creatinine, as the eGFR uses it"
+* item[=].type = #decimal
+* insert Unit(mg/dL, mg/dL)
+* insert Calculated
+* item[=].extension[=].valueExpression.expression = "%scr.round(2)"
+* item[+].linkId = "egfr-age"
+* item[=].code = HRMeasurementCS#egfr-age
+* item[=].text = "Age the eGFR uses, in completed years"
+* item[=].type = #integer
+* insert FromContext
+* item[=].extension[=].valueExpression.expression = "iif(%encounter.actualPeriod.start.exists(), %encounter.actualPeriod.start, today()).toString().substring(0, 4).toInteger() - %patient.birthDate.toString().substring(0, 4).toInteger() - iif(iif(%encounter.actualPeriod.start.exists(), %encounter.actualPeriod.start, today()).toString().substring(5, 5) < %patient.birthDate.toString().substring(5, 5), 1, 0)"
+* item[+].linkId = "egfr-sex"
+* item[=].code = HRMeasurementCS#egfr-sex
+* item[=].text = "Sex the eGFR uses"
+* item[=].type = #string
+* insert FromContext
+* item[=].extension[=].valueExpression.expression = "%patient.gender"
+* item[+].linkId = "98979-8"
+* item[=].code = $loinc#98979-8 "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI 2021)/1.73 sq M"
+* item[=].text = "eGFR, CKD-EPI 2021"
+* item[=].type = #decimal
+* insert Unit(mL/min/{1.73_m2}, mL/min/{1.73_m2})
+* insert Calculated
+* item[=].extension[=].valueExpression.expression = "iif(%ratio.exists() and %egfrAge.exists() and %alpha.exists(), (142 * iif(%ratio < 1, %ratio, 1).power(%alpha) * iif(%ratio > 1, %ratio, 1).power(-1.2) * (0.9938).power(%egfrAge) * %sexFactor).round(1), {})"
 * item[+].linkId = "4548-4"
 * item[=].code = $loinc#4548-4 "Hemoglobin A1c/Hemoglobin.total in Blood"
 * item[=].text = "HbA1c"

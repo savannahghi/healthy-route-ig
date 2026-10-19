@@ -64,6 +64,14 @@
       ]
     },
     {
+      "linkId": "fruit-veg-5plus",
+      "answer": [
+        {
+          "valueBoolean": false
+        }
+      ]
+    },
+    {
       "linkId": "salt-added",
       "answer": [
         {
@@ -112,6 +120,22 @@
       "answer": [
         {
           "valueInteger": 40
+        }
+      ]
+    },
+    {
+      "linkId": "activity-weekly-minutes",
+      "answer": [
+        {
+          "valueInteger": 120
+        }
+      ]
+    },
+    {
+      "linkId": "activity-who-met",
+      "answer": [
+        {
+          "valueBoolean": false
         }
       ]
     },

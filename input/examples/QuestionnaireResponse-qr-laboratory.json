@@ -76,6 +76,38 @@
       ]
     },
     {
+      "linkId": "creatinine-converted",
+      "answer": [
+        {
+          "valueDecimal": 1.24
+        }
+      ]
+    },
+    {
+      "linkId": "egfr-age",
+      "answer": [
+        {
+          "valueInteger": 54
+        }
+      ]
+    },
+    {
+      "linkId": "egfr-sex",
+      "answer": [
+        {
+          "valueString": "female"
+        }
+      ]
+    },
+    {
+      "linkId": "98979-8",
+      "answer": [
+        {
+          "valueDecimal": 51.5
+        }
+      ]
+    },
+    {
       "linkId": "4548-4",
       "answer": [
         {
