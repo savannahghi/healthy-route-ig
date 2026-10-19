@@ -39,11 +39,54 @@ beyond the answers is on the response before the map runs: the tags naming
 the study, site, participant and visit, the tenant extension, the subject,
 the encounter, and the author. The maps copy them onto every resource.
 
-A map never computes. Body mass index, the waist-to-hip ratio, the mean blood
-pressure and whether the readings fit the protocol's sequence, the calculated
-eGFR, the flags and the weekly activity are the rule set's, written as
-measurements that name what they were derived from. A map writes only what
-was typed.
+A map never computes. A value worked out from other answers is either a
+calculated item on the form, described below, or the rule set's. A map writes
+the answers it was written for and nothing else, so a calculated item on a
+response does not become a resource until a map is written for it.
+
+### Values the form calculates
+
+A value that needs only answers on the same form is an item on that form,
+read-only, carrying its formula as an SDC calculated expression in FHIRPath.
+The screen recalculates it whenever an answer it reads changes, so the person
+entering the answers sees the result as they go and can never type it, and the
+formula ships with the form, so a response names the version of the formula
+that gave its value.
+
+| Form | Calculated item | Formula |
+|---|---|---|
+| Vitals | Body mass index, `39156-5`, kg/m2 | weight over height in metres squared, one decimal |
+| Vitals | Waist-to-hip ratio, `waist-hip-ratio` | waist over hip, two decimals |
+| Vitals | Mean blood pressure, `bp-mean.8480-6` and `bp-mean.8462-4`, mm[Hg] | the mean of readings two and three, which the Uganda protocol takes as the true blood pressure, whole mm[Hg] |
+| Diet and activity | `fruit-veg-5plus` | fruit days and vegetable days both five or more |
+| Diet and activity | `activity-weekly-minutes` | active days times minutes on those days |
+| Diet and activity | `activity-who-met` | the weekly minutes at 150 or more, the WHO recommendation |
+| Laboratory | `creatinine-converted`, mg/dL | the creatinine as the equation uses it: as reported in mg/dL, divided by 88.4 from umol/L |
+| Laboratory | eGFR, `98979-8`, mL/min/1.73m2 | CKD-EPI 2021 without the race coefficient, one decimal |
+
+The eGFR needs the participant's age and sex, which no question on the form
+asks. The form declares the participant and the visit as its launch context,
+and two read-only items take them when the form opens: `egfr-sex` from the
+participant's administrative gender, and `egfr-age` as the completed years on
+the day the visit started, or on the day the form is opened when the screen
+supplies no visit. The eGFR is calculated from those two items, so the age and
+sex it used are on the response next to it. A sex other than female or male, a
+creatinine in any other unit, or a missing input gives no eGFR rather than a
+wrong one.
+
+A value that needs answers from more than one form is not on any form. The
+hypertension flag reads the readings and the treatment, the diabetes flag the
+HbA1c and the history, and the CKD flag the laboratory eGFR; the rule set
+computes them across the visit. The HbA1c needs no conversion on the Uganda
+laboratory form, which records it in percent only.
+
+The expressions read answers the way the Advantage formula builder writes them,
+`%resource.repeat(item).where(linkId='...').answer.valueDecimal`, so a form can
+be opened and edited there. In the repository, `tests/run-calculations.js` runs
+every formula with the FHIRPath engine and version the Advantage renderer uses,
+the way that renderer runs them: each example response must hold what its
+answers calculate to, the eGFR must reproduce the platform scope's CKD-EPI 2021
+test vectors, and a missing or unusable input must give no value.
 
 ### Ids are derived, so a re-save replaces
 
@@ -64,9 +107,9 @@ commits, by the response's tag.
 | Eligibility | An Observation per criterion; the documented eGFR dated by the day it was documented; the dipstick under `20454-5`. The outcome and the cohort are the rule set's. |
 | History | An Observation per answer, category survey; alcohol and smoking also social history. A Yes to diabetes, hypertension or CKD is also an [HRCondition](StructureDefinition-hr-condition.html), unconfirmed, with the answer as its evidence. |
 | Medications | No current medication is one Observation. Each medicine is an [HRMedicationStatement](StructureDefinition-hr-medication-statement.html) against the catalogue code, with route and frequency on the study's scales; strength and form as notes. |
-| Diet and activity | An Observation per answer, category survey. |
-| Vitals | Height, weight, waist and hip as quantities. Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. |
-| Laboratory | Two [HRSpecimen](StructureDefinition-hr-specimen.html) resources dated by the sample item; an Observation per result in the reported unit, with the LOINC code chosen by the unit; an [HRDiagnosticReport](StructureDefinition-hr-diagnostic-report.html) gathering them. |
+| Diet and activity | An Observation per typed answer, category survey. The calculated items are not extracted yet. |
+| Vitals | Height, weight, waist and hip as quantities. Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. The calculated items are not extracted yet. |
+| Laboratory | Two [HRSpecimen](StructureDefinition-hr-specimen.html) resources dated by the sample item; an Observation per result in the reported unit, with the LOINC code chosen by the unit; an [HRDiagnosticReport](StructureDefinition-hr-diagnostic-report.html) gathering them. The calculated items are not extracted yet. |
 | Imaging | One [HRImagingStudy](StructureDefinition-hr-imaging-study.html) for the pack, a series per eye answered Yes, the reason as a note; the four answers as Observations, category imaging. |
 
 ### The maps are tested, not trusted

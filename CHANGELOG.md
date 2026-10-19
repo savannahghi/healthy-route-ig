@@ -6,6 +6,16 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- The Uganda vitals, diet and activity, and laboratory forms calculate the
+  values they hold the answers for, as read-only items with an SDC calculated
+  expression: body mass index, the waist-to-hip ratio and the mean of readings
+  two and three; the weekly minutes of activity, whether they meet the WHO
+  recommendation, and whether fruit and vegetables are both eaten five days or
+  more; and the CKD-EPI 2021 eGFR with the creatinine, age and sex it used. The
+  laboratory form takes age and sex from its launch context. `egfr-age` and
+  `egfr-sex` join the `hr-measurement` code system, and `tests/run-calculations.js`
+  checks every formula.
+
 - `HRConsent` may record the whole signed form as one decision. The permission
   code becomes optional, so a study that takes consent as one signature carries
   HL7's generic patient consent category (LOINC 59284-0) instead, and
@@ -52,8 +62,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - A narrative page on the forms, their keys and what each becomes.
 - A job that loads the guide's Questionnaires, StructureMaps, CodeSystems,
   ValueSets and StructureDefinitions from the built package into the study
-  service's FHIR store, one GitHub environment per store (`testing` for now),
-  switched on by the repository variable `LOAD_ENABLED`. The loading lives in
+  service's FHIR store on every push to `main`, one GitHub environment per
+  store (`testing` for now). The loading lives in
   `scripts/load-package.py`, which `tests/run-on-hapi.py` now uses too. Runs on
   `main` queue instead of cancelling each other, so a load or a site sync is
   never stopped part way.

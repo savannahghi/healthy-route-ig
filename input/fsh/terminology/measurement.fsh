@@ -7,8 +7,10 @@
 //
 // A code here is both the linkId of the item on the Questionnaire and the
 // Observation.code the answer becomes, so the map from one to the other is the
-// identity. The derived values are listed with the questions because the rule
-// set that computes them writes Observations under the same system.
+// identity. The derived values are listed with the questions because they are
+// items on the same forms, calculated from the answers there, or values the
+// rule set computes across forms, and either way they become Observations under
+// the same system.
 //
 // The answer scales for the coded questions are their own code systems in this
 // folder. A boolean question answers true or false and binds to nothing.
@@ -70,7 +72,9 @@ Description: "Codes for the questions on the visit forms that LOINC does not cov
 * #flag-ckd-stage-3 "CKD stage 3 or worse flag" "Calculated eGFR below 60. Derived."
 
 // Laboratory
-* #creatinine-converted "Serum creatinine, converted" "The creatinine in mg/dL as the eGFR equation used it, when the laboratory reported another unit. Derived."
+* #creatinine-converted "Serum creatinine, converted" "The creatinine in mg/dL as the eGFR equation used it: as reported when the laboratory reported mg/dL, divided by 88.4 when it reported umol/L. Derived."
+* #egfr-age "Age used for the eGFR" "Completed years on the visit date, from the participant's date of birth. Derived."
+* #egfr-sex "Sex used for the eGFR" "The participant's administrative gender as the record holds it. The equation takes female or male; any other value gives no eGFR."
 * #hiv-test "HIV test result" "Reactive or non-reactive, as the laboratory reports it. The test method is not captured, so no LOINC code asserting one is used."
 * #fbc-taken "Full blood count taken" "Whether a full blood count was taken. The count itself is not captured. True or false."
 

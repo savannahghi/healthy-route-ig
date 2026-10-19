@@ -33,6 +33,8 @@ jobs:
         run: |
           set -o pipefail
           npx sushi build . 2>&1 | tee sushi.log
+      - name: Check the calculated items
+        run: npm run test:calculations
       - uses: actions/upload-artifact@v4
         with:
           name: fsh-generated
@@ -100,17 +102,14 @@ jobs:
 
   # Loads the guide's forms, maps, code systems, value sets and profiles into
   # the study service's FHIR store, one GitHub environment per store. Only a
-  # build that passed the QA gate and the map replay gets here. Inert until the
-  # repository variable LOAD_ENABLED is 'true', so pushes to main do not fail
-  # before the environments exist. It has to be a repository variable: the if
-  # below is read before the job has an environment, so an environment's own
-  # variables are not visible to it. Each environment needs the secrets
-  # HAPI_FHIR_BASE_URL, OIDC_TOKEN_URL, OIDC_CLIENT_ID and OIDC_CLIENT_SECRET.
+  # build that passed the QA gate and the map replay gets here. Each
+  # environment needs the secrets HAPI_FHIR_BASE_URL, OIDC_TOKEN_URL,
+  # OIDC_CLIENT_ID and OIDC_CLIENT_SECRET.
   load-fhir-store:
     name: Load into the FHIR store (${{ matrix.environment }})
     runs-on: ubuntu-latest
     needs: publish
-    if: github.ref == 'refs/heads/main' && vars.LOAD_ENABLED == 'true'
+    if: github.ref == 'refs/heads/main'
     timeout-minutes: 15
     permissions:
       contents: read

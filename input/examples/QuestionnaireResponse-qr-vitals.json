@@ -80,6 +80,22 @@
       ]
     },
     {
+      "linkId": "39156-5",
+      "answer": [
+        {
+          "valueDecimal": 27.1
+        }
+      ]
+    },
+    {
+      "linkId": "waist-hip-ratio",
+      "answer": [
+        {
+          "valueDecimal": 0.88
+        }
+      ]
+    },
+    {
       "linkId": "bp-device",
       "answer": [
         {
@@ -193,6 +209,27 @@
           "answer": [
             {
               "valueDateTime": "2026-10-02T10:15:00+03:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "bp-mean",
+      "item": [
+        {
+          "linkId": "bp-mean.8480-6",
+          "answer": [
+            {
+              "valueDecimal": 140
+            }
+          ]
+        },
+        {
+          "linkId": "bp-mean.8462-4",
+          "answer": [
+            {
+              "valueDecimal": 89
             }
           ]
         }

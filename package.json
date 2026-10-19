@@ -16,9 +16,11 @@
     "qa": "node scripts/check-qa.js && node scripts/check-references.js",
     "clean": "rm -rf fsh-generated output temp template",
     "brand": "node scripts/apply-branding.js",
-    "lint:refs": "node scripts/check-references.js"
+    "lint:refs": "node scripts/check-references.js",
+    "test:calculations": "node tests/run-calculations.js"
   },
   "devDependencies": {
+    "fhirpath": "4.11.0",
     "fsh-sushi": "3.20.1"
   }
 }
