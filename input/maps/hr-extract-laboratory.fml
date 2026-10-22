@@ -2,8 +2,10 @@
 // Two specimens dated by the sample item, one Observation per result in the
 // unit the laboratory reported, and a report gathering them. The LOINC code of
 // a result follows its unit, because LOINC separates mass from molar
-// concentration. The calculated eGFR is the rule set's and is not written
-// here.
+// concentration. The eGFR the form calculates is written with the converted
+// creatinine and the age and sex it used, each naming what it was calculated
+// from. They are the study's calculation rather than the laboratory's, so the
+// report lists only what the laboratory returned.
 
 map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractLaboratory" = "HRExtractLaboratory"
 
@@ -240,6 +242,83 @@ group HRExtractLaboratory(source qr : QR, target bundle : Bundle) {
         } "obs";
       } "fbc";
     } "report";
+
+    qr.item as it where (linkId = 'creatinine-converted') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Result(qr, it, obs, e) "base";
+        qr -> obs.specimen = create('Reference') as r, r.reference = append('Specimen/', qid, '-specimen-blood') "specimen";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'creatinine-converted' "codeCode";
+            qr -> cd.display = 'Serum creatinine, converted' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = create('Quantity') as q then {
+          v -> q.value = v "value";
+          qr -> q.system = 'http://unitsofmeasure.org' "system";
+          qr -> q.code = 'mg/dL' "unitCode";
+          qr -> q.unit = 'mg/dL' "unit";
+        } "quantity";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-2160-0') "creatinine";
+      } "obs";
+    } "creatinineConverted";
+
+    qr.item as it where (linkId = 'egfr-age') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Result(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'egfr-age' "codeCode";
+            qr -> cd.display = 'Age used for the eGFR' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = create('Quantity') as q then {
+          v -> q.value = v "value";
+          qr -> q.system = 'http://unitsofmeasure.org' "system";
+          qr -> q.code = 'a' "unitCode";
+          qr -> q.unit = 'years' "unit";
+        } "quantity";
+      } "obs";
+    } "egfrAge";
+
+    qr.item as it where (linkId = 'egfr-sex') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Result(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'egfr-sex' "codeCode";
+            qr -> cd.display = 'Sex used for the eGFR' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+      } "obs";
+    } "egfrSex";
+
+    qr.item as it where (linkId = '98979-8') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Result(qr, it, obs, e) "base";
+        qr -> obs.specimen = create('Reference') as r, r.reference = append('Specimen/', qid, '-specimen-blood') "specimen";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://loinc.org' "codeSystem";
+            qr -> cd.code = '98979-8' "codeCode";
+            qr -> cd.display = 'Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI 2021)/1.73 sq M' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = create('Quantity') as q then {
+          v -> q.value = v "value";
+          qr -> q.system = 'http://unitsofmeasure.org' "system";
+          qr -> q.code = 'mL/min/{1.73_m2}' "unitCode";
+          qr -> q.unit = 'mL/min/1.73m2' "unit";
+        } "quantity";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-creatinine-converted') "creatinine";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-egfr-age') "age";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-egfr-sex') "sex";
+      } "obs";
+    } "egfr";
   } "response";
 }
 

@@ -2,9 +2,11 @@
 // Four measurements as quantities, three blood pressure readings on the core
 // blood pressure profile with the reading's number, monitor and position as
 // extensions, and the time of retinal capture as an Observation of its own.
-// Body mass index, the waist-to-hip ratio, the mean and the reading sequence
-// are the rule set's. Each reading's time comes from its own item; everything
-// else is timed at the response.
+// The three values the form calculates, body mass index, the waist-to-hip
+// ratio and the mean of readings 2 and 3, are written too, each naming the
+// Observations it was calculated from. Each reading's time comes from its own
+// item, the mean is timed at the later of the two readings it averages, and
+// everything else is timed at the response.
 
 map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractVitals" = "HRExtractVitals"
 
@@ -208,6 +210,84 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       a.value as v -> obs.value = v "value";
     } "obs";
   } "captureTime";
+
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    qr.item as it where (linkId = '39156-5') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Shared(qr, it, obs, e) "base";
+        qr -> obs then VitalSign(qr, obs) "vitalSign";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'http://loinc.org' "codeSystem";
+            qr -> cd.code = '39156-5' "codeCode";
+            qr -> cd.display = 'Body mass index (BMI) [Ratio]' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = create('Quantity') as q then {
+          v -> q.value = v "value";
+          qr -> q.system = 'http://unitsofmeasure.org' "system";
+          qr -> q.code = 'kg/m2' "unitCode";
+          qr -> q.unit = 'kg/m2' "unit";
+        } "quantity";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-29463-7') "weight";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-8302-2') "height";
+      } "obs";
+    } "bmi";
+
+    qr.item as it where (linkId = 'waist-hip-ratio') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then Shared(qr, it, obs, e) "base";
+        qr -> obs then VitalSign(qr, obs) "vitalSign";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'waist-hip-ratio' "codeCode";
+            qr -> cd.display = 'Waist-to-hip ratio' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        qr.authored as t -> obs.effective = t "effective";
+        a.value as v -> obs.value = create('Quantity') as q then {
+          v -> q.value = v "value";
+          qr -> q.system = 'http://unitsofmeasure.org' "system";
+          qr -> q.code = '{ratio}' "unitCode";
+          qr -> q.unit = 'ratio' "unit";
+        } "quantity";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-8280-0') "waist";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-hip-circumference') "hip";
+      } "obs";
+    } "waistHipRatio";
+
+    qr.item as g where (linkId = 'bp-mean') -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then Reading(qr, g, obs, e) "reading";
+      g.item as si where (linkId = 'bp-mean.8480-6') then {
+        si.answer first as sa then { sa.value as sv -> obs then Systolic(qr, sv, obs) "systolic"; } "answer";
+      } "systolicItem";
+      g.item as di where (linkId = 'bp-mean.8462-4') then {
+        di.answer first as da then { da.value as dv -> obs then Diastolic(qr, dv, obs) "diastolic"; } "answer";
+      } "diastolicItem";
+      qr.item as r3 where (linkId = 'bp-reading-3') then {
+        r3.item as ti where (linkId = 'bp-reading-3.time') then {
+          ti.answer first as ta then { ta.value as tv -> obs.effective = tv "effective"; } "answer";
+        } "time";
+      } "reading3";
+      qr -> obs.method = create('CodeableConcept') as m, m.text = 'Mean of readings 2 and 3' "method";
+      qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-bp-reading-2') "reading2Ref";
+      qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-bp-reading-3') "reading3Ref";
+    } "mean";
+  } "derived";
+}
+
+// The profile and category every measurement on this form carries.
+group VitalSign(source qr : QR, target obs : Observation) {
+  qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
+      qr -> cd.code = 'vital-signs' "categoryCode";
+      qr -> cd.display = 'Vital Signs' "categoryDisplay";
+    } "categoryCoding";
+  } "category";
 }
 
 // One reading on the core blood pressure profile: the panel code, the monitor

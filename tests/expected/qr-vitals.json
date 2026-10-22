@@ -87,6 +87,100 @@
       }
     },
     {
+      "fullUrl": "Observation/qr-vitals-0001-39156-5",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-39156-5"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "39156-5",
+              "display": "Body mass index (BMI) [Ratio]",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "derivedFrom": [
+          {
+            "reference": "Observation/qr-vitals-0001-29463-7"
+          },
+          {
+            "reference": "Observation/qr-vitals-0001-8302-2"
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T10:20:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-39156-5",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "kg/m2",
+          "system": "http://unitsofmeasure.org",
+          "unit": "kg/m2",
+          "value": 27.1
+        }
+      }
+    },
+    {
       "fullUrl": "Observation/qr-vitals-0001-8280-0",
       "request": {
         "method": "PUT",
@@ -255,6 +349,145 @@
           "system": "http://unitsofmeasure.org",
           "unit": "cm",
           "value": 162
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-bp-mean",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-bp-mean"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "85354-9",
+              "display": "Blood pressure panel with all children optional",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg",
+              "value": 140
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg",
+              "value": 89
+            }
+          }
+        ],
+        "derivedFrom": [
+          {
+            "reference": "Observation/qr-vitals-0001-bp-reading-2"
+          },
+          {
+            "reference": "Observation/qr-vitals-0001-bp-reading-3"
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T10:15:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          },
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-reading-device",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "omron-m6",
+                  "display": "Omron M6",
+                  "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-bp-device"
+                }
+              ]
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-bp-mean",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-blood-pressure"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "method": {
+          "text": "Mean of readings 2 and 3"
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
         }
       }
     },
@@ -831,6 +1064,100 @@
           "type": "Patient"
         },
         "valueDateTime": "2026-10-02T10:05:00+03:00"
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-vitals-0001-waist-hip-ratio",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-vitals-0001-waist-hip-ratio"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "waist-hip-ratio",
+              "display": "Waist-to-hip ratio",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "derivedFrom": [
+          {
+            "reference": "Observation/qr-vitals-0001-8280-0"
+          },
+          {
+            "reference": "Observation/qr-vitals-0001-hip-circumference"
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T10:20:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-vitals-0001-waist-hip-ratio",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "{ratio}",
+          "system": "http://unitsofmeasure.org",
+          "unit": "ratio",
+          "value": 0.88
+        }
       }
     }
   ],

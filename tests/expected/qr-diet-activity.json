@@ -163,6 +163,186 @@
       }
     },
     {
+      "fullUrl": "Observation/qr-diet-activity-0001-activity-weekly-minutes",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-diet-activity-0001-activity-weekly-minutes"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "activity-weekly-minutes",
+              "display": "Weekly minutes of moderate or vigorous activity",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "derivedFrom": [
+          {
+            "reference": "Observation/qr-diet-activity-0001-activity-days"
+          },
+          {
+            "reference": "Observation/qr-diet-activity-0001-activity-minutes"
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-diet-activity-0001-activity-weekly-minutes",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueQuantity": {
+          "code": "min",
+          "system": "http://unitsofmeasure.org",
+          "unit": "min",
+          "value": 120
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-diet-activity-0001-activity-who-met",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-diet-activity-0001-activity-who-met"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "activity-who-met",
+              "display": "WHO physical activity recommendation met",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "derivedFrom": [
+          {
+            "reference": "Observation/qr-diet-activity-0001-activity-weekly-minutes"
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-diet-activity-0001-activity-who-met",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": false
+      }
+    },
+    {
       "fullUrl": "Observation/qr-diet-activity-0001-fruit-days",
       "request": {
         "method": "PUT",
@@ -241,6 +421,95 @@
           "type": "Patient"
         },
         "valueInteger": 4
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-diet-activity-0001-fruit-veg-5plus",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-diet-activity-0001-fruit-veg-5plus"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "fruit-veg-5plus",
+              "display": "Fruit and vegetables eaten five days or more",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "derivedFrom": [
+          {
+            "reference": "Observation/qr-diet-activity-0001-fruit-days"
+          },
+          {
+            "reference": "Observation/qr-diet-activity-0001-veg-days"
+          }
+        ],
+        "effectiveDateTime": "2026-10-02T09:10:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-diet-activity-0001-fruit-veg-5plus",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueBoolean": false
       }
     },
     {
