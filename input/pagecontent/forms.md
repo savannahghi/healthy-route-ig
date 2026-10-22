@@ -74,6 +74,17 @@ sex it used are on the response next to it. A sex other than female or male, a
 creatinine in any other unit, or a missing input gives no eGFR rather than a
 wrong one.
 
+Each calculated item becomes an Observation when the response is extracted,
+under the item's code like any answer, with `derivedFrom` naming the
+Observations it was calculated from, so the calculation can be checked rather
+than trusted. The mean blood pressure is a blood pressure Observation like the
+readings, with no reading number, timed at reading three, and both readings
+in `derivedFrom`. The eGFR names the
+converted creatinine and the age and sex it used, which are Observations of
+their own. The derived laboratory values are the study's calculation rather
+than the laboratory's, so the DiagnosticReport lists only what the laboratory
+returned.
+
 A value that needs answers from more than one form is not on any form. The
 hypertension flag reads the readings and the treatment, the diabetes flag the
 HbA1c and the history, and the CKD flag the laboratory eGFR; the rule set

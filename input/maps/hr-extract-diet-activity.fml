@@ -1,7 +1,8 @@
 
 // Eight answers kept as Observations under their item codes: four counts as
-// integers, three habits as coded answers, one count of hours. The values the
-// study derives from them belong to the rule set, not to this map.
+// integers, three habits as coded answers, one count of hours. The three values
+// the form calculates from them are written too, each naming the Observations
+// it was calculated from.
 
 map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractDietActivity" = "HRExtractDietActivity"
 
@@ -123,6 +124,60 @@ group HRExtractDietActivity(source qr : QR, target bundle : Bundle) {
       a.value as v -> obs.value = v "value";
     } "obs";
   } "seated";
+
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    qr.item as it where (linkId = 'fruit-veg-5plus') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'fruit-veg-5plus' "codeCode";
+            qr -> cd.display = 'Fruit and vegetables eaten five days or more' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-fruit-days') "fruit";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-veg-days') "veg";
+      } "obs";
+    } "fruitVeg";
+
+    qr.item as it where (linkId = 'activity-weekly-minutes') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'activity-weekly-minutes' "codeCode";
+            qr -> cd.display = 'Weekly minutes of moderate or vigorous activity' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = create('Quantity') as q then {
+          v -> q.value = v "value";
+          qr -> q.system = 'http://unitsofmeasure.org' "system";
+          qr -> q.code = 'min' "unitCode";
+          qr -> q.unit = 'min' "unit";
+        } "quantity";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-activity-days') "days";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-activity-minutes') "minutes";
+      } "obs";
+    } "weeklyMinutes";
+
+    qr.item as it where (linkId = 'activity-who-met') then {
+      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+        qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs.code = create('CodeableConcept') as cv then {
+          qr -> cv.coding = create('Coding') as cd then {
+            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+            qr -> cd.code = 'activity-who-met' "codeCode";
+            qr -> cd.display = 'WHO physical activity recommendation met' "codeDisplay";
+          } "codeCoding";
+        } "code";
+        a.value as v -> obs.value = v "value";
+        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-activity-weekly-minutes') "weekly";
+      } "obs";
+    } "whoMet";
+  } "derived";
 }
 
 group SurveyObservation(source qr : QR, source it, target obs : Observation, target e) {

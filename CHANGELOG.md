@@ -6,6 +6,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- The vitals, diet and activity, and laboratory maps write the values their
+  forms calculate as Observations under the same codes, each naming the
+  Observations it was calculated from in `derivedFrom`. The mean blood pressure
+  is a blood pressure Observation with no reading number, timed at the later
+  of the two readings it averages. The derived laboratory values stay out of the
+  DiagnosticReport, which lists only what the laboratory returned.
+
 - The Uganda vitals, diet and activity, and laboratory forms calculate the
   values they hold the answers for, as read-only items with an SDC calculated
   expression: body mass index, the waist-to-hip ratio and the mean of readings
