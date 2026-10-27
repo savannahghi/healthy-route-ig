@@ -28,6 +28,7 @@ Description: "Codes for the questions on the visit forms that LOINC does not cov
 * #age-at-consent "Age at consent" "Completed years on the date consent was given, calculated from the date of birth. Derived."
 * #capable-of-consent "Capable of giving signed informed consent" "Inclusion criterion. True or false."
 * #documented-egfr "Documented eGFR" "An eGFR documented by the referring service before the visit, as the record shows it. Distinct from the eGFR the study calculates from its own creatinine."
+* #established-ckd "Established CKD diagnosis" "Inclusion criterion: chronic kidney disease diagnosed at the participant's clinic, with an eGFR below 60 mL/min/1.73m2 persisting for 3 months or more. Admits a participant whose dipstick is negative where the protocol makes the dipstick decisive. True or false."
 * #excl-undesirable "Condition making participation undesirable" "Exclusion criterion, in the investigator's opinion. True or false."
 * #excl-eye-condition "Eye condition precluding retinal imaging" "Exclusion criterion. True or false."
 * #excl-emergency "Hypertensive, hyperglycaemic or hypoglycaemic emergency" "Exclusion criterion. True or false."

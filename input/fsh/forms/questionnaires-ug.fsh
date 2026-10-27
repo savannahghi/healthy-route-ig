@@ -34,9 +34,9 @@
 // more than one form, such as the hypertension, diabetes and CKD flags, is not
 // on any form: the rule set computes it across the visit.
 
-RuleSet: HRForm(id, name, title, map)
+RuleSet: HRForm(id, name, title, map, study, studyName)
 * id = "{id}"
-* meta.tag[+] = $optimalhealth-study#HR-UG "Healthy Route Uganda"
+* meta.tag[+] = $optimalhealth-study#{study} "{studyName}"
 * name = "{name}"
 * title = "{title}"
 * status = #draft
@@ -99,7 +99,7 @@ InstanceOf: Questionnaire
 Usage: #definition
 Title: "Eligibility checklist, Uganda"
 Description: "The inclusion and exclusion criteria as the site records them. The outcome is not an item: the rules in force compute it from the answers."
-* insert HRForm(hr-eligibility-ug, HREligibilityUG, Eligibility checklist\, Uganda, HRExtractEligibility)
+* insert HRForm(hr-eligibility-ug, HREligibilityUG, Eligibility checklist\, Uganda, HRExtractEligibility, HR-UG, Healthy Route Uganda)
 
 * item[+].linkId = "inclusions"
 * item[=].text = "Inclusions"
@@ -166,7 +166,7 @@ InstanceOf: Questionnaire
 Usage: #definition
 Title: "Measure: history, Uganda"
 Description: "Conditions and exposures, as the participant reports them."
-* insert HRForm(hr-history-ug, HRHistoryUG, Measure: history\, Uganda, HRExtractHistory)
+* insert HRForm(hr-history-ug, HRHistoryUG, Measure: history\, Uganda, HRExtractHistory, HR-UG, Healthy Route Uganda)
 
 * item[+].linkId = "history-dm"
 * item[=].code = HRMeasurementCS#history-dm
@@ -219,7 +219,7 @@ InstanceOf: Questionnaire
 Usage: #definition
 Title: "Measure: medications, Uganda"
 Description: "Every medicine taken now, including traditional or over-the-counter medicines. Recorded at the clinician's discretion."
-* insert HRForm(hr-medications-ug, HRMedicationsUG, Measure: medications\, Uganda, HRExtractMedications)
+* insert HRForm(hr-medications-ug, HRMedicationsUG, Measure: medications\, Uganda, HRExtractMedications, HR-UG, Healthy Route Uganda)
 
 * item[+].linkId = "medications-current"
 * item[=].text = "Currently taking any medication"
@@ -267,7 +267,7 @@ InstanceOf: Questionnaire
 Usage: #definition
 Title: "Measure: diet and activity, Uganda"
 Description: "Dietary habits and physical activity in a usual week. Recorded at the clinician's discretion. Whether fruit and vegetables are both eaten five days or more, the weekly minutes of activity and whether they meet the WHO recommendation are calculated on the form and cannot be typed."
-* insert HRForm(hr-diet-activity-ug, HRDietActivityUG, Measure: diet and activity\, Uganda, HRExtractDietActivity)
+* insert HRForm(hr-diet-activity-ug, HRDietActivityUG, Measure: diet and activity\, Uganda, HRExtractDietActivity, HR-UG, Healthy Route Uganda)
 
 * item[+].linkId = "fruit-days"
 * item[=].code = HRMeasurementCS#fruit-days
@@ -336,7 +336,7 @@ InstanceOf: Questionnaire
 Usage: #definition
 Title: "Measure: vitals, Uganda"
 Description: "Anthropometry and three timed blood pressure readings around the retinal capture. Body mass index, the waist-to-hip ratio and the mean of readings two and three, which the Uganda protocol takes as the true blood pressure, are calculated on the form and cannot be typed. Whether the readings fit the protocol's sequence is the rule set's."
-* insert HRForm(hr-vitals-ug, HRVitalsUG, Measure: vitals\, Uganda, HRExtractVitals)
+* insert HRForm(hr-vitals-ug, HRVitalsUG, Measure: vitals\, Uganda, HRExtractVitals, HR-UG, Healthy Route Uganda)
 
 * item[+].linkId = "8302-2"
 * item[=].code = $loinc#8302-2 "Body height"
@@ -491,7 +491,7 @@ InstanceOf: Questionnaire
 Usage: #definition
 Title: "Laboratory results, Uganda"
 Description: "The results as the laboratory reported them, in the unit it reported. The eGFR is calculated on the form by CKD-EPI 2021 from the creatinine, shown with the creatinine in mg/dL and the age and sex it used, and none of them can be typed. The age and sex come from the participant's record when the form opens."
-* insert HRForm(hr-laboratory-ug, HRLaboratoryUG, Laboratory results\, Uganda, HRExtractLaboratory)
+* insert HRForm(hr-laboratory-ug, HRLaboratoryUG, Laboratory results\, Uganda, HRExtractLaboratory, HR-UG, Healthy Route Uganda)
 * insert LaunchContext(patient, Patient, Patient, The participant: the eGFR takes their sex and date of birth.)
 * insert LaunchContext(encounter, Encounter, Encounter, The visit: the age the eGFR uses is the age on the day it started.)
 
@@ -605,7 +605,7 @@ InstanceOf: Questionnaire
 Usage: #definition
 Title: "Imaging, Uganda"
 Description: "The pack both eyes were written to, and the four answers about it, given against what is in the device's cloud storage. The investigator's confirmation is not an item."
-* insert HRForm(hr-imaging-ug, HRImagingUG, Imaging\, Uganda, HRExtractImaging)
+* insert HRForm(hr-imaging-ug, HRImagingUG, Imaging\, Uganda, HRExtractImaging, HR-UG, Healthy Route Uganda)
 
 * item[+].linkId = "pack-id"
 * item[=].text = "Optomed pack ID"

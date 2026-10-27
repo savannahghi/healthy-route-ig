@@ -4,6 +4,16 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- The Ghana eligibility checklist, `hr-eligibility-gh`, tagged for the study
+  `HR-GH`. It asks Uganda's questions under Uganda's keys, and one more: the
+  Ghana protocol (v0.3) ends the screening on a negative dipstick unless the
+  participant has an established CKD diagnosis, so `established-ckd` is asked
+  when the dipstick is negative. The code joins `hr-measurement`, and the
+  eligibility map extracts it when a form asks it, so one map serves both
+  countries.
+
 ### Changed
 
 - The vitals, diet and activity, and laboratory maps write the values their

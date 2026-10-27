@@ -14,6 +14,14 @@ was approved with, so forms, maps and terminology move together. The study servi
 the screen, stores the response, asks its FHIR store to run the map, and
 commits what comes back in one transaction.
 
+Each form is tagged with the identifier of the study it belongs to, `HR-UG`
+for Uganda and `HR-GH` for Ghana, and the study service lists a study's forms
+by that tag. Where the two protocols ask the same question the forms use the
+same key, so one map serves both countries. Ghana's eligibility checklist asks
+one question Uganda's does not: the Ghana protocol makes a negative dipstick
+end the screening unless the participant has an established CKD diagnosis, so
+`established-ckd` is asked when the dipstick is negative.
+
 ### Keys are codes
 
 Every leaf item's `linkId` is the code its answer becomes: a LOINC code where
@@ -115,7 +123,7 @@ commits, by the response's tag.
 
 | Form | Becomes |
 |---|---|
-| Eligibility | An Observation per criterion; the documented eGFR dated by the day it was documented; the dipstick under `20454-5`. The outcome and the cohort are the rule set's. |
+| Eligibility | An Observation per criterion; the documented eGFR dated by the day it was documented; the dipstick under `20454-5`; the established CKD diagnosis where it was asked. The outcome and the cohort are the rule set's. |
 | History | An Observation per answer, category survey; alcohol and smoking also social history. A Yes to diabetes, hypertension or CKD is also an [HRCondition](StructureDefinition-hr-condition.html), unconfirmed, with the answer as its evidence. |
 | Medications | No current medication is one Observation. Each medicine is an [HRMedicationStatement](StructureDefinition-hr-medication-statement.html) against the catalogue code, with route and frequency on the study's scales; strength and form as notes. |
 | Diet and activity | An Observation per typed answer, category survey. The calculated items are not extracted yet. |

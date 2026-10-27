@@ -77,6 +77,10 @@ resources:
     name: "Example response: eligibility"
     description: "Every inclusion met, a documented eGFR inside the window, no exclusion."
     exampleBoolean: true
+  QuestionnaireResponse/qr-eligibility-gh-0001:
+    name: "Example response: eligibility, Ghana"
+    description: "A negative dipstick, admitted by an established CKD diagnosis; no exclusion."
+    exampleBoolean: true
 
 # The maps are compiled from input/maps by the publisher; their names and
 # descriptions live here because the mapping language carries neither.
