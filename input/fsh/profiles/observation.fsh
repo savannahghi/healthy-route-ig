@@ -42,6 +42,19 @@ Description: "Any measurement taken from a participant during the screening visi
 
 * category 1..* MS
 * category ^requirements = "Separates the laboratory results from the vital signs and the questionnaire responses without a consumer having to recognise every LOINC code in use. A consumer that cannot tell a creatinine from a body weight without a code table cannot build a sensible view of a participant."
+* category ^slicing.discriminator[0].type = #value
+* category ^slicing.discriminator[0].path = "coding.system"
+* category ^slicing.rules = #open
+* category ^slicing.description = "Sliced by coding system, so a derived value carries the study's derived category beside its FHIR one."
+* category contains derived 0..1 MS
+* category[derived] ^short = "Present when the value was worked out rather than measured or asked"
+* category[derived] ^comment = "A value calculated on the form, such as the BMI or the eGFR, or worked out by the study's rules at sign-off, such as a hypertension flag. A value worked out only as a step towards another does not carry it: the converted creatinine and the age and sex the eGFR uses are inputs to the eGFR, not results."
+* category[derived] ^requirements = "Lets a reader ask for the derived values alone with one search on category. FHIR's categories have no code for it."
+* category[derived].coding 1..1 MS
+* category[derived].coding.system 1..1 MS
+* category[derived].coding.system = $hr-observation-category
+* category[derived].coding.code 1..1 MS
+* category[derived].coding.code = #derived
 
 * code 1..1 MS
 * code ^short = "What was measured"
@@ -116,6 +129,14 @@ Description: "One blood pressure reading, or the mean of several."
 
 * encounter 1..1 MS
 * encounter only Reference(HREncounter)
+
+* category contains derived 0..1 MS
+* category[derived] ^short = "Present on the mean, absent on the readings"
+* category[derived].coding 1..1 MS
+* category[derived].coding.system 1..1 MS
+* category[derived].coding.system = $hr-observation-category
+* category[derived].coding.code 1..1 MS
+* category[derived].coding.code = #derived
 
 // The bp profile slices code.coding and the component codes, and each slice has
 // a minimum of one while the sliced element itself has a minimum of zero. A

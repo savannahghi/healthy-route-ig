@@ -103,6 +103,7 @@ Description: "The value carried forward to analysis, with derivedFrom naming the
 * extension[tenant].valueIdentifier.value = "site-a"
 * status = #final
 * category[VSCat] = $obs-category#vital-signs
+* category[derived] = $hr-observation-category#derived
 * code = $loinc#85354-9 "Blood pressure panel with all children optional"
 * subject = Reference(ExampleParticipant)
 * encounter = Reference(ExampleScreeningVisit)
@@ -209,6 +210,7 @@ Description: "A calculated value, not a measured one. derivedFrom names the crea
 * extension[tenant].valueIdentifier.value = "site-a"
 * status = #final
 * category[0] = $obs-category#laboratory
+* category[derived] = $hr-observation-category#derived
 * code = $loinc#98979-8 "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI 2021)/1.73 sq M"
 * subject = Reference(ExampleParticipant)
 * encounter = Reference(ExampleScreeningVisit)

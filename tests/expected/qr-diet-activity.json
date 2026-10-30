@@ -178,6 +178,15 @@
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category"
               }
             ]
+          },
+          {
+            "coding": [
+              {
+                "code": "derived",
+                "display": "Derived",
+                "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category"
+              }
+            ]
           }
         ],
         "code": {
@@ -270,6 +279,15 @@
                 "code": "survey",
                 "display": "Survey",
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "code": "derived",
+                "display": "Derived",
+                "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category"
               }
             ]
           }
@@ -437,6 +455,15 @@
                 "code": "survey",
                 "display": "Survey",
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "code": "derived",
+                "display": "Derived",
+                "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category"
               }
             ]
           }
