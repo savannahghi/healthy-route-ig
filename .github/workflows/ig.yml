@@ -118,7 +118,7 @@ jobs:
       matrix:
         # Another store is one more name here, and a GitHub environment of the
         # same name holding its four secrets.
-        environment: [testing]
+        environment: [testing, staging, prod]
     environment:
       name: ${{ matrix.environment }}
     steps:
