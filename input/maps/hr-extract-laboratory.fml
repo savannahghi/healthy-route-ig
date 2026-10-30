@@ -300,6 +300,7 @@ group HRExtractLaboratory(source qr : QR, target bundle : Bundle) {
     qr.item as it where (linkId = '98979-8') then {
       it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
         qr -> obs then Result(qr, it, obs, e) "base";
+        qr -> obs then Derived(qr, obs) "derivedCategory";
         qr -> obs.specimen = create('Reference') as r, r.reference = append('Specimen/', qid, '-specimen-blood') "specimen";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
@@ -320,6 +321,17 @@ group HRExtractLaboratory(source qr : QR, target bundle : Bundle) {
       } "obs";
     } "egfr";
   } "response";
+}
+
+// The category a value worked out on this form carries beside its FHIR one.
+group Derived(source qr : QR, target obs : Observation) {
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category' "derivedSystem";
+      qr -> cd.code = 'derived' "derivedCode";
+      qr -> cd.display = 'Derived' "derivedDisplay";
+    } "derivedCoding";
+  } "category";
 }
 
 // What both specimens share: the response's identity and the sample time.

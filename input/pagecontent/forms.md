@@ -93,6 +93,16 @@ their own. The derived laboratory values are the study's calculation rather
 than the laboratory's, so the DiagnosticReport lists only what the laboratory
 returned.
 
+The values a reader looks at also carry a second category, `derived` from
+[the study's observation categories](CodeSystem-hr-observation-category.html),
+beside their FHIR one: the BMI, the waist-to-hip ratio, the mean blood
+pressure, the fruit and vegetable, weekly activity and WHO activity values,
+and the eGFR. FHIR's categories have no code for a value that was worked out
+rather than measured or asked, so this is how a reader asks for the derived
+values alone, with one search on `category`. The converted creatinine and the
+age and sex the eGFR uses are steps towards the eGFR, not results, and do not
+carry it.
+
 A value that needs answers from more than one form is not on any form. The
 hypertension flag reads the readings and the treatment, the diabetes flag the
 HbA1c and the history, and the CKD flag the laboratory eGFR; the rule set
@@ -126,9 +136,9 @@ commits, by the response's tag.
 | Eligibility | An Observation per criterion; the documented eGFR dated by the day it was documented; the dipstick under `20454-5`; the established CKD diagnosis where it was asked. The outcome and the cohort are the rule set's. |
 | History | An Observation per answer, category survey; alcohol and smoking also social history. A Yes to diabetes, hypertension or CKD is also an [HRCondition](StructureDefinition-hr-condition.html), unconfirmed, with the answer as its evidence. |
 | Medications | No current medication is one Observation. Each medicine is an [HRMedicationStatement](StructureDefinition-hr-medication-statement.html) against the catalogue code, with route and frequency on the study's scales; strength and form as notes. |
-| Diet and activity | An Observation per typed answer, category survey. The calculated items are not extracted yet. |
-| Vitals | Height, weight, waist and hip as quantities. Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. The calculated items are not extracted yet. |
-| Laboratory | Two [HRSpecimen](StructureDefinition-hr-specimen.html) resources dated by the sample item; an Observation per result in the reported unit, with the LOINC code chosen by the unit; an [HRDiagnosticReport](StructureDefinition-hr-diagnostic-report.html) gathering them. The calculated items are not extracted yet. |
+| Diet and activity | An Observation per typed answer, category survey, and one per calculated item, also derived. |
+| Vitals | Height, weight, waist and hip as quantities. Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. The BMI, the waist-to-hip ratio and the mean blood pressure, each also derived. |
+| Laboratory | Two [HRSpecimen](StructureDefinition-hr-specimen.html) resources dated by the sample item; an Observation per result in the reported unit, with the LOINC code chosen by the unit; an [HRDiagnosticReport](StructureDefinition-hr-diagnostic-report.html) gathering them. The converted creatinine, the age and sex the eGFR uses, and the eGFR, which alone is also derived. |
 | Imaging | One [HRImagingStudy](StructureDefinition-hr-imaging-study.html) for the pack, a series per eye answered Yes, the reason as a note; the four answers as Observations, category imaging. |
 
 ### The maps are tested, not trusted

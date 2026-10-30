@@ -102,6 +102,15 @@
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category"
               }
             ]
+          },
+          {
+            "coding": [
+              {
+                "code": "derived",
+                "display": "Derived",
+                "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category"
+              }
+            ]
           }
         ],
         "code": {
@@ -366,6 +375,15 @@
                 "code": "vital-signs",
                 "display": "Vital Signs",
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "code": "derived",
+                "display": "Derived",
+                "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category"
               }
             ]
           }
@@ -1080,6 +1098,15 @@
                 "code": "vital-signs",
                 "display": "Vital Signs",
                 "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "code": "derived",
+                "display": "Derived",
+                "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category"
               }
             ]
           }

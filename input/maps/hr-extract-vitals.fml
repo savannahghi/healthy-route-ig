@@ -216,6 +216,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
         qr -> obs then Shared(qr, it, obs, e) "base";
         qr -> obs then VitalSign(qr, obs) "vitalSign";
+        qr -> obs then Derived(qr, obs) "derivedCategory";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
             qr -> cd.system = 'http://loinc.org' "codeSystem";
@@ -239,6 +240,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
         qr -> obs then Shared(qr, it, obs, e) "base";
         qr -> obs then VitalSign(qr, obs) "vitalSign";
+        qr -> obs then Derived(qr, obs) "derivedCategory";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
             qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
@@ -260,6 +262,7 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
 
     qr.item as g where (linkId = 'bp-mean') -> bundle.entry as e, e.resource = create('Observation') as obs then {
       qr -> obs then Reading(qr, g, obs, e) "reading";
+      qr -> obs then Derived(qr, obs) "derivedCategory";
       g.item as si where (linkId = 'bp-mean.8480-6') then {
         si.answer first as sa then { sa.value as sv -> obs then Systolic(qr, sv, obs) "systolic"; } "answer";
       } "systolicItem";
@@ -287,6 +290,17 @@ group VitalSign(source qr : QR, target obs : Observation) {
       qr -> cd.code = 'vital-signs' "categoryCode";
       qr -> cd.display = 'Vital Signs' "categoryDisplay";
     } "categoryCoding";
+  } "category";
+}
+
+// The category a value worked out on this form carries beside its FHIR one.
+group Derived(source qr : QR, target obs : Observation) {
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category' "derivedSystem";
+      qr -> cd.code = 'derived' "derivedCode";
+      qr -> cd.display = 'Derived' "derivedDisplay";
+    } "derivedCoding";
   } "category";
 }
 

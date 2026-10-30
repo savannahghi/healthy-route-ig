@@ -129,6 +129,7 @@ group HRExtractDietActivity(source qr : QR, target bundle : Bundle) {
     qr.item as it where (linkId = 'fruit-veg-5plus') then {
       it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
         qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs then Derived(qr, obs) "derivedCategory";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
             qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
@@ -145,6 +146,7 @@ group HRExtractDietActivity(source qr : QR, target bundle : Bundle) {
     qr.item as it where (linkId = 'activity-weekly-minutes') then {
       it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
         qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs then Derived(qr, obs) "derivedCategory";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
             qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
@@ -166,6 +168,7 @@ group HRExtractDietActivity(source qr : QR, target bundle : Bundle) {
     qr.item as it where (linkId = 'activity-who-met') then {
       it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
         qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+        qr -> obs then Derived(qr, obs) "derivedCategory";
         qr -> obs.code = create('CodeableConcept') as cv then {
           qr -> cv.coding = create('Coding') as cd then {
             qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
@@ -178,6 +181,17 @@ group HRExtractDietActivity(source qr : QR, target bundle : Bundle) {
       } "obs";
     } "whoMet";
   } "derived";
+}
+
+// The category a value worked out on this form carries beside its FHIR one.
+group Derived(source qr : QR, target obs : Observation) {
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-observation-category' "derivedSystem";
+      qr -> cd.code = 'derived' "derivedCode";
+      qr -> cd.display = 'Derived' "derivedDisplay";
+    } "derivedCoding";
+  } "category";
 }
 
 group SurveyObservation(source qr : QR, source it, target obs : Observation, target e) {
