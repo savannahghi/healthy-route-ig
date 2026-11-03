@@ -125,7 +125,6 @@ Description: "The inclusion and exclusion criteria as the site records them. The
 * item[=].item[=].code = $loinc#20454-5 "Protein [Presence] in Urine by Test strip"
 * item[=].item[=].text = "Urine dipstick protein"
 * item[=].item[=].type = #coding
-* item[=].item[=].required = true
 * item[=].item[=].answerValueSet = Canonical(HRDipstickProteinVS)
 
 * item[+].linkId = "exclusions"

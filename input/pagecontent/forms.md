@@ -20,7 +20,9 @@ by that tag. Where the two protocols ask the same question the forms use the
 same key, so one map serves both countries. Ghana's eligibility checklist asks
 one question Uganda's does not: the Ghana protocol makes a negative dipstick
 end the screening unless the participant has an established CKD diagnosis, so
-`established-ckd` is asked when the dipstick is negative.
+`established-ckd` is asked when the dipstick is negative. Uganda's checklist
+does not require the dipstick: the Uganda protocol records it and lets it
+decide nothing, so a site that has not done one can still finish the checklist.
 
 ### Keys are codes
 
