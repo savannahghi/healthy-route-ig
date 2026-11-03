@@ -19,7 +19,9 @@
 //
 // A form is tagged with the identifier of the study it belongs to. The study
 // service lists a study's forms by that tag, so these are found by the Uganda
-// study once it is created with the identifier HR-UG.
+// study once it is created with the identifier HR-UG. A form the protocol leaves
+// to the clinician's discretion is also tagged optional at sign-off, so a visit
+// can be signed without it.
 //
 // A value worked out from answers on the same form is an item on that form,
 // read-only, with the formula as an SDC calculated expression: body mass index,
@@ -219,6 +221,7 @@ Usage: #definition
 Title: "Measure: medications, Uganda"
 Description: "Every medicine taken now, including traditional or over-the-counter medicines. Recorded at the clinician's discretion."
 * insert HRForm(hr-medications-ug, HRMedicationsUG, Measure: medications\, Uganda, HRExtractMedications, HR-UG, Healthy Route Uganda)
+* meta.tag[+] = HRSignoffCS#optional "Optional at sign-off"
 
 * item[+].linkId = "medications-current"
 * item[=].text = "Currently taking any medication"
@@ -267,6 +270,7 @@ Usage: #definition
 Title: "Measure: diet and activity, Uganda"
 Description: "Dietary habits and physical activity in a usual week. Recorded at the clinician's discretion. Whether fruit and vegetables are both eaten five days or more, the weekly minutes of activity and whether they meet the WHO recommendation are calculated on the form and cannot be typed."
 * insert HRForm(hr-diet-activity-ug, HRDietActivityUG, Measure: diet and activity\, Uganda, HRExtractDietActivity, HR-UG, Healthy Route Uganda)
+* meta.tag[+] = HRSignoffCS#optional "Optional at sign-off"
 
 * item[+].linkId = "fruit-days"
 * item[=].code = HRMeasurementCS#fruit-days

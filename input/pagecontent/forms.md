@@ -24,6 +24,13 @@ end the screening unless the participant has an established CKD diagnosis, so
 does not require the dipstick: the Uganda protocol records it and lets it
 decide nothing, so a site that has not done one can still finish the checklist.
 
+The investigator signs a visit once its forms are saved. A form the protocol
+leaves to the clinician's discretion is tagged `optional` from the
+[sign-off code system](CodeSystem-hr-signoff.html), and the study service signs
+a visit without it; when it was saved, it is signed with the rest. In Uganda
+the medications form and the diet and activity form are optional. Neither
+feeds the flags the rule set works out at sign-off.
+
 ### Keys are codes
 
 Every leaf item's `linkId` is the code its answer becomes: a LOINC code where
