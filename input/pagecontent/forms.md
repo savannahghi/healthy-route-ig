@@ -3,9 +3,12 @@ what each answer becomes on the store.
 
 ### One Questionnaire per form, one map per Questionnaire
 
-The site records the visit on seven forms: the eligibility checklist, the
+A Uganda site records the visit on seven forms: the eligibility checklist, the
 interview (history), the medicines, diet and activity, the anthropometry and
-blood pressure readings (vitals), the laboratory results and the imaging. Each
+blood pressure readings (vitals), the laboratory results and the imaging. A
+Ghana site also uses seven: the same ones without diet and activity, and with a
+socio-demographics form, following the data collection tool in Appendix B of
+the Ghana protocol, version 6.0. Each
 is a Questionnaire in this guide (listed on the [artifacts page](artifacts.html)),
 carrying the guide's version like everything else in a release, and each names
 the StructureMap that turns a response to it
@@ -24,12 +27,26 @@ end the screening unless the participant has an established CKD diagnosis, so
 does not require the dipstick: the Uganda protocol records it and lets it
 decide nothing, so a site that has not done one can still finish the checklist.
 
+Ghana's other forms ask what Appendix B asks and no more. Its socio-demographics
+form asks the clinic, the ethnicity and the type of domicile; the tool's Study
+ID, hospital number, date of birth, sex and contact are taken when the
+participant is registered, and the address is left with the participant's
+details rather than the study data. Its vitals form asks the three timed
+readings only, and its laboratory form the creatinine, HbA1c and uACR. The
+Ghana protocol takes the average of all three readings where Uganda's takes
+readings two and three, so Ghana's mean has its own key, `bp-mean-all`. The
+time of retinal capture is asked once in Ghana, on the imaging form: a question
+asked on two forms can be answered two ways, and the study service refuses to
+sign a visit whose forms disagree.
+
 The investigator signs a visit once its forms are saved. A form the protocol
 leaves to the clinician's discretion is tagged `optional` from the
 [sign-off code system](CodeSystem-hr-signoff.html), and the study service signs
 a visit without it; when it was saved, it is signed with the rest. In Uganda
 the medications form and the diet and activity form are optional. Neither
-feeds the flags the rule set works out at sign-off.
+feeds the flags the rule set works out at sign-off. No Ghana form is optional:
+the tool asks every item, and the Ghana protocol counts treatment towards
+hypertension, so the medication list is needed.
 
 ### Keys are codes
 
@@ -75,6 +92,7 @@ that gave its value.
 | Vitals | Body mass index, `39156-5`, kg/m2 | weight over height in metres squared, one decimal |
 | Vitals | Waist-to-hip ratio, `waist-hip-ratio` | waist over hip, two decimals |
 | Vitals | Mean blood pressure, `bp-mean.8480-6` and `bp-mean.8462-4`, mm[Hg] | the mean of readings two and three, which the Uganda protocol takes as the true blood pressure, whole mm[Hg] |
+| Vitals, Ghana | Mean blood pressure, `bp-mean-all.8480-6` and `bp-mean-all.8462-4`, mm[Hg] | the mean of all three readings, as the Ghana protocol records it, whole mm[Hg] |
 | Diet and activity | `fruit-veg-5plus` | fruit days and vegetable days both five or more |
 | Diet and activity | `activity-weekly-minutes` | active days times minutes on those days |
 | Diet and activity | `activity-who-met` | the weekly minutes at 150 or more, the WHO recommendation |
@@ -95,8 +113,8 @@ Each calculated item becomes an Observation when the response is extracted,
 under the item's code like any answer, with `derivedFrom` naming the
 Observations it was calculated from, so the calculation can be checked rather
 than trusted. The mean blood pressure is a blood pressure Observation like the
-readings, with no reading number, timed at reading three, and both readings
-in `derivedFrom`. The eGFR names the
+readings, with no reading number, timed at reading three, and the readings it
+averages in `derivedFrom`. The eGFR names the
 converted creatinine and the age and sex it used, which are Observations of
 their own. The derived laboratory values are the study's calculation rather
 than the laboratory's, so the DiagnosticReport lists only what the laboratory
@@ -143,12 +161,13 @@ commits, by the response's tag.
 | Form | Becomes |
 |---|---|
 | Eligibility | An Observation per criterion; the documented eGFR dated by the day it was documented; the dipstick under `20454-5`; the established CKD diagnosis where it was asked. The outcome and the cohort are the rule set's. |
+| Socio-demographics | An Observation per answer, category survey. An ethnicity answered other keeps the group the participant named as the value's text. |
 | History | An Observation per answer, category survey; alcohol and smoking also social history. A Yes to diabetes, hypertension or CKD is also an [HRCondition](StructureDefinition-hr-condition.html), unconfirmed, with the answer as its evidence. |
 | Medications | No current medication is one Observation. Each medicine is an [HRMedicationStatement](StructureDefinition-hr-medication-statement.html) against the catalogue code, with route and frequency on the study's scales; strength and form as notes. |
 | Diet and activity | An Observation per typed answer, category survey, and one per calculated item, also derived. |
-| Vitals | Height, weight, waist and hip as quantities. Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. The BMI, the waist-to-hip ratio and the mean blood pressure, each also derived. |
+| Vitals | Height, weight, waist and hip as quantities. Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. The BMI, the waist-to-hip ratio and the mean blood pressure, each also derived. Ghana's form gives the three readings and their mean only. |
 | Laboratory | Two [HRSpecimen](StructureDefinition-hr-specimen.html) resources dated by the sample item; an Observation per result in the reported unit, with the LOINC code chosen by the unit; an [HRDiagnosticReport](StructureDefinition-hr-diagnostic-report.html) gathering them. The converted creatinine, the age and sex the eGFR uses, and the eGFR, which alone is also derived. |
-| Imaging | One [HRImagingStudy](StructureDefinition-hr-imaging-study.html) for the pack, a series per eye answered Yes, the reason as a note; the four answers as Observations, category imaging. |
+| Imaging | One [HRImagingStudy](StructureDefinition-hr-imaging-study.html) for the pack, started at the time of retinal capture, a series per eye answered Yes, the reason as a note; the answers as Observations, category imaging. Ghana does not ask about dilation. |
 
 ### The maps are tested, not trusted
 

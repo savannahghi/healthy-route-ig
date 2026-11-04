@@ -1,0 +1,92 @@
+// The socio-demographics form: the clinic, the ethnicity and the type of
+// domicile kept as Observations under their item codes. An ethnicity answered
+// other carries the group the participant named as the concept's text. Every
+// resource takes the response's tags and tenant, its subject and encounter,
+// and an id derived from the response id and the item's linkId, so that saving
+// the same response again replaces what the first save wrote.
+
+map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractDemographics" = "HRExtractDemographics"
+
+uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QR as source
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" alias Bundle as target
+uses "http://hl7.org/fhir/StructureDefinition/Observation" alias Observation as target
+
+group HRExtractDemographics(source qr : QR, target bundle : Bundle) {
+  qr -> bundle.type = 'transaction' "type";
+
+  qr.item as it where (linkId = 'recruitment-clinic') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'recruitment-clinic' "codeCode";
+          qr -> cd.display = 'Clinic' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
+    } "obs";
+  } "clinic";
+
+  qr.item as it where (linkId = 'ethnicity') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'ethnicity' "codeCode";
+          qr -> cd.display = 'Ethnicity' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = create('CodeableConcept') as concept then {
+        v -> concept.coding = v "coding";
+        qr.item as oi where (linkId = 'ethnicity.other') then {
+          oi.answer first as oa then { oa.value as ov -> concept.text = ov "text"; } "answer";
+        } "other";
+      } "value";
+    } "obs";
+  } "ethnicity";
+
+  qr.item as it where (linkId = 'domicile') then {
+    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
+      qr -> obs.code = create('CodeableConcept') as cv then {
+        qr -> cv.coding = create('Coding') as cd then {
+          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
+          qr -> cd.code = 'domicile' "codeCode";
+          qr -> cd.display = 'Type of domicile' "codeDisplay";
+        } "codeCoding";
+      } "code";
+      a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
+    } "obs";
+  } "domicile";
+}
+
+// What every answer-as-Observation shares, as on the history form.
+group SurveyObservation(source qr : QR, source it, target obs : Observation, target e) {
+  qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
+    it.linkId as k -> append(qid, '-', k) as idText, obs.id = cast(idText, 'id') "id";
+    it.linkId as k -> e.fullUrl = append('Observation/', qid, '-', k) "fullUrl";
+    it.linkId as k -> e.request as rq then {
+      qr -> rq.method = 'PUT' "method";
+      qr -> rq.url = append('Observation/', qid, '-', k) "url";
+    } "request";
+  } "ids";
+  qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
+  qr.meta as qm then {
+    qm.tag as t -> obs.meta as m, m.tag = t "tag";
+  } "tags";
+  qr.extension as x where (url = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant') -> obs.extension = x "tenant";
+  qr -> obs.status = 'final' "status";
+  qr -> obs.category = create('CodeableConcept') as cv then {
+    qr -> cv.coding = create('Coding') as cd then {
+      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "surveySystem";
+      qr -> cd.code = 'survey' "surveyCode";
+      qr -> cd.display = 'Survey' "surveyDisplay";
+    } "surveyCoding";
+  } "survey";
+  qr.subject as s -> obs.subject = s "subject";
+  qr.encounter as en -> obs.encounter = en "encounter";
+  qr.authored as t -> obs.effective = t "effective";
+  qr.author as au -> obs.performer = au "performer";
+}

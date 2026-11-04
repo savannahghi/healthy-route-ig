@@ -1,0 +1,92 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "qr-medications-gh-0001",
+  "meta": {
+    "tag": [
+      {
+        "system": "https://fhir.optimalhealth.org/tag/study",
+        "code": "0192f7a0-0000-7000-8000-00000000c001"
+      },
+      {
+        "system": "https://fhir.optimalhealth.org/tag/site",
+        "code": "0192f7a0-0000-7000-8000-00000000e001"
+      },
+      {
+        "system": "https://fhir.optimalhealth.org/tag/participant",
+        "code": "0192f7a0-0000-7000-8000-000000001001"
+      },
+      {
+        "system": "https://fhir.optimalhealth.org/tag/visit",
+        "code": "0192f7b1-0000-7000-8000-000000000a01"
+      }
+    ]
+  },
+  "extension": [
+    {
+      "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+      "valueIdentifier": {
+        "system": "https://example.org/sid/tenant",
+        "value": "site-a"
+      }
+    }
+  ],
+  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-medications-gh|0.1.0",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/ExampleParticipant",
+    "type": "Patient"
+  },
+  "encounter": {
+    "reference": "Encounter/ExampleScreeningVisit",
+    "type": "Encounter"
+  },
+  "authored": "2026-10-02T08:50:00+03:00",
+  "author": {
+    "reference": "Practitioner/ExampleStudyNurse",
+    "type": "Practitioner",
+    "display": "Example study nurse"
+  },
+  "item": [
+    {
+      "linkId": "medications-current",
+      "answer": [
+        {
+          "valueBoolean": true
+        }
+      ]
+    },
+    {
+      "linkId": "medicine",
+      "item": [
+        {
+          "linkId": "medicine.code",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "https://fhir.optimalhealth.org/CodeSystem/hr-medicine",
+                "code": "GE-10210",
+                "display": "Amlodipine 5mg tablet"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "medicine.strength",
+          "answer": [
+            {
+              "valueString": "10 mg"
+            }
+          ]
+        },
+        {
+          "linkId": "medicine.reason",
+          "answer": [
+            {
+              "valueString": "High blood pressure"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

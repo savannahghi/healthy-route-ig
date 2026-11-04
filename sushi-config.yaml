@@ -81,12 +81,39 @@ resources:
     name: "Example response: eligibility, Ghana"
     description: "A negative dipstick, admitted by an established CKD diagnosis; no exclusion."
     exampleBoolean: true
+  QuestionnaireResponse/qr-demographics-gh-0001:
+    name: "Example response: socio-demographics, Ghana"
+    description: "Recruited at the renal clinic; an ethnicity the list does not name, given as text."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-history-gh-0001:
+    name: "Example response: history, Ghana"
+    description: "Hypertension and CKD reported; a past drinker who has never smoked."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-medications-gh-0001:
+    name: "Example response: medications, Ghana"
+    description: "One medicine from the catalogue, with its strength and what it is taken for."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-vitals-gh-0001:
+    name: "Example response: vitals, Ghana"
+    description: "Three timed readings around the retinal capture and their average."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-laboratory-gh-0001:
+    name: "Example response: laboratory results, Ghana"
+    description: "Creatinine in umol/L and uACR in mg/mmol, sampled after the last blood pressure reading."
+    exampleBoolean: true
+  QuestionnaireResponse/qr-imaging-gh-0001:
+    name: "Example response: imaging, Ghana"
+    description: "Both eyes captured and synced."
+    exampleBoolean: true
 
 # The maps are compiled from input/maps by the publisher; their names and
 # descriptions live here because the mapping language carries neither.
   StructureMap/HRExtractEligibility:
     name: "Extract the eligibility checklist"
     description: "Every criterion as an Observation under its item code; the documented eGFR dated by the day it was documented."
+  StructureMap/HRExtractDemographics:
+    name: "Extract the socio-demographics form"
+    description: "The clinic, the ethnicity and the type of domicile as Observations; an ethnicity answered other keeps the named group as text."
   StructureMap/HRExtractHistory:
     name: "Extract the history form"
     description: "An Observation per answer, and a Condition for each of diabetes, hypertension and chronic kidney disease answered Yes."
@@ -98,7 +125,7 @@ resources:
     description: "An Observation per answer; the derived values are the rule set's."
   StructureMap/HRExtractVitals:
     name: "Extract the vitals form"
-    description: "Four measurements as quantities, three timed blood pressure readings with their number, position and monitor, and the time of retinal capture."
+    description: "Four measurements as quantities, three timed blood pressure readings with their number, position and monitor, the time of retinal capture, and the values the form calculates."
   StructureMap/HRExtractLaboratory:
     name: "Extract the laboratory results form"
     description: "Two specimens, an Observation per result in the reported unit with the LOINC code chosen by the unit, and a report gathering them."

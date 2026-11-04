@@ -37,6 +37,11 @@ Description: "Codes for the questions on the visit forms that LOINC does not cov
 * #eligibility-outcome "Eligibility outcome" "The outcome the rules in force computed from the criteria. Derived."
 * #cohort "Cohort" "Case or control, assigned from the documented eGFR. Derived."
 
+// Socio-demographics the participant record does not hold
+* #recruitment-clinic "Clinic" "The clinic the participant was attending when recruited, on the study's clinic list."
+* #ethnicity "Ethnicity" "As the participant reports it, on the country's list. A group the list does not name is answered other, with the group as text."
+* #domicile "Type of domicile" "Urban or rural."
+
 // History, as the participant reports it
 * #history-dm "Diabetes, reported" "The participant reports a diagnosis of diabetes. True or false."
 * #history-htn "Hypertension, reported" "The participant reports a diagnosis of hypertension. True or false."

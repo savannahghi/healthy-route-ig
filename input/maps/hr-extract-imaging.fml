@@ -1,8 +1,9 @@
 
 // One ImagingStudy for the pack, with a series for each eye answered Yes, and
 // the four answers kept as Observations so the screen-failure rule reads them
-// plainly. The time of retinal capture dates the study; the Observation of
-// that time is the vitals form's, which asks the same question.
+// plainly. The time of retinal capture dates the study. In Uganda the vitals
+// form asks it too and writes it as an Observation; Ghana asks it only here,
+// so the study's start is where it is kept. Ghana does not ask about dilation.
 
 map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractImaging" = "HRExtractImaging"
 
