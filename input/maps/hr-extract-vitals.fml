@@ -5,8 +5,10 @@
 // The three values the form calculates, body mass index, the waist-to-hip
 // ratio and the mean of readings 2 and 3, are written too, each naming the
 // Observations it was calculated from. Each reading's time comes from its own
-// item, the mean is timed at the later of the two readings it averages, and
-// everything else is timed at the response.
+// item, the mean is timed at the last reading it averages, and everything else
+// is timed at the response. Ghana's form records the mean of all three readings
+// under its own key, because it is a different calculation, and asks none of
+// the measurements, the monitor or the capture time.
 
 map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractVitals" = "HRExtractVitals"
 
@@ -278,6 +280,26 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-bp-reading-2') "reading2Ref";
       qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-bp-reading-3') "reading3Ref";
     } "mean";
+
+    qr.item as g where (linkId = 'bp-mean-all') -> bundle.entry as e, e.resource = create('Observation') as obs then {
+      qr -> obs then Reading(qr, g, obs, e) "reading";
+      qr -> obs then Derived(qr, obs) "derivedCategory";
+      g.item as si where (linkId = 'bp-mean-all.8480-6') then {
+        si.answer first as sa then { sa.value as sv -> obs then Systolic(qr, sv, obs) "systolic"; } "answer";
+      } "systolicItem";
+      g.item as di where (linkId = 'bp-mean-all.8462-4') then {
+        di.answer first as da then { da.value as dv -> obs then Diastolic(qr, dv, obs) "diastolic"; } "answer";
+      } "diastolicItem";
+      qr.item as r3 where (linkId = 'bp-reading-3') then {
+        r3.item as ti where (linkId = 'bp-reading-3.time') then {
+          ti.answer first as ta then { ta.value as tv -> obs.effective = tv "effective"; } "answer";
+        } "time";
+      } "reading3";
+      qr -> obs.method = create('CodeableConcept') as m, m.text = 'Mean of readings 1, 2 and 3' "method";
+      qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-bp-reading-1') "reading1Ref";
+      qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-bp-reading-2') "reading2Ref";
+      qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-bp-reading-3') "reading3Ref";
+    } "meanAll";
   } "derived";
 }
 

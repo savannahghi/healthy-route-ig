@@ -26,6 +26,69 @@ Description: "Current, past or nil."
 * ^experimental = false
 * include codes from system HRUseStatusCS
 
+CodeSystem: HRClinicCS
+Id: hr-clinic
+Title: "Clinic"
+Description: "The clinics the Ghana protocol recruits from: general out-patient, hypertension, diabetes and renal."
+* ^status = #draft
+* ^experimental = false
+* ^caseSensitive = true
+* ^content = #complete
+* #general-outpatient "General out-patient clinic"
+* #hypertension "Hypertension clinic"
+* #diabetes "Diabetes clinic"
+* #renal "Renal clinic"
+
+ValueSet: HRClinicVS
+Id: hr-clinic-vs
+Title: "Clinic Value Set"
+Description: "The clinics a participant can be recruited from."
+* ^status = #draft
+* ^experimental = false
+* include codes from system HRClinicCS
+
+CodeSystem: HREthnicityGhanaCS
+Id: hr-ethnicity-gh
+Title: "Ethnicity, Ghana"
+Description: "The ethnic groups the Ghana data collection tool lists, and other for a group it does not."
+* ^status = #draft
+* ^experimental = false
+* ^caseSensitive = true
+* ^content = #complete
+* #akan "Akan"
+* #ga "Ga"
+* #ewe "Ewe"
+* #hausa "Hausa"
+* #dagomba "Dagomba"
+* #other "Other" "A group the list does not name, recorded as text beside the code."
+
+ValueSet: HREthnicityGhanaVS
+Id: hr-ethnicity-gh-vs
+Title: "Ethnicity, Ghana Value Set"
+Description: "Akan, Ga, Ewe, Hausa, Dagomba or other."
+* ^status = #draft
+* ^experimental = false
+* include codes from system HREthnicityGhanaCS
+
+CodeSystem: HRDomicileCS
+Id: hr-domicile
+Title: "Type of Domicile"
+Description: "Whether a participant lives in an urban or a rural area."
+* ^status = #draft
+* ^experimental = false
+* ^caseSensitive = true
+* ^content = #complete
+* #urban "Urban"
+* #rural "Rural"
+
+ValueSet: HRDomicileVS
+Id: hr-domicile-vs
+Title: "Type of Domicile Value Set"
+Description: "Urban or rural."
+* ^status = #draft
+* ^experimental = false
+* include codes from system HRDomicileCS
+
 CodeSystem: HRFrequencyScaleCS
 Id: hr-frequency-scale
 Title: "Frequency Scale"

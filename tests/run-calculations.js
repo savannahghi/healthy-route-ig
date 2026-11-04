@@ -183,6 +183,8 @@ const visitOn = start => ({ resourceType: 'Encounter', actualPeriod: { start } }
 const vitalsForm = form('hr-vitals-ug');
 const dietForm = form('hr-diet-activity-ug');
 const labForm = form('hr-laboratory-ug');
+const vitalsGhForm = form('hr-vitals-gh');
+const labGhForm = form('hr-laboratory-gh');
 
 // An example response's calculated answers must be what the form calculates
 // from its typed answers, item for item, and every calculated item must be there.
@@ -198,6 +200,8 @@ const cases = [
   exampleCase('qr-vitals', vitalsForm),
   exampleCase('qr-diet-activity', dietForm),
   exampleCase('qr-laboratory', labForm),
+  exampleCase('qr-vitals-gh', vitalsGhForm),
+  exampleCase('qr-laboratory-gh', labGhForm),
   {
     name: 'happy case: the laboratory example\'s age and sex are what its participant and visit give',
     form: labForm,
@@ -205,8 +209,9 @@ const cases = [
     want: { 'egfr-age': answersOf(example('qr-laboratory').item)['egfr-age'], 'egfr-sex': 'female' },
   },
 
-  // CKD-EPI 2021 vectors, platform scope v3.0, AC-CAP-09 to AC-CAP-13.
-  ...[
+  // CKD-EPI 2021 vectors, platform scope v3.0, AC-CAP-09 to AC-CAP-13, on both
+  // countries' forms.
+  ...[[labForm, 'Uganda'], [labGhForm, 'Ghana']].flatMap(([q, country]) => [
     ['AC-CAP-09 female 60, 1.2 mg/dL', 1.2, 'mg/dL', 60, 'female', 51.8],
     ['AC-CAP-10 male 45, 97 umol/L', 97, 'umol/L', 45, 'male', 84.6],
     ['AC-CAP-11 male 50, 1.42 mg/dL', 1.42, 'mg/dL', 50, 'male', 60.2],
@@ -215,11 +220,11 @@ const cases = [
     ['AC-CAP-13 male 25, 1.1 mg/dL', 1.1, 'mg/dL', 25, 'male', 95.5],
     ['AC-CAP-13 male 52, 1.1 mg/dL', 1.1, 'mg/dL', 52, 'male', 80.8],
   ].map(([label, creatinine, unit, age, sex, egfr]) => ({
-    name: `happy case: eGFR vector ${label} gives ${egfr}`,
-    form: labForm,
+    name: `happy case: eGFR vector ${label} gives ${egfr} on the ${country} form`,
+    form: q,
     qr: laboratory({ creatinine, unit, age, sex }),
     want: { '98979-8': egfr },
-  })),
+  }))),
   {
     name: 'happy case: a creatinine in umol/L is shown in mg/dL as the equation uses it',
     form: labForm,
@@ -291,6 +296,24 @@ const cases = [
     form: vitalsForm,
     qr: vitals({ height: null, weight: 80, waist: 90, hip: null, readings: [[150, 95], [141, 89], null] }),
     want: { '39156-5': null, 'waist-hip-ratio': null, 'bp-mean.8480-6': null, 'bp-mean.8462-4': null },
+  },
+  {
+    name: 'happy case: the Ghana mean is the average of all three readings',
+    form: vitalsGhForm,
+    qr: vitals({ height: null, weight: null, waist: null, hip: null, readings: [[150, 95], [141, 89], [138, 86]] }),
+    want: { 'bp-mean-all.8480-6': 143, 'bp-mean-all.8462-4': 90 },
+  },
+  {
+    name: 'sad case: no first reading gives no Ghana mean',
+    form: vitalsGhForm,
+    qr: vitals({ height: null, weight: null, waist: null, hip: null, readings: [null, [141, 89], [138, 86]] }),
+    want: { 'bp-mean-all.8480-6': null, 'bp-mean-all.8462-4': null },
+  },
+  {
+    name: 'happy case: the Ghana laboratory form takes age and sex from the participant and visit',
+    form: labGhForm,
+    context: { patient: participant, encounter: visitOn('2026-06-01T09:00:00+03:00') },
+    want: { 'egfr-age': 54, 'egfr-sex': 'female' },
   },
   {
     name: 'happy case: fruit and vegetables both five days, activity at the WHO threshold',

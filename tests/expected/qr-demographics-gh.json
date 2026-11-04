@@ -1,0 +1,274 @@
+{
+  "entry": [
+    {
+      "fullUrl": "Observation/qr-demographics-gh-0001-domicile",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-demographics-gh-0001-domicile"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "domicile",
+              "display": "Type of domicile",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T08:40:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-demographics-gh-0001-domicile",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "urban",
+              "display": "Urban",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-domicile"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-demographics-gh-0001-ethnicity",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-demographics-gh-0001-ethnicity"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "ethnicity",
+              "display": "Ethnicity",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T08:40:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-demographics-gh-0001-ethnicity",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "other",
+              "display": "Other",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-ethnicity-gh"
+            }
+          ],
+          "text": "Frafra"
+        }
+      }
+    },
+    {
+      "fullUrl": "Observation/qr-demographics-gh-0001-recruitment-clinic",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qr-demographics-gh-0001-recruitment-clinic"
+      },
+      "resource": {
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "display": "Survey",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "recruitment-clinic",
+              "display": "Clinic",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement"
+            }
+          ]
+        },
+        "effectiveDateTime": "2026-10-02T08:40:00+03:00",
+        "encounter": {
+          "reference": "Encounter/ExampleScreeningVisit",
+          "type": "Encounter"
+        },
+        "extension": [
+          {
+            "url": "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-tenant",
+            "valueIdentifier": {
+              "system": "https://example.org/sid/tenant",
+              "value": "site-a"
+            }
+          }
+        ],
+        "id": "qr-demographics-gh-0001-recruitment-clinic",
+        "meta": {
+          "profile": [
+            "https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation"
+          ],
+          "tag": [
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000c001",
+              "system": "https://fhir.optimalhealth.org/tag/study"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-00000000e001",
+              "system": "https://fhir.optimalhealth.org/tag/site"
+            },
+            {
+              "code": "0192f7a0-0000-7000-8000-000000001001",
+              "system": "https://fhir.optimalhealth.org/tag/participant"
+            },
+            {
+              "code": "0192f7b1-0000-7000-8000-000000000a01",
+              "system": "https://fhir.optimalhealth.org/tag/visit"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "display": "Example study nurse",
+            "reference": "Practitioner/ExampleStudyNurse",
+            "type": "Practitioner"
+          }
+        ],
+        "resourceType": "Observation",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/ExampleParticipant",
+          "type": "Patient"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "renal",
+              "display": "Renal clinic",
+              "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-clinic"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "resourceType": "Bundle",
+  "type": "transaction"
+}
