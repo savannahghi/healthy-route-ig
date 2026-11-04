@@ -305,7 +305,7 @@ Instance: HRLaboratoryGH
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Laboratory results, Ghana"
-Description: "Serum creatinine, HbA1c and uACR as the laboratory reported them, in the unit it reported. A recent result already in the participant's records that meets the study's requirements is used rather than repeated, dated by when its sample was taken. The eGFR is calculated on the form by CKD-EPI 2021 from the creatinine, shown with the creatinine in mg/dL and the age and sex it used, and none of them can be typed. The age and sex come from the participant's record when the form opens."
+Description: "Serum creatinine, HbA1c and uACR as the laboratory reported them, in the unit it reported. The eGFR is calculated on the form by CKD-EPI 2021 from the creatinine, shown with the creatinine in mg/dL and the age and sex it used, and none of them can be typed. The age and sex come from the participant's record when the form opens."
 * insert HRForm(hr-laboratory-gh, HRLaboratoryGH, Laboratory results\, Ghana, HRExtractLaboratory, HR-GH, Healthy Route Ghana)
 * insert LaunchContext(patient, Patient, Patient, The participant: the eGFR takes their sex and date of birth.)
 * insert LaunchContext(encounter, Encounter, Encounter, The visit: the age the eGFR uses is the age on the day it started.)
