@@ -23,12 +23,15 @@ Description: "Codes for the questions on the visit forms that LOINC does not cov
 * ^experimental = false
 * ^caseSensitive = true
 * ^content = #complete
+* ^property[+].code = #status
+* ^property[=].uri = "http://hl7.org/fhir/concept-properties#status"
+* ^property[=].description = "Retired for a code no form asks any more. It stays in the system so that answers recorded with it keep their meaning."
+* ^property[=].type = #code
 
 // Eligibility
 * #age-at-consent "Age at consent" "Completed years on the date consent was given, calculated from the date of birth. Derived."
 * #capable-of-consent "Capable of giving signed informed consent" "Inclusion criterion. True or false."
 * #documented-egfr "Documented eGFR" "An eGFR documented by the referring service before the visit, as the record shows it. Distinct from the eGFR the study calculates from its own creatinine."
-* #established-ckd "Established CKD diagnosis" "Inclusion criterion: chronic kidney disease diagnosed at the participant's clinic, with an eGFR below 60 mL/min/1.73m2 persisting for 3 months or more. Admits a participant whose dipstick is negative where the protocol makes the dipstick decisive. True or false."
 * #excl-undesirable "Condition making participation undesirable" "Exclusion criterion, in the investigator's opinion. True or false."
 * #excl-eye-condition "Eye condition precluding retinal imaging" "Exclusion criterion. True or false."
 * #excl-emergency "Hypertensive, hyperglycaemic or hypoglycaemic emergency" "Exclusion criterion. True or false."
@@ -46,30 +49,12 @@ Description: "Codes for the questions on the visit forms that LOINC does not cov
 * #history-dm "Diabetes, reported" "The participant reports a diagnosis of diabetes. True or false."
 * #history-htn "Hypertension, reported" "The participant reports a diagnosis of hypertension. True or false."
 * #history-ckd "Chronic kidney disease, reported" "The participant reports a diagnosis of chronic kidney disease. True or false."
-* #history-hiv "HIV, reported" "The participant reports a diagnosis of HIV. True or false."
-* #history-heart "Heart disease, reported" "The participant reports a diagnosis of heart disease. True or false."
-* #history-traditional "Traditional medicine use" "The participant reports current or previous use of traditional medicine. True or false."
 * #history-alcohol "Alcohol use" "Current, past or nil. LOINC codes the quantity of alcohol, not whether a person drinks, so the status takes a local code."
 
 // Medications
 * #medications-none "No current medication" "The participant takes no medication at present. Recorded so that an absent medication list is distinguishable from one not yet taken."
 
-// Diet and physical activity
-* #fruit-days "Days fruit eaten in a usual week" "0 to 7."
-* #veg-days "Days vegetables eaten in a usual week" "0 to 7."
-* #salt-added "Salt added at the table" "How often, on the study's frequency scale."
-* #sugar-drinks "Sugar-sweetened drinks" "How often, on the study's frequency scale."
-* #work-activity "Physical activity at work" "On the study's work activity scale."
-* #activity-days "Days of moderate or vigorous activity in a usual week" "0 to 7."
-* #activity-minutes "Minutes of moderate or vigorous activity on those days" "0 to 1440."
-* #seated-hours "Hours seated in a usual day" "0 to 24."
-* #fruit-veg-5plus "Fruit and vegetables eaten five days or more" "Both day counts at five or more. Derived."
-* #activity-weekly-minutes "Weekly minutes of moderate or vigorous activity" "Days multiplied by minutes. Derived."
-* #activity-who-met "WHO physical activity recommendation met" "150 minutes a week or more. Derived."
-
-// Anthropometry and blood pressure
-* #hip-circumference "Hip circumference" "In centimetres. LOINC publishes a protocol code for hip circumference but not a measurement code, so the measurement takes a local one."
-* #waist-hip-ratio "Waist-to-hip ratio" "Waist circumference over hip circumference. Derived."
+// Blood pressure
 * #bp-position "Blood pressure reading position" "Whether the reading was taken before or after retinal capture, for the reading the protocol allows either side of it. Carried on the reading as an extension."
 * #bp-device "Blood pressure monitor" "Which of the study's monitors took the reading. Carried on each reading as an extension."
 * #retinal-capture-time "Time of retinal capture" "When retinal photography finished. The blood pressure readings are timed relative to it."
@@ -81,11 +66,56 @@ Description: "Codes for the questions on the visit forms that LOINC does not cov
 * #creatinine-converted "Serum creatinine, converted" "The creatinine in mg/dL as the eGFR equation used it: as reported when the laboratory reported mg/dL, divided by 88.4 when it reported umol/L. Derived."
 * #egfr-age "Age used for the eGFR" "Completed years on the visit date, from the participant's date of birth. Derived."
 * #egfr-sex "Sex used for the eGFR" "The participant's administrative gender as the record holds it. The equation takes female or male; any other value gives no eGFR."
-* #hiv-test "HIV test result" "Reactive or non-reactive, as the laboratory reports it. The test method is not captured, so no LOINC code asserting one is used."
-* #fbc-taken "Full blood count taken" "Whether a full blood count was taken. The count itself is not captured. True or false."
 
 // Imaging
 * #images-dilated "Images taken with dilation" "True or false."
 * #images-right "Image captured of the right eye" "True or false."
 * #images-left "Image captured of the left eye" "True or false."
 * #images-synced "Images synced to the device cloud storage" "True or false."
+
+// Retired in 0.2.0. No form asks these any more: the 6 November 2026 review of
+// the Uganda and Ghana protocols removed them, following the Uganda protocol
+// v3.1. They stay, marked retired, so that answers recorded before then keep a
+// meaning.
+* #established-ckd "Established CKD diagnosis" "Inclusion criterion: chronic kidney disease diagnosed at the participant's clinic, with an eGFR below 60 mL/min/1.73m2 persisting for 3 months or more. Admits a participant whose dipstick is negative where the protocol makes the dipstick decisive. True or false."
+* insert Retired(established-ckd)
+* #history-hiv "HIV, reported" "The participant reports a diagnosis of HIV. True or false."
+* insert Retired(history-hiv)
+* #history-heart "Heart disease, reported" "The participant reports a diagnosis of heart disease. True or false."
+* insert Retired(history-heart)
+* #history-traditional "Traditional medicine use" "The participant reports current or previous use of traditional medicine. True or false."
+* insert Retired(history-traditional)
+* #fruit-days "Days fruit eaten in a usual week" "0 to 7."
+* insert Retired(fruit-days)
+* #veg-days "Days vegetables eaten in a usual week" "0 to 7."
+* insert Retired(veg-days)
+* #salt-added "Salt added at the table" "How often, on the study's frequency scale."
+* insert Retired(salt-added)
+* #sugar-drinks "Sugar-sweetened drinks" "How often, on the study's frequency scale."
+* insert Retired(sugar-drinks)
+* #work-activity "Physical activity at work" "On the study's work activity scale."
+* insert Retired(work-activity)
+* #activity-days "Days of moderate or vigorous activity in a usual week" "0 to 7."
+* insert Retired(activity-days)
+* #activity-minutes "Minutes of moderate or vigorous activity on those days" "0 to 1440."
+* insert Retired(activity-minutes)
+* #seated-hours "Hours seated in a usual day" "0 to 24."
+* insert Retired(seated-hours)
+* #fruit-veg-5plus "Fruit and vegetables eaten five days or more" "Both day counts at five or more. Derived."
+* insert Retired(fruit-veg-5plus)
+* #activity-weekly-minutes "Weekly minutes of moderate or vigorous activity" "Days multiplied by minutes. Derived."
+* insert Retired(activity-weekly-minutes)
+* #activity-who-met "WHO physical activity recommendation met" "150 minutes a week or more. Derived."
+* insert Retired(activity-who-met)
+* #hip-circumference "Hip circumference" "In centimetres. LOINC publishes a protocol code for hip circumference but not a measurement code, so the measurement takes a local one."
+* insert Retired(hip-circumference)
+* #waist-hip-ratio "Waist-to-hip ratio" "Waist circumference over hip circumference. Derived."
+* insert Retired(waist-hip-ratio)
+* #hiv-test "HIV test result" "Reactive or non-reactive, as the laboratory reports it. The test method is not captured, so no LOINC code asserting one is used."
+* insert Retired(hiv-test)
+* #fbc-taken "Full blood count taken" "Whether a full blood count was taken. The count itself is not captured. True or false."
+* insert Retired(fbc-taken)
+
+RuleSet: Retired(code)
+* #{code} ^property[+].code = #status
+* #{code} ^property[=].valueCode = #retired

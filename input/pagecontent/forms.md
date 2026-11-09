@@ -3,10 +3,9 @@ what each answer becomes on the store.
 
 ### One Questionnaire per form, one map per Questionnaire
 
-A Uganda site records the visit on seven forms: the eligibility checklist, the
-interview (history), the medicines, diet and activity, the anthropometry and
-blood pressure readings (vitals), the laboratory results and the imaging. A
-Ghana site also uses seven: the same ones without diet and activity, and with a
+A Uganda site records the visit on six forms: the eligibility checklist, the
+interview (history), the medicines, the blood pressure readings (vitals), the
+laboratory results and the imaging. A Ghana site uses the same six and a
 socio-demographics form, following the data collection tool in Appendix B of
 the Ghana protocol, version 6.0. Each
 is a Questionnaire in this guide (listed on the [artifacts page](artifacts.html)),
@@ -20,19 +19,20 @@ commits what comes back in one transaction.
 Each form is tagged with the identifier of the study it belongs to, `HR-UG`
 for Uganda and `HR-GH` for Ghana, and the study service lists a study's forms
 by that tag. Where the two protocols ask the same question the forms use the
-same key, so one map serves both countries. Ghana's eligibility checklist asks
-one question Uganda's does not: the Ghana protocol makes a negative dipstick
-end the screening unless the participant has an established CKD diagnosis, so
-`established-ckd` is asked when the dipstick is negative. Uganda's checklist
-does not require the dipstick: the Uganda protocol records it and lets it
-decide nothing, so a site that has not done one can still finish the checklist.
+same key, so one map serves both countries. Since version 0.2.0 both
+countries' forms follow the 6 November 2026 review of the two protocols (below).
+The urine dipstick is a laboratory result: it is on the laboratory form, not
+required, and decides nothing, so neither eligibility checklist asks it, and
+Ghana's no longer asks about an established CKD diagnosis. CKD is worked out
+from the documented eGFR on the checklist and the eGFR the laboratory form
+calculates.
 
 Ghana's other forms ask what Appendix B asks and no more. Its socio-demographics
 form asks the clinic, the ethnicity and the type of domicile; the tool's Study
 ID, hospital number, date of birth, sex and contact are taken when the
 participant is registered, and the address is left with the participant's
 details rather than the study data. Its vitals form asks the three timed
-readings only, and its laboratory form the creatinine, HbA1c and uACR. The
+readings only. The
 Ghana protocol takes the average of all three readings where Uganda's takes
 readings two and three, so Ghana's mean has its own key, `bp-mean-all`. The
 time of retinal capture is asked once in Ghana, on the imaging form: a question
@@ -43,18 +43,16 @@ The investigator signs a visit once its forms are saved. A form the protocol
 leaves to the clinician's discretion is tagged `optional` from the
 [sign-off code system](CodeSystem-hr-signoff.html), and the study service signs
 a visit without it; when it was saved, it is signed with the rest. In Uganda
-the medications form and the diet and activity form are optional. Neither
-feeds the flags the rule set works out at sign-off. No Ghana form is optional:
-the tool asks every item, and the Ghana protocol counts treatment towards
-hypertension, so the medication list is needed.
+the medications form is optional. No Ghana form is optional: the Ghana protocol
+counts treatment towards hypertension, so the medication list is needed.
 
 ### Keys are codes
 
 Every leaf item's `linkId` is the code its answer becomes: a LOINC code where
-LOINC has one with exactly the question's meaning (`8302-2` for height,
-`72166-2` for smoking status), and a code from the
+LOINC has one with exactly the question's meaning (`20454-5` for the urine
+dipstick, `72166-2` for smoking status), and a code from the
 [Healthy Route measurement](CodeSystem-hr-measurement.html) code system
-otherwise (`history-dm`, `hip-circumference`). The maps find answers by these
+otherwise (`history-dm`, `retinal-capture-time`). The maps find answers by these
 keys and nothing else, so the map from question to resource is the identity
 and nobody maintains a second table.
 
@@ -89,13 +87,8 @@ that gave its value.
 
 | Form | Calculated item | Formula |
 |---|---|---|
-| Vitals | Body mass index, `39156-5`, kg/m2 | weight over height in metres squared, one decimal |
-| Vitals | Waist-to-hip ratio, `waist-hip-ratio` | waist over hip, two decimals |
 | Vitals | Mean blood pressure, `bp-mean.8480-6` and `bp-mean.8462-4`, mm[Hg] | the mean of readings two and three, which the Uganda protocol takes as the true blood pressure, whole mm[Hg] |
 | Vitals, Ghana | Mean blood pressure, `bp-mean-all.8480-6` and `bp-mean-all.8462-4`, mm[Hg] | the mean of all three readings, as the Ghana protocol records it, whole mm[Hg] |
-| Diet and activity | `fruit-veg-5plus` | fruit days and vegetable days both five or more |
-| Diet and activity | `activity-weekly-minutes` | active days times minutes on those days |
-| Diet and activity | `activity-who-met` | the weekly minutes at 150 or more, the WHO recommendation |
 | Laboratory | `creatinine-converted`, mg/dL | the creatinine as the equation uses it: as reported in mg/dL, divided by 88.4 from umol/L |
 | Laboratory | eGFR, `98979-8`, mL/min/1.73m2 | CKD-EPI 2021 without the race coefficient, one decimal |
 
@@ -122,9 +115,7 @@ returned.
 
 The values a reader looks at also carry a second category, `derived` from
 [the study's observation categories](CodeSystem-hr-observation-category.html),
-beside their FHIR one: the BMI, the waist-to-hip ratio, the mean blood
-pressure, the fruit and vegetable, weekly activity and WHO activity values,
-and the eGFR. FHIR's categories have no code for a value that was worked out
+beside their FHIR one: the mean blood pressure and the eGFR. FHIR's categories have no code for a value that was worked out
 rather than measured or asked, so this is how a reader asks for the derived
 values alone, with one search on `category`. The converted creatinine and the
 age and sex the eGFR uses are steps towards the eGFR, not results, and do not
@@ -160,14 +151,40 @@ commits, by the response's tag.
 
 | Form | Becomes |
 |---|---|
-| Eligibility | An Observation per criterion; the documented eGFR dated by the day it was documented; the dipstick under `20454-5`; the established CKD diagnosis where it was asked. The outcome and the cohort are the rule set's. |
+| Eligibility | An Observation per criterion; the documented eGFR dated by the day it was documented. The outcome and the cohort are the rule set's. |
 | Socio-demographics | An Observation per answer, category survey. An ethnicity answered other keeps the group the participant named as the value's text. |
 | History | An Observation per answer, category survey; alcohol and smoking also social history. A Yes to diabetes, hypertension or CKD is also an [HRCondition](StructureDefinition-hr-condition.html), unconfirmed, with the answer as its evidence. |
 | Medications | No current medication is one Observation. Each medicine is an [HRMedicationStatement](StructureDefinition-hr-medication-statement.html) against the catalogue code, with route and frequency on the study's scales; strength and form as notes. |
-| Diet and activity | An Observation per typed answer, category survey, and one per calculated item, also derived. |
-| Vitals | Height, weight, waist and hip as quantities. Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. The BMI, the waist-to-hip ratio and the mean blood pressure, each also derived. Ghana's form gives the three readings and their mean only. |
-| Laboratory | Two [HRSpecimen](StructureDefinition-hr-specimen.html) resources dated by the sample item; an Observation per result in the reported unit, with the LOINC code chosen by the unit; an [HRDiagnosticReport](StructureDefinition-hr-diagnostic-report.html) gathering them. The converted creatinine, the age and sex the eGFR uses, and the eGFR, which alone is also derived. |
+| Diet and activity (retired) | Served to no study since 0.2.0. Its map still turns a response recorded before then into an Observation per typed answer, category survey, and one per calculated item, also derived. |
+| Vitals | Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. The mean blood pressure, also derived. Ghana's form gives the three readings and their mean only. |
+| Laboratory | Two [HRSpecimen](StructureDefinition-hr-specimen.html) resources dated by the sample item; an Observation per result in the reported unit, with the LOINC code chosen by the unit, and the dipstick under `20454-5` on the urine specimen; an [HRDiagnosticReport](StructureDefinition-hr-diagnostic-report.html) gathering them. The converted creatinine, the age and sex the eGFR uses, and the eGFR, which alone is also derived. |
 | Imaging | One [HRImagingStudy](StructureDefinition-hr-imaging-study.html) for the pack, started at the time of retinal capture, a series per eye answered Yes, the reason as a note; the answers as Observations, category imaging. Ghana does not ask about dilation. |
+
+### What the 6 November 2026 review removed
+
+The review of the Uganda and Ghana protocols applied the Uganda protocol
+v3.1's list of what the study does not collect to both countries, and removed a
+few questions neither protocol lists. Version 0.2.0 of this guide carries it.
+
+- Uganda history no longer asks HIV history, heart disease or traditional
+  medicine use, so it asks what Ghana's does. Alcohol and smoking are asked in
+  both countries but not required.
+- Uganda vitals no longer ask height, weight, waist or hip, so body mass index
+  and the waist-to-hip ratio are no longer calculated.
+- Uganda laboratory results no longer ask fasting blood sugar, an HIV test or
+  whether a full blood count was taken.
+- The diet and activity form, covering diet, physical activity and work, is
+  retired. It stays in the guide tagged for no study, because loading the guide
+  replaces what the store holds but never deletes, and responses recorded
+  against it still resolve.
+- The urine dipstick moves from the eligibility checklists to the laboratory
+  forms, and Ghana's established CKD question goes.
+
+The codes those questions used stay in their code systems, marked `retired`,
+so answers recorded with them keep their meaning. The guide's version moved
+from 0.1.0 to 0.2.0 because a saved response names its form's version: one
+recorded against the 0.1.0 forms still says which questions it answered, and the
+study service can tell it from a response to the forms in force now.
 
 ### The maps are tested, not trusted
 

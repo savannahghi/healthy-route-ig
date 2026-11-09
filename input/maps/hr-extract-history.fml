@@ -1,5 +1,5 @@
 
-// The history form: eight answers kept as Observations under their item codes,
+// The history form: five answers kept as Observations under their item codes,
 // and a Condition for each of diabetes, hypertension and chronic kidney
 // disease answered Yes. Every resource takes the response's tags and tenant,
 // its subject and encounter, and an id derived from the response id and the
@@ -93,48 +93,6 @@ group HRExtractHistory(source qr : QR, target bundle : Bundle) {
       } "condition";
     } "answer";
   } "ckd";
-
-  qr.item as it where (linkId = 'history-hiv') then {
-    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
-      qr -> obs.code = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
-          qr -> cd.code = 'history-hiv' "codeCode";
-          qr -> cd.display = 'HIV, reported' "codeDisplay";
-        } "codeCoding";
-      } "code";
-      a.value as v -> obs.value = v "value";
-    } "obs";
-  } "hiv";
-
-  qr.item as it where (linkId = 'history-heart') then {
-    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
-      qr -> obs.code = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
-          qr -> cd.code = 'history-heart' "codeCode";
-          qr -> cd.display = 'Heart disease, reported' "codeDisplay";
-        } "codeCoding";
-      } "code";
-      a.value as v -> obs.value = v "value";
-    } "obs";
-  } "heart";
-
-  qr.item as it where (linkId = 'history-traditional') then {
-    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-      qr -> obs then SurveyObservation(qr, it, obs, e) "base";
-      qr -> obs.code = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
-          qr -> cd.code = 'history-traditional' "codeCode";
-          qr -> cd.display = 'Traditional medicine use' "codeDisplay";
-        } "codeCoding";
-      } "code";
-      a.value as v -> obs.value = v "value";
-    } "obs";
-  } "traditional";
 
   qr.item as it where (linkId = 'history-alcohol') then {
     it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {

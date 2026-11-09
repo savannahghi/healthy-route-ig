@@ -30,7 +30,7 @@
       }
     }
   ],
-  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-laboratory-ug|0.1.0",
+  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-laboratory-ug|0.2.0",
   "status": "completed",
   "subject": {
     "reference": "Patient/ExampleParticipant",
@@ -136,42 +136,14 @@
       ]
     },
     {
-      "linkId": "1558-6",
-      "answer": [
-        {
-          "valueDecimal": 5.4
-        }
-      ]
-    },
-    {
-      "linkId": "1558-6.unit",
+      "linkId": "20454-5",
       "answer": [
         {
           "valueCoding": {
-            "system": "http://unitsofmeasure.org",
-            "code": "mmol/L",
-            "display": "mmol/L"
+            "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-dipstick-protein",
+            "code": "trace",
+            "display": "Trace"
           }
-        }
-      ]
-    },
-    {
-      "linkId": "hiv-test",
-      "answer": [
-        {
-          "valueCoding": {
-            "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-reactive",
-            "code": "non-reactive",
-            "display": "Non-reactive"
-          }
-        }
-      ]
-    },
-    {
-      "linkId": "fbc-taken",
-      "answer": [
-        {
-          "valueBoolean": true
         }
       ]
     }

@@ -30,7 +30,7 @@
       }
     }
   ],
-  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-eligibility-gh|0.1.0",
+  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-eligibility-gh|0.2.0",
   "status": "completed",
   "subject": {
     "reference": "Patient/ExampleParticipant",
@@ -71,26 +71,6 @@
           "answer": [
             {
               "valueDate": "2026-05-20"
-            }
-          ]
-        },
-        {
-          "linkId": "20454-5",
-          "answer": [
-            {
-              "valueCoding": {
-                "system": "https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-dipstick-protein",
-                "code": "negative",
-                "display": "Negative"
-              }
-            }
-          ]
-        },
-        {
-          "linkId": "established-ckd",
-          "answer": [
-            {
-              "valueBoolean": true
             }
           ]
         }

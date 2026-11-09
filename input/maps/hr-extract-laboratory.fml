@@ -177,70 +177,21 @@ group HRExtractLaboratory(source qr : QR, target bundle : Bundle) {
         } "obs";
       } "uacr";
 
-      qr.item as it where (linkId = '1558-6') then {
+      qr.item as it where (linkId = '20454-5') then {
         it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
           qr -> obs then Result(qr, it, obs, e) "base";
-          qr -> obs.specimen = create('Reference') as r, r.reference = append('Specimen/', qid, '-specimen-blood') "specimen";
-          qr.item as u where (linkId = '1558-6.unit') then {
-            u.answer first as ua then {
-              ua.value : Coding as uv where (code = 'mmol/L') -> obs.code = create('CodeableConcept') as cv then {
-                qr -> cv.coding = create('Coding') as cd then {
-                  qr -> cd.system = 'http://loinc.org' "molarSystem";
-                  qr -> cd.code = '14771-0' "molarCode";
-                  qr -> cd.display = 'Fasting glucose [Moles/volume] in Serum or Plasma' "molarDisplay";
-                } "molarCoding";
-              } "molar";
-              ua.value : Coding as uv where (code = 'mg/dL') -> obs.code = create('CodeableConcept') as cv then {
-                qr -> cv.coding = create('Coding') as cd then {
-                  qr -> cd.system = 'http://loinc.org' "massSystem";
-                  qr -> cd.code = '1558-6' "massCode";
-                  qr -> cd.display = 'Fasting glucose [Mass/volume] in Serum or Plasma' "massDisplay";
-                } "massCoding";
-              } "mass";
-              ua.value : Coding as uv then {
-                a.value as v -> obs.value = create('Quantity') as q then {
-                  v -> q.value = v "value";
-                  qr -> q.system = 'http://unitsofmeasure.org' "system";
-                  uv.code as c -> q.code = c "unitCode";
-                  uv.display as d -> q.unit = d "unit";
-                } "quantity";
-              } "withUnit";
-            } "unitAnswer";
-          } "unit";
-          qr -> rep.result = create('Reference') as r, r.reference = append('Observation/', qid, '-1558-6') "result";
-        } "obs";
-      } "glucose";
-
-      qr.item as it where (linkId = 'hiv-test') then {
-        it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-          qr -> obs then Result(qr, it, obs, e) "base";
-          qr -> obs.specimen = create('Reference') as r, r.reference = append('Specimen/', qid, '-specimen-blood') "specimen";
+          qr -> obs.specimen = create('Reference') as r, r.reference = append('Specimen/', qid, '-specimen-urine') "specimen";
           qr -> obs.code = create('CodeableConcept') as cv then {
             qr -> cv.coding = create('Coding') as cd then {
-              qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
-              qr -> cd.code = 'hiv-test' "codeCode";
-              qr -> cd.display = 'HIV test result' "codeDisplay";
+              qr -> cd.system = 'http://loinc.org' "codeSystem";
+              qr -> cd.code = '20454-5' "codeCode";
+              qr -> cd.display = 'Protein [Presence] in Urine by Test strip' "codeDisplay";
             } "codeCoding";
           } "code";
           a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
-          qr -> rep.result = create('Reference') as r, r.reference = append('Observation/', qid, '-hiv-test') "result";
+          qr -> rep.result = create('Reference') as r, r.reference = append('Observation/', qid, '-20454-5') "result";
         } "obs";
-      } "hiv";
-
-      qr.item as it where (linkId = 'fbc-taken') then {
-        it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-          qr -> obs then Result(qr, it, obs, e) "base";
-          qr -> obs.code = create('CodeableConcept') as cv then {
-            qr -> cv.coding = create('Coding') as cd then {
-              qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
-              qr -> cd.code = 'fbc-taken' "codeCode";
-              qr -> cd.display = 'Full blood count taken' "codeDisplay";
-            } "codeCoding";
-          } "code";
-          a.value as v -> obs.value = v "value";
-          qr -> rep.result = create('Reference') as r, r.reference = append('Observation/', qid, '-fbc-taken') "result";
-        } "obs";
-      } "fbc";
+      } "dipstick";
     } "report";
 
     qr.item as it where (linkId = 'creatinine-converted') then {

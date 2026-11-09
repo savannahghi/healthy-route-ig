@@ -24,10 +24,9 @@
 // can be signed without it.
 //
 // A value worked out from answers on the same form is an item on that form,
-// read-only, with the formula as an SDC calculated expression: body mass index,
-// waist-to-hip ratio and the mean blood pressure on vitals, the weekly activity
-// and the fruit and vegetable count on diet and activity, the eGFR on the
-// laboratory results. The screen recalculates it as the answers change, so the
+// read-only, with the formula as an SDC calculated expression: the mean blood
+// pressure on vitals and the eGFR on the laboratory results. The screen
+// recalculates it as the answers change, so the
 // person entering the answers sees the result and can never type it, and the
 // formula ships with the form's version, so a response says which formula gave
 // its value. The expressions read answers the way the Advantage formula builder
@@ -100,7 +99,7 @@ Instance: HREligibilityUG
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Eligibility checklist, Uganda"
-Description: "The inclusion and exclusion criteria as the site records them. The outcome is not an item: the rules in force compute it from the answers."
+Description: "The inclusion and exclusion criteria as the site records them. The outcome is not an item: the rules in force compute it from the answers. The urine dipstick is a laboratory result and does not decide eligibility, so it is recorded on the laboratory results."
 * insert HRForm(hr-eligibility-ug, HREligibilityUG, Eligibility checklist\, Uganda, HRExtractEligibility, HR-UG, Healthy Route Uganda)
 
 * item[+].linkId = "inclusions"
@@ -114,7 +113,7 @@ Description: "The inclusion and exclusion criteria as the site records them. The
 * item[=].item[=].required = true
 * item[=].item[+].linkId = "documented-egfr"
 * item[=].item[=].code = HRMeasurementCS#documented-egfr
-* item[=].item[=].text = "Documented eGFR value"
+* item[=].item[=].text = "Previously documented eGFR, at least 3 months old"
 * item[=].item[=].type = #decimal
 * item[=].item[=].required = true
 * item[=].item[=].extension[+].url = "http://hl7.org/fhir/StructureDefinition/questionnaire-unit"
@@ -123,11 +122,6 @@ Description: "The inclusion and exclusion criteria as the site records them. The
 * item[=].item[=].text = "Date of the documented eGFR"
 * item[=].item[=].type = #date
 * item[=].item[=].required = true
-* item[=].item[+].linkId = "20454-5"
-* item[=].item[=].code = $loinc#20454-5 "Protein [Presence] in Urine by Test strip"
-* item[=].item[=].text = "Urine dipstick protein"
-* item[=].item[=].type = #coding
-* item[=].item[=].answerValueSet = Canonical(HRDipstickProteinVS)
 
 * item[+].linkId = "exclusions"
 * item[=].text = "Exclusions"
@@ -188,29 +182,12 @@ Description: "Conditions and exposures, as the participant reports them."
 * item[=].code = HRMeasurementCS#history-alcohol
 * item[=].text = "Alcohol use"
 * item[=].type = #coding
-* item[=].required = true
 * item[=].answerValueSet = Canonical(HRUseStatusVS)
 * item[+].linkId = "72166-2"
 * item[=].code = $loinc#72166-2 "Tobacco smoking status"
 * item[=].text = "Smoking history"
 * item[=].type = #coding
-* item[=].required = true
 * item[=].answerValueSet = Canonical(HRUseStatusVS)
-* item[+].linkId = "history-hiv"
-* item[=].code = HRMeasurementCS#history-hiv
-* item[=].text = "HIV history"
-* item[=].type = #boolean
-* item[=].required = true
-* item[+].linkId = "history-heart"
-* item[=].code = HRMeasurementCS#history-heart
-* item[=].text = "Heart disease"
-* item[=].type = #boolean
-* item[=].required = true
-* item[+].linkId = "history-traditional"
-* item[=].code = HRMeasurementCS#history-traditional
-* item[=].text = "Traditional medicine use"
-* item[=].type = #boolean
-* item[=].required = true
 
 
 // --- Measure: medications ------------------------------------------------------
@@ -219,7 +196,7 @@ Instance: HRMedicationsUG
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Measure: medications, Uganda"
-Description: "Every medicine taken now, including traditional or over-the-counter medicines. Recorded at the clinician's discretion."
+Description: "Every medicine taken now, including over-the-counter medicines. Recorded at the clinician's discretion."
 * insert HRForm(hr-medications-ug, HRMedicationsUG, Measure: medications\, Uganda, HRExtractMedications, HR-UG, Healthy Route Uganda)
 * meta.tag[+] = HRSignoffCS#optional "Optional at sign-off"
 
@@ -262,15 +239,29 @@ Description: "Every medicine taken now, including traditional or over-the-counte
 * item[=].item[=].type = #string
 
 
-// --- Measure: diet and activity ----------------------------------------------
+// --- Measure: diet and activity (retired) -----------------------------------
+//
+// Retired in 0.2.0, when the review removed the dietary, physical-activity and
+// occupational questions. The store keeps whatever the guide last loaded, so the
+// form stays in the guide, retired and tagged for no study: the next load
+// replaces the stored copy, no study serves it, and responses recorded against
+// it still resolve.
 
 Instance: HRDietActivityUG
 InstanceOf: Questionnaire
 Usage: #definition
-Title: "Measure: diet and activity, Uganda"
-Description: "Dietary habits and physical activity in a usual week. Recorded at the clinician's discretion. Whether fruit and vegetables are both eaten five days or more, the weekly minutes of activity and whether they meet the WHO recommendation are calculated on the form and cannot be typed."
-* insert HRForm(hr-diet-activity-ug, HRDietActivityUG, Measure: diet and activity\, Uganda, HRExtractDietActivity, HR-UG, Healthy Route Uganda)
-* meta.tag[+] = HRSignoffCS#optional "Optional at sign-off"
+Title: "Measure: diet and activity, Uganda (retired)"
+Description: "Retired in 0.2.0. The 6 November 2026 review of the Uganda and Ghana protocols removed the dietary, physical-activity and occupational questions, which the Uganda protocol v3.1 does not collect. No study is tagged with this form, so no study serves it. It was: dietary habits and physical activity in a usual week, with whether fruit and vegetables are both eaten five days or more, the weekly minutes of activity and whether they meet the WHO recommendation calculated on the form."
+* id = "hr-diet-activity-ug"
+* name = "HRDietActivityUG"
+* title = "Measure: diet and activity, Uganda (retired)"
+* status = #retired
+* experimental = false
+* subjectType = #Patient
+* date = "2026-10-10"
+* publisher = "Savannah Informatics"
+* extension[+].url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-targetStructureMap"
+* extension[=].valueCanonical = "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractDietActivity"
 
 * item[+].linkId = "fruit-days"
 * item[=].code = HRMeasurementCS#fruit-days
@@ -338,46 +329,9 @@ Instance: HRVitalsUG
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Measure: vitals, Uganda"
-Description: "Anthropometry and three timed blood pressure readings around the retinal capture. Body mass index, the waist-to-hip ratio and the mean of readings two and three, which the Uganda protocol takes as the true blood pressure, are calculated on the form and cannot be typed. Whether the readings fit the protocol's sequence is the rule set's."
+Description: "Three timed blood pressure readings around the retinal capture. The mean of readings two and three, which the Uganda protocol takes as the true blood pressure, is calculated on the form and cannot be typed. Whether the readings fit the protocol's sequence is the rule set's."
 * insert HRForm(hr-vitals-ug, HRVitalsUG, Measure: vitals\, Uganda, HRExtractVitals, HR-UG, Healthy Route Uganda)
 
-* item[+].linkId = "8302-2"
-* item[=].code = $loinc#8302-2 "Body height"
-* item[=].text = "Height"
-* item[=].type = #decimal
-* item[=].required = true
-* insert Unit(cm, cm)
-* item[+].linkId = "29463-7"
-* item[=].code = $loinc#29463-7 "Body weight"
-* item[=].text = "Weight"
-* item[=].type = #decimal
-* item[=].required = true
-* insert Unit(kg, kg)
-* item[+].linkId = "8280-0"
-* item[=].code = $loinc#8280-0 "Waist Circumference at umbilicus by Tape measure"
-* item[=].text = "Waist circumference"
-* item[=].type = #decimal
-* item[=].required = true
-* insert Unit(cm, cm)
-* item[+].linkId = "hip-circumference"
-* item[=].code = HRMeasurementCS#hip-circumference
-* item[=].text = "Hip circumference"
-* item[=].type = #decimal
-* item[=].required = true
-* insert Unit(cm, cm)
-* item[+].linkId = "39156-5"
-* item[=].code = $loinc#39156-5 "Body mass index (BMI) [Ratio]"
-* item[=].text = "Body mass index"
-* item[=].type = #decimal
-* insert Unit(kg/m2, kg/m2)
-* insert Calculated
-* item[=].extension[=].valueExpression.expression = "(%resource.repeat(item).where(linkId='29463-7').answer.valueDecimal / (%resource.repeat(item).where(linkId='8302-2').answer.valueDecimal / 100).power(2)).round(1)"
-* item[+].linkId = "waist-hip-ratio"
-* item[=].code = HRMeasurementCS#waist-hip-ratio
-* item[=].text = "Waist-to-hip ratio"
-* item[=].type = #decimal
-* insert Calculated
-* item[=].extension[=].valueExpression.expression = "(%resource.repeat(item).where(linkId='8280-0').answer.valueDecimal / %resource.repeat(item).where(linkId='hip-circumference').answer.valueDecimal).round(2)"
 * item[+].linkId = "bp-device"
 * item[=].code = HRMeasurementCS#bp-device
 * item[=].text = "Blood pressure monitor"
@@ -493,7 +447,7 @@ Instance: HRLaboratoryUG
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Laboratory results, Uganda"
-Description: "The results as the laboratory reported them, in the unit it reported. The eGFR is calculated on the form by CKD-EPI 2021 from the creatinine, shown with the creatinine in mg/dL and the age and sex it used, and none of them can be typed. The age and sex come from the participant's record when the form opens."
+Description: "Serum creatinine, HbA1c, uACR and the urine dipstick as the laboratory reported them, in the unit it reported. The dipstick is recorded for characterisation and is not required. The eGFR is calculated on the form by CKD-EPI 2021 from the creatinine, shown with the creatinine in mg/dL and the age and sex it used, and none of them can be typed. The age and sex come from the participant's record when the form opens."
 * insert HRForm(hr-laboratory-ug, HRLaboratoryUG, Laboratory results\, Uganda, HRExtractLaboratory, HR-UG, Healthy Route Uganda)
 * insert LaunchContext(patient, Patient, Patient, The participant: the eGFR takes their sex and date of birth.)
 * insert LaunchContext(encounter, Encounter, Encounter, The visit: the age the eGFR uses is the age on the day it started.)
@@ -578,27 +532,11 @@ Description: "The results as the laboratory reported them, in the unit it report
 * item[=].type = #coding
 * item[=].required = true
 * item[=].answerValueSet = Canonical(HRLabUnitVS)
-* item[+].linkId = "1558-6"
-* item[=].code = $loinc#1558-6 "Fasting glucose [Mass/volume] in Serum or Plasma"
-* item[=].text = "Fasting blood sugar"
-* item[=].type = #decimal
-* item[=].required = true
-* item[+].linkId = "1558-6.unit"
-* item[=].text = "Reported in"
+* item[+].linkId = "20454-5"
+* item[=].code = $loinc#20454-5 "Protein [Presence] in Urine by Test strip"
+* item[=].text = "Urine dipstick protein"
 * item[=].type = #coding
-* item[=].required = true
-* item[=].answerValueSet = Canonical(HRLabUnitVS)
-* item[+].linkId = "hiv-test"
-* item[=].code = HRMeasurementCS#hiv-test
-* item[=].text = "HIV test"
-* item[=].type = #coding
-* item[=].required = true
-* item[=].answerValueSet = Canonical(HRReactiveVS)
-* item[+].linkId = "fbc-taken"
-* item[=].code = HRMeasurementCS#fbc-taken
-* item[=].text = "Full blood count taken"
-* item[=].type = #boolean
-* item[=].required = true
+* item[=].answerValueSet = Canonical(HRDipstickProteinVS)
 
 
 // --- Imaging ------------------------------------------------------------------

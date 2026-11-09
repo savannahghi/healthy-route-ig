@@ -8,9 +8,14 @@
 // data collection tool (Appendix B) and the schedule of activities. The tool's
 // Study ID, hospital number, date of birth, sex and contact are taken when the
 // participant is registered, and its date of interview is the visit's, so no
-// form asks them again. Nothing here is optional at sign-off: the tool asks
-// every item, and the protocol counts treatment towards hypertension, so the
-// medication list is needed. Ghana's tool has no diet and activity section.
+// form asks them again. Nothing here is optional at sign-off: the protocol
+// counts treatment towards hypertension, so the medication list is needed.
+// Ghana's tool has no diet and activity section.
+//
+// Where the 6 November 2026 review settled a difference between the two
+// countries, these forms follow the review rather than v6.0: the urine dipstick
+// is a laboratory result that decides nothing, established CKD is not asked,
+// and alcohol and smoking are asked but not required.
 //
 // The time of retinal capture is asked once, on the imaging form. The blood
 // pressure readings are timed around it, and a question asked on two forms can
@@ -23,7 +28,7 @@ Instance: HREligibilityGH
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Eligibility checklist, Ghana"
-Description: "The inclusion and exclusion criteria of the Ghana protocol (v6.0) as the site records them. A negative dipstick ends the screening unless the participant has an established CKD diagnosis, which is only asked when the dipstick is negative. The outcome is not an item: the rules in force compute it from the answers."
+Description: "The inclusion and exclusion criteria of the Ghana protocol (v6.0) as the site records them, as the 6 November 2026 review settled them: the urine dipstick does not decide eligibility and is recorded on the laboratory results, and established CKD is not asked. The outcome is not an item: the rules in force compute it from the answers."
 * insert HRForm(hr-eligibility-gh, HREligibilityGH, Eligibility checklist\, Ghana, HRExtractEligibility, HR-GH, Healthy Route Ghana)
 
 * item[+].linkId = "inclusions"
@@ -46,20 +51,6 @@ Description: "The inclusion and exclusion criteria of the Ghana protocol (v6.0) 
 * item[=].item[=].text = "Date of the documented eGFR"
 * item[=].item[=].type = #date
 * item[=].item[=].required = true
-* item[=].item[+].linkId = "20454-5"
-* item[=].item[=].code = $loinc#20454-5 "Protein [Presence] in Urine by Test strip"
-* item[=].item[=].text = "Urine dipstick protein"
-* item[=].item[=].type = #coding
-* item[=].item[=].required = true
-* item[=].item[=].answerValueSet = Canonical(HRDipstickProteinVS)
-* item[=].item[+].linkId = "established-ckd"
-* item[=].item[=].code = HRMeasurementCS#established-ckd
-* item[=].item[=].text = "Established CKD diagnosis at the clinic, with an eGFR below 60 mL/min/1.73m2 for 3 months or more"
-* item[=].item[=].type = #boolean
-* item[=].item[=].required = true
-* item[=].item[=].enableWhen[+].question = "20454-5"
-* item[=].item[=].enableWhen[=].operator = #=
-* item[=].item[=].enableWhen[=].answerCoding = HRDipstickProteinCS#negative
 
 * item[+].linkId = "exclusions"
 * item[=].text = "Exclusions"
@@ -156,13 +147,11 @@ Description: "Conditions and exposures, as the participant reports them. The pre
 * item[=].code = HRMeasurementCS#history-alcohol
 * item[=].text = "Alcohol use"
 * item[=].type = #coding
-* item[=].required = true
 * item[=].answerValueSet = Canonical(HRUseStatusVS)
 * item[+].linkId = "72166-2"
 * item[=].code = $loinc#72166-2 "Tobacco smoking status"
 * item[=].text = "Smoking history"
 * item[=].type = #coding
-* item[=].required = true
 * item[=].answerValueSet = Canonical(HRUseStatusVS)
 
 
@@ -305,7 +294,7 @@ Instance: HRLaboratoryGH
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Laboratory results, Ghana"
-Description: "Serum creatinine, HbA1c and uACR as the laboratory reported them, in the unit it reported. The eGFR is calculated on the form by CKD-EPI 2021 from the creatinine, shown with the creatinine in mg/dL and the age and sex it used, and none of them can be typed. The age and sex come from the participant's record when the form opens."
+Description: "Serum creatinine, HbA1c, uACR and the urine dipstick as the laboratory reported them, in the unit it reported. The dipstick is recorded for characterisation and is not required. The eGFR is calculated on the form by CKD-EPI 2021 from the creatinine, shown with the creatinine in mg/dL and the age and sex it used, and none of them can be typed. The age and sex come from the participant's record when the form opens."
 * insert HRForm(hr-laboratory-gh, HRLaboratoryGH, Laboratory results\, Ghana, HRExtractLaboratory, HR-GH, Healthy Route Ghana)
 * insert LaunchContext(patient, Patient, Patient, The participant: the eGFR takes their sex and date of birth.)
 * insert LaunchContext(encounter, Encounter, Encounter, The visit: the age the eGFR uses is the age on the day it started.)
@@ -386,6 +375,11 @@ Description: "Serum creatinine, HbA1c and uACR as the laboratory reported them, 
 * item[=].type = #coding
 * item[=].required = true
 * item[=].answerValueSet = Canonical(HRLabUnitVS)
+* item[+].linkId = "20454-5"
+* item[=].code = $loinc#20454-5 "Protein [Presence] in Urine by Test strip"
+* item[=].text = "Urine dipstick protein"
+* item[=].type = #coding
+* item[=].answerValueSet = Canonical(HRDipstickProteinVS)
 
 
 // --- Imaging ------------------------------------------------------------------
