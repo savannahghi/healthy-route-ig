@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The Ghana socio-demographics form is optional at sign-off. The study service
+  signs a Ghana visit without it, and signs it with the rest when it was saved.
+
 ### Fixed
 
 - The loader deletes, with `$meta-delete`, every tag the store holds on a

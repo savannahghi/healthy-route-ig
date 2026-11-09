@@ -43,8 +43,9 @@ The investigator signs a visit once its forms are saved. A form the protocol
 leaves to the clinician's discretion is tagged `optional` from the
 [sign-off code system](CodeSystem-hr-signoff.html), and the study service signs
 a visit without it; when it was saved, it is signed with the rest. In Uganda
-the medications form is optional. No Ghana form is optional: the Ghana protocol
-counts treatment towards hypertension, so the medication list is needed.
+the medications form is optional. In Ghana the socio-demographics form is
+optional, so a visit is not held for it; the medications form is not, because
+the Ghana protocol counts treatment towards hypertension.
 
 ### Keys are codes
 
