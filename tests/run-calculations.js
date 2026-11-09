@@ -145,8 +145,8 @@ function laboratory({ creatinine, unit, age, sex }) {
   });
 }
 
-function vitals({ height, weight, waist, hip, readings }) {
-  const answers = { '8302-2': dec(height), '29463-7': dec(weight), '8280-0': dec(waist), 'hip-circumference': dec(hip) };
+function vitals(readings) {
+  const answers = {};
   readings.forEach((r, i) => {
     if (!r) return;
     answers[`bp-reading-${i + 1}.8480-6`] = dec(r[0]);
@@ -280,33 +280,33 @@ const cases = [
     want: { 'egfr-age': ageToday(participant.birthDate) },
   },
   {
-    name: 'happy case: BMI, waist-to-hip and the mean of readings two and three',
+    name: 'happy case: the mean of readings two and three',
     form: vitalsForm,
-    qr: vitals({ height: 170, weight: 80, waist: 90, hip: 100, readings: [[150, 95], [141, 89], [138, 86]] }),
-    want: { '39156-5': 27.7, 'waist-hip-ratio': 0.9, 'bp-mean.8480-6': 140, 'bp-mean.8462-4': 88 },
+    qr: vitals([[150, 95], [141, 89], [138, 86]]),
+    want: { 'bp-mean.8480-6': 140, 'bp-mean.8462-4': 88 },
   },
   {
     name: 'happy case: the first reading never moves the mean',
     form: vitalsForm,
-    qr: vitals({ height: 170, weight: 80, waist: 90, hip: 100, readings: [[220, 130], [141, 89], [138, 86]] }),
+    qr: vitals([[220, 130], [141, 89], [138, 86]]),
     want: { 'bp-mean.8480-6': 140, 'bp-mean.8462-4': 88 },
   },
   {
-    name: 'sad case: no height gives no BMI, no hip no ratio, no third reading no mean',
+    name: 'sad case: no third reading gives no mean',
     form: vitalsForm,
-    qr: vitals({ height: null, weight: 80, waist: 90, hip: null, readings: [[150, 95], [141, 89], null] }),
-    want: { '39156-5': null, 'waist-hip-ratio': null, 'bp-mean.8480-6': null, 'bp-mean.8462-4': null },
+    qr: vitals([[150, 95], [141, 89], null]),
+    want: { 'bp-mean.8480-6': null, 'bp-mean.8462-4': null },
   },
   {
     name: 'happy case: the Ghana mean is the average of all three readings',
     form: vitalsGhForm,
-    qr: vitals({ height: null, weight: null, waist: null, hip: null, readings: [[150, 95], [141, 89], [138, 86]] }),
+    qr: vitals([[150, 95], [141, 89], [138, 86]]),
     want: { 'bp-mean-all.8480-6': 143, 'bp-mean-all.8462-4': 90 },
   },
   {
     name: 'sad case: no first reading gives no Ghana mean',
     form: vitalsGhForm,
-    qr: vitals({ height: null, weight: null, waist: null, hip: null, readings: [null, [141, 89], [138, 86]] }),
+    qr: vitals([null, [141, 89], [138, 86]]),
     want: { 'bp-mean-all.8480-6': null, 'bp-mean-all.8462-4': null },
   },
   {

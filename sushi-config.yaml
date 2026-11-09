@@ -12,7 +12,7 @@ description: >-
   validation study of a machine-learning algorithm predicting chronic kidney
   disease from digital retinal images.
 status: draft
-version: 0.1.0
+version: 0.2.0
 fhirVersion: 5.0.0
 copyrightYear: 2026+
 releaseLabel: ci-build
@@ -47,15 +47,15 @@ resources:
     exampleBoolean: true
   QuestionnaireResponse/qr-diet-activity-0001:
     name: "Example response: diet and activity"
-    description: "Every diet and activity question answered."
+    description: "Every question of the retired diet and activity form answered."
     exampleBoolean: true
   QuestionnaireResponse/qr-vitals-0001:
     name: "Example response: vitals"
-    description: "Four measurements and three timed readings around the retinal capture."
+    description: "Three timed readings around the retinal capture and the mean of readings two and three."
     exampleBoolean: true
   QuestionnaireResponse/qr-laboratory-0001:
     name: "Example response: laboratory results"
-    description: "Results in the units the laboratory reported: creatinine in umol/L, glucose in mmol/L."
+    description: "Results in the units the laboratory reported, creatinine in umol/L, and a trace on the urine dipstick."
     exampleBoolean: true
   QuestionnaireResponse/qr-medications-0001:
     name: "Example response: medications"
@@ -79,7 +79,7 @@ resources:
     exampleBoolean: true
   QuestionnaireResponse/qr-eligibility-gh-0001:
     name: "Example response: eligibility, Ghana"
-    description: "A negative dipstick, admitted by an established CKD diagnosis; no exclusion."
+    description: "Every inclusion met, a documented eGFR at least 3 months old, no exclusion."
     exampleBoolean: true
   QuestionnaireResponse/qr-demographics-gh-0001:
     name: "Example response: socio-demographics, Ghana"
@@ -121,11 +121,11 @@ resources:
     name: "Extract the medications form"
     description: "No current medication as an Observation; each medicine as a MedicationStatement against the catalogue code."
   StructureMap/HRExtractDietActivity:
-    name: "Extract the diet and activity form"
+    name: "Extract the diet and activity form (retired)"
     description: "An Observation per answer; the derived values are the rule set's."
   StructureMap/HRExtractVitals:
     name: "Extract the vitals form"
-    description: "Four measurements as quantities, three timed blood pressure readings with their number, position and monitor, the time of retinal capture, and the values the form calculates."
+    description: "Three timed blood pressure readings with their number, position and monitor, the time of retinal capture, and the mean the form calculates."
   StructureMap/HRExtractLaboratory:
     name: "Extract the laboratory results form"
     description: "Two specimens, an Observation per result in the reported unit with the LOINC code chosen by the unit, and a report gathering them."

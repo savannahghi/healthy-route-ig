@@ -30,7 +30,7 @@
       }
     }
   ],
-  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-history-ug|0.1.0",
+  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-history-ug|0.2.0",
   "status": "completed",
   "subject": {
     "reference": "Patient/ExampleParticipant",
@@ -92,30 +92,6 @@
             "code": "past",
             "display": "Past"
           }
-        }
-      ]
-    },
-    {
-      "linkId": "history-hiv",
-      "answer": [
-        {
-          "valueBoolean": false
-        }
-      ]
-    },
-    {
-      "linkId": "history-heart",
-      "answer": [
-        {
-          "valueBoolean": false
-        }
-      ]
-    },
-    {
-      "linkId": "history-traditional",
-      "answer": [
-        {
-          "valueBoolean": true
         }
       ]
     }

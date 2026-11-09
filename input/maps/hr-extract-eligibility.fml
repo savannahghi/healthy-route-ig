@@ -1,9 +1,9 @@
 
 // Every criterion kept as an Observation under its item code: the inclusions,
-// the documented eGFR dated by the day it was documented, the dipstick, the
-// established CKD diagnosis where the form asks it, and the five exclusions.
-// One map serves every country's checklist: a criterion a form does not ask
-// writes nothing. The outcome and the cohort are the rule set's.
+// the documented eGFR dated by the day it was documented, and the five
+// exclusions. One map serves every country's checklist: a criterion a form does
+// not ask writes nothing. The urine dipstick is a laboratory result, extracted
+// with the laboratory results. The outcome and the cohort are the rule set's.
 
 map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractEligibility" = "HRExtractEligibility"
 
@@ -58,43 +58,6 @@ group HRExtractEligibility(source qr : QR, target bundle : Bundle) {
         } "quantity";
       } "obs";
     } "egfr";
-
-    grp.item as it where (linkId = '20454-5') then {
-      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-        qr -> obs then Criterion(qr, it, obs, e) "base";
-        qr -> obs.category = create('CodeableConcept') as cv then {
-          qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "laboratorySystem";
-            qr -> cd.code = 'laboratory' "laboratoryCode";
-            qr -> cd.display = 'Laboratory' "laboratoryDisplay";
-          } "laboratoryCoding";
-        } "laboratory";
-        qr -> obs.code = create('CodeableConcept') as cv then {
-          qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'http://loinc.org' "codeSystem";
-            qr -> cd.code = '20454-5' "codeCode";
-            qr -> cd.display = 'Protein [Presence] in Urine by Test strip' "codeDisplay";
-          } "codeCoding";
-        } "code";
-        qr.authored as t -> obs.effective = t "effective";
-        a.value as v -> obs.value = create('CodeableConcept') as concept, concept.coding = v "value";
-      } "obs";
-    } "dipstick";
-
-    grp.item as it where (linkId = 'established-ckd') then {
-      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-        qr -> obs then Criterion(qr, it, obs, e) "base";
-        qr -> obs.code = create('CodeableConcept') as cv then {
-          qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
-            qr -> cd.code = 'established-ckd' "codeCode";
-            qr -> cd.display = 'Established CKD diagnosis' "codeDisplay";
-          } "codeCoding";
-        } "code";
-        qr.authored as t -> obs.effective = t "effective";
-        a.value as v -> obs.value = v "value";
-      } "obs";
-    } "establishedCkd";
   } "inclusions";
 
   qr.item as grp where (linkId = 'exclusions') then {

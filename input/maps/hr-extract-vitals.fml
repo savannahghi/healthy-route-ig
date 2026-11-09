@@ -1,14 +1,12 @@
 
-// Four measurements as quantities, three blood pressure readings on the core
-// blood pressure profile with the reading's number, monitor and position as
-// extensions, and the time of retinal capture as an Observation of its own.
-// The three values the form calculates, body mass index, the waist-to-hip
-// ratio and the mean of readings 2 and 3, are written too, each naming the
-// Observations it was calculated from. Each reading's time comes from its own
-// item, the mean is timed at the last reading it averages, and everything else
-// is timed at the response. Ghana's form records the mean of all three readings
-// under its own key, because it is a different calculation, and asks none of
-// the measurements, the monitor or the capture time.
+// Three blood pressure readings on the core blood pressure profile with the
+// reading's number, monitor and position as extensions, and the time of retinal
+// capture as an Observation of its own. The mean of readings 2 and 3 the form
+// calculates is written too, naming the readings it was calculated from. Each
+// reading's time comes from its own item, the mean is timed at the last reading
+// it averages, and the capture time is its own answer. Ghana's form records the
+// mean of all three readings under its own key, because it is a different
+// calculation, and asks neither the monitor nor the capture time.
 
 map "https://fhir.optimalhealth.org/ig/healthy-route/StructureMap/HRExtractVitals" = "HRExtractVitals"
 
@@ -18,118 +16,6 @@ uses "http://hl7.org/fhir/StructureDefinition/Observation" alias Observation as 
 
 group HRExtractVitals(source qr : QR, target bundle : Bundle) {
   qr -> bundle.type = 'transaction' "type";
-
-  qr.item as it where (linkId = '8302-2') then {
-    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-      qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
-      qr -> obs.category = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
-          qr -> cd.code = 'vital-signs' "categoryCode";
-          qr -> cd.display = 'Vital Signs' "categoryDisplay";
-        } "categoryCoding";
-      } "category";
-      qr -> obs.code = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'http://loinc.org' "codeSystem";
-          qr -> cd.code = '8302-2' "codeCode";
-          qr -> cd.display = 'Body height' "codeDisplay";
-        } "codeCoding";
-      } "code";
-      qr.authored as t -> obs.effective = t "effective";
-      a.value as v -> obs.value = create('Quantity') as q then {
-        v -> q.value = v "value";
-        qr -> q.system = 'http://unitsofmeasure.org' "system";
-        qr -> q.code = 'cm' "unitCode";
-        qr -> q.unit = 'cm' "unit";
-      } "quantity";
-    } "obs";
-  } "height";
-
-  qr.item as it where (linkId = '29463-7') then {
-    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-      qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
-      qr -> obs.category = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
-          qr -> cd.code = 'vital-signs' "categoryCode";
-          qr -> cd.display = 'Vital Signs' "categoryDisplay";
-        } "categoryCoding";
-      } "category";
-      qr -> obs.code = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'http://loinc.org' "codeSystem";
-          qr -> cd.code = '29463-7' "codeCode";
-          qr -> cd.display = 'Body weight' "codeDisplay";
-        } "codeCoding";
-      } "code";
-      qr.authored as t -> obs.effective = t "effective";
-      a.value as v -> obs.value = create('Quantity') as q then {
-        v -> q.value = v "value";
-        qr -> q.system = 'http://unitsofmeasure.org' "system";
-        qr -> q.code = 'kg' "unitCode";
-        qr -> q.unit = 'kg' "unit";
-      } "quantity";
-    } "obs";
-  } "weight";
-
-  qr.item as it where (linkId = '8280-0') then {
-    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-      qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
-      qr -> obs.category = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
-          qr -> cd.code = 'vital-signs' "categoryCode";
-          qr -> cd.display = 'Vital Signs' "categoryDisplay";
-        } "categoryCoding";
-      } "category";
-      qr -> obs.code = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'http://loinc.org' "codeSystem";
-          qr -> cd.code = '8280-0' "codeCode";
-          qr -> cd.display = 'Waist Circumference at umbilicus by Tape measure' "codeDisplay";
-        } "codeCoding";
-      } "code";
-      qr.authored as t -> obs.effective = t "effective";
-      a.value as v -> obs.value = create('Quantity') as q then {
-        v -> q.value = v "value";
-        qr -> q.system = 'http://unitsofmeasure.org' "system";
-        qr -> q.code = 'cm' "unitCode";
-        qr -> q.unit = 'cm' "unit";
-      } "quantity";
-    } "obs";
-  } "waist";
-
-  qr.item as it where (linkId = 'hip-circumference') then {
-    it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-      qr -> obs then Shared(qr, it, obs, e) "base";
-      qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
-      qr -> obs.category = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
-          qr -> cd.code = 'vital-signs' "categoryCode";
-          qr -> cd.display = 'Vital Signs' "categoryDisplay";
-        } "categoryCoding";
-      } "category";
-      qr -> obs.code = create('CodeableConcept') as cv then {
-        qr -> cv.coding = create('Coding') as cd then {
-          qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
-          qr -> cd.code = 'hip-circumference' "codeCode";
-          qr -> cd.display = 'Hip circumference' "codeDisplay";
-        } "codeCoding";
-      } "code";
-      qr.authored as t -> obs.effective = t "effective";
-      a.value as v -> obs.value = create('Quantity') as q then {
-        v -> q.value = v "value";
-        qr -> q.system = 'http://unitsofmeasure.org' "system";
-        qr -> q.code = 'cm' "unitCode";
-        qr -> q.unit = 'cm' "unit";
-      } "quantity";
-    } "obs";
-  } "hip";
 
   qr.item as g where (linkId = 'bp-reading-1') -> bundle.entry as e, e.resource = create('Observation') as obs then {
     qr -> obs then Reading(qr, g, obs, e) "reading";
@@ -214,54 +100,6 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
   } "captureTime";
 
   qr -> evaluate(qr, id.replaceMatches('/_history/.*$', '').replaceMatches('^.*/', '')) as qid then {
-    qr.item as it where (linkId = '39156-5') then {
-      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-        qr -> obs then Shared(qr, it, obs, e) "base";
-        qr -> obs then VitalSign(qr, obs) "vitalSign";
-        qr -> obs then Derived(qr, obs) "derivedCategory";
-        qr -> obs.code = create('CodeableConcept') as cv then {
-          qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'http://loinc.org' "codeSystem";
-            qr -> cd.code = '39156-5' "codeCode";
-            qr -> cd.display = 'Body mass index (BMI) [Ratio]' "codeDisplay";
-          } "codeCoding";
-        } "code";
-        qr.authored as t -> obs.effective = t "effective";
-        a.value as v -> obs.value = create('Quantity') as q then {
-          v -> q.value = v "value";
-          qr -> q.system = 'http://unitsofmeasure.org' "system";
-          qr -> q.code = 'kg/m2' "unitCode";
-          qr -> q.unit = 'kg/m2' "unit";
-        } "quantity";
-        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-29463-7') "weight";
-        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-8302-2') "height";
-      } "obs";
-    } "bmi";
-
-    qr.item as it where (linkId = 'waist-hip-ratio') then {
-      it.answer first as a -> bundle.entry as e, e.resource = create('Observation') as obs then {
-        qr -> obs then Shared(qr, it, obs, e) "base";
-        qr -> obs then VitalSign(qr, obs) "vitalSign";
-        qr -> obs then Derived(qr, obs) "derivedCategory";
-        qr -> obs.code = create('CodeableConcept') as cv then {
-          qr -> cv.coding = create('Coding') as cd then {
-            qr -> cd.system = 'https://fhir.optimalhealth.org/ig/healthy-route/CodeSystem/hr-measurement' "codeSystem";
-            qr -> cd.code = 'waist-hip-ratio' "codeCode";
-            qr -> cd.display = 'Waist-to-hip ratio' "codeDisplay";
-          } "codeCoding";
-        } "code";
-        qr.authored as t -> obs.effective = t "effective";
-        a.value as v -> obs.value = create('Quantity') as q then {
-          v -> q.value = v "value";
-          qr -> q.system = 'http://unitsofmeasure.org' "system";
-          qr -> q.code = '{ratio}' "unitCode";
-          qr -> q.unit = 'ratio' "unit";
-        } "quantity";
-        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-8280-0') "waist";
-        qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-hip-circumference') "hip";
-      } "obs";
-    } "waistHipRatio";
-
     qr.item as g where (linkId = 'bp-mean') -> bundle.entry as e, e.resource = create('Observation') as obs then {
       qr -> obs then Reading(qr, g, obs, e) "reading";
       qr -> obs then Derived(qr, obs) "derivedCategory";
@@ -301,18 +139,6 @@ group HRExtractVitals(source qr : QR, target bundle : Bundle) {
       qr -> obs.derivedFrom = create('Reference') as r, r.reference = append('Observation/', qid, '-bp-reading-3') "reading3Ref";
     } "meanAll";
   } "derived";
-}
-
-// The profile and category every measurement on this form carries.
-group VitalSign(source qr : QR, target obs : Observation) {
-  qr -> obs.meta as m, m.profile = 'https://fhir.optimalhealth.org/ig/healthy-route/StructureDefinition/hr-observation' "profile";
-  qr -> obs.category = create('CodeableConcept') as cv then {
-    qr -> cv.coding = create('Coding') as cd then {
-      qr -> cd.system = 'http://terminology.hl7.org/CodeSystem/observation-category' "categorySystem";
-      qr -> cd.code = 'vital-signs' "categoryCode";
-      qr -> cd.display = 'Vital Signs' "categoryDisplay";
-    } "categoryCoding";
-  } "category";
 }
 
 // The category a value worked out on this form carries beside its FHIR one.

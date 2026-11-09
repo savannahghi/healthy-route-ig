@@ -30,7 +30,7 @@
       }
     }
   ],
-  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-vitals-ug|0.1.0",
+  "questionnaire": "https://fhir.optimalhealth.org/ig/healthy-route/Questionnaire/hr-vitals-ug|0.2.0",
   "status": "completed",
   "subject": {
     "reference": "Patient/ExampleParticipant",
@@ -47,54 +47,6 @@
     "display": "Example study nurse"
   },
   "item": [
-    {
-      "linkId": "8302-2",
-      "answer": [
-        {
-          "valueDecimal": 162
-        }
-      ]
-    },
-    {
-      "linkId": "29463-7",
-      "answer": [
-        {
-          "valueDecimal": 71
-        }
-      ]
-    },
-    {
-      "linkId": "8280-0",
-      "answer": [
-        {
-          "valueDecimal": 92
-        }
-      ]
-    },
-    {
-      "linkId": "hip-circumference",
-      "answer": [
-        {
-          "valueDecimal": 104
-        }
-      ]
-    },
-    {
-      "linkId": "39156-5",
-      "answer": [
-        {
-          "valueDecimal": 27.1
-        }
-      ]
-    },
-    {
-      "linkId": "waist-hip-ratio",
-      "answer": [
-        {
-          "valueDecimal": 0.88
-        }
-      ]
-    },
     {
       "linkId": "bp-device",
       "answer": [

@@ -92,8 +92,8 @@ Description: "Urban or rural."
 CodeSystem: HRFrequencyScaleCS
 Id: hr-frequency-scale
 Title: "Frequency Scale"
-Description: "How often a dietary habit occurs. Provisional: the wording follows the Uganda data collection tool and awaits the study team's confirmation."
-* ^status = #draft
+Description: "How often a dietary habit occurs. Provisional: the wording follows the Uganda data collection tool and awaits the study team's confirmation. Retired in 0.2.0: no form asks this any more."
+* ^status = #retired
 * ^experimental = false
 * ^caseSensitive = true
 * ^content = #complete
@@ -106,16 +106,16 @@ Description: "How often a dietary habit occurs. Provisional: the wording follows
 ValueSet: HRFrequencyScaleVS
 Id: hr-frequency-scale-vs
 Title: "Frequency Scale Value Set"
-Description: "How often a dietary habit occurs."
-* ^status = #draft
+Description: "How often a dietary habit occurs. Retired in 0.2.0: no form asks this any more."
+* ^status = #retired
 * ^experimental = false
 * include codes from system HRFrequencyScaleCS
 
 CodeSystem: HRWorkActivityCS
 Id: hr-work-activity
 Title: "Physical Activity at Work"
-Description: "How physically demanding a person's work is. Provisional: the wording follows the Uganda data collection tool and awaits the study team's confirmation."
-* ^status = #draft
+Description: "How physically demanding a person's work is. Provisional: the wording follows the Uganda data collection tool and awaits the study team's confirmation. Retired in 0.2.0: no form asks this any more."
+* ^status = #retired
 * ^experimental = false
 * ^caseSensitive = true
 * ^content = #complete
@@ -127,16 +127,16 @@ Description: "How physically demanding a person's work is. Provisional: the word
 ValueSet: HRWorkActivityVS
 Id: hr-work-activity-vs
 Title: "Physical Activity at Work Value Set"
-Description: "How physically demanding a person's work is."
-* ^status = #draft
+Description: "How physically demanding a person's work is. Retired in 0.2.0: no form asks this any more."
+* ^status = #retired
 * ^experimental = false
 * include codes from system HRWorkActivityCS
 
 CodeSystem: HRReactiveCS
 Id: hr-reactive
 Title: "Reactive or Non-reactive"
-Description: "The result of a screening test as the laboratory reports it."
-* ^status = #draft
+Description: "The result of a screening test as the laboratory reports it. Retired in 0.2.0: no form asks this any more."
+* ^status = #retired
 * ^experimental = false
 * ^caseSensitive = true
 * ^content = #complete
@@ -146,8 +146,8 @@ Description: "The result of a screening test as the laboratory reports it."
 ValueSet: HRReactiveVS
 Id: hr-reactive-vs
 Title: "Reactive or Non-reactive Value Set"
-Description: "Reactive or non-reactive."
-* ^status = #draft
+Description: "Reactive or non-reactive. Retired in 0.2.0: no form asks this any more."
+* ^status = #retired
 * ^experimental = false
 * include codes from system HRReactiveCS
 

@@ -37,17 +37,17 @@ through the participant.
 
 ### The forms, and the codes their questions take
 
-The site fills in forms during the visit: the interview, the medicines, diet and
-activity, the anthropometry and blood pressure readings, the laboratory results
-and the imaging. Each answer becomes a resource. A question takes a LOINC code
+The site fills in forms during the visit: the interview, the medicines, the
+blood pressure readings, the laboratory results and the imaging. Each answer becomes a resource. A question takes a LOINC code
 where LOINC has one with exactly its meaning, and a code from the
 [Healthy Route measurement](CodeSystem-hr-measurement.html) code system
 otherwise. That code is both the question's `linkId` and the `Observation.code`
 its answer becomes, so the map from one to the other is the identity.
 
 The coded answers take short scales printed on the forms, each a code system of
-its own: use status, the frequency scale, physical activity at work, reactive or
-non-reactive, the blood pressure position and monitor, and which eye. The
+its own: use status, the blood pressure position and monitor, and which eye.
+The frequency scale, physical activity at work and reactive or non-reactive are
+retired with the questions that used them. The
 laboratory reports in the site's own [units](ValueSet-hr-lab-unit-vs.html), and
 the LOINC code of a result follows the unit the laboratory reported.
 
@@ -62,8 +62,8 @@ time the window is checked against.
 ### One profile for every measurement
 
 [HRObservation](StructureDefinition-hr-observation.html) carries creatinine,
-eGFR, HbA1c, the urine albumin-to-creatinine ratio, the urine dipstick, height,
-weight, body mass index, and the additional investigations one country collects.
+eGFR, HbA1c, the urine albumin-to-creatinine ratio, the urine dipstick, and any
+further result a protocol adds.
 
 They differ in code, unit and value type. They do not differ in **shape**, and a
 profile for each analyte would mean a new StructureDefinition and a new release
@@ -126,9 +126,10 @@ would have meant inventing a local scale and requiring it of every site.
 The value set exists so that whoever builds the form has a canonical list, and so
 a consumer knows what the values mean.
 
-It matters more than its size suggests: in one protocol the dipstick gates
-eligibility, and in the other it is the **comparator** the algorithm's sensitivity
-and specificity are computed against.
+It matters more than its size suggests. It once gated eligibility in one
+protocol; since the 6 November 2026 review it decides eligibility in neither, and
+is recorded with the laboratory results as the standard-of-care screen the
+algorithm is compared with.
 
 ### eGFR is calculated, and says so
 
@@ -184,6 +185,8 @@ profiled — those references point at the base resource. `Device` is likewise
 unprofiled, so the instrument on a blood pressure reading or a retinal camera can
 be referenced but not constrained.
 
-Eligibility is absent deliberately. Encoding it needs a contradiction in one
-protocol resolved first: its screen-failure rule excludes a negative dipstick,
-while its recruitment target requires a control group most of whom will have one.
+Eligibility is not a profile: the criteria are answers on the eligibility
+checklist and the outcome is the rule set's. The contradiction that once stood in
+the way, one protocol's screen-failure rule excluding a negative dipstick while its
+recruitment target needed a control group most of whom would have one, was settled
+by the 6 November 2026 review: the dipstick decides eligibility in neither country.

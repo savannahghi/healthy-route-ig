@@ -58,7 +58,7 @@ Description: "Any measurement taken from a participant during the screening visi
 
 * code 1..1 MS
 * code ^short = "What was measured"
-* code ^comment = "LOINC where it has a code with the question's meaning, the Healthy Route measurement code system otherwise. The codes this study relies on are 20454-5 for the urine dipstick protein, which is an ordinal presence and not the quantitative 5804-0; 2160-0 for serum creatinine reported in mg/dL and 14682-9 for umol/L, because LOINC separates mass from molar concentration and the code follows the unit the laboratory reported; 98979-8 for eGFR by the CKD-EPI 2021 equation; 4548-4 for HbA1c; 9318-7 for the urine albumin-to-creatinine ratio in mg/g and 32294-1 in mg/mmol; 1558-6 for fasting glucose in mg/dL and 14771-0 in mmol/L. Note the eGFR code: 62238-1 is the generic CKD-EPI formula and 98979-8 is the 2021 revision with the race coefficient removed, which is the one the protocols specify."
+* code ^comment = "LOINC where it has a code with the question's meaning, the Healthy Route measurement code system otherwise. The codes this study relies on are 20454-5 for the urine dipstick protein, which is an ordinal presence and not the quantitative 5804-0; 2160-0 for serum creatinine reported in mg/dL and 14682-9 for umol/L, because LOINC separates mass from molar concentration and the code follows the unit the laboratory reported; 98979-8 for eGFR by the CKD-EPI 2021 equation; 4548-4 for HbA1c; 9318-7 for the urine albumin-to-creatinine ratio in mg/g and 32294-1 in mg/mmol. Note the eGFR code: 62238-1 is the generic CKD-EPI formula and 98979-8 is the 2021 revision with the race coefficient removed, which is the one the protocols specify."
 
 * subject 1..1 MS
 * subject only Reference(HRPatient)
