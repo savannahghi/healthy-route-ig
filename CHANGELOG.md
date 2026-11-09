@@ -4,6 +4,15 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- The loader deletes, with `$meta-delete`, every tag the store holds on a
+  resource in one of the guide's tag systems that the guide no longer gives it.
+  HAPI keeps a resource's tags when the resource is replaced, so the retired
+  diet and activity form kept `HR-UG` and `optional` after 0.2.0 loaded and was
+  still listed for the Uganda study. A tag in any other system stays.
+  `tests/run-loader.py` checks it against a store that keeps tags as HAPI does.
+
 ## [0.2.0] - 2026-11-09
 
 ### Changed
