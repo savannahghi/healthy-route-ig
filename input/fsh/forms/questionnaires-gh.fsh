@@ -91,6 +91,7 @@ Usage: #definition
 Title: "Socio-demographics, Ghana"
 Description: "The socio-demographic questions of the Ghana data collection tool that registration does not ask. The address is not on this form: it identifies the participant, so it belongs with the participant's details rather than with the study data that is exported."
 * insert HRForm(hr-demographics-gh, HRDemographicsGH, Socio-demographics\, Ghana, HRExtractDemographics, HR-GH, Healthy Route Ghana)
+* meta.tag[+] = HRSignoffCS#optional "Optional at sign-off"
 
 * item[+].linkId = "recruitment-clinic"
 * item[=].code = HRMeasurementCS#recruitment-clinic
