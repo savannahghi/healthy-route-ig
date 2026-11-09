@@ -15,6 +15,13 @@ A PUT under a fixed id makes a second run safe: HAPI keeps an unchanged resource
 as it is, version and all, and replaces one that changed. The examples and the
 ImplementationGuide resource are not loaded; the study service needs neither.
 
+A store keeps a resource's tags when the resource is replaced, so a tag the
+guide stops giving a resource would stay: a retired form would still be listed
+for its study, and a form no longer optional would still be signed without.
+After each PUT the loader deletes, with $meta-delete, every tag the store holds
+on the resource in one of the guide's tag systems that the guide no longer
+gives it. A tag in any other system was put there by someone else and stays.
+
 After loading it checks two things the study service relies on:
 
 - every value set drawn only from codes the guide itself defines expands to at
@@ -46,6 +53,10 @@ from collections import Counter
 # questionnaire names the map that extracts it, so the map goes first.
 LOAD_ORDER = ("CodeSystem", "ValueSet", "ConceptMap", "StructureDefinition",
               "SearchParameter", "StructureMap", "Questionnaire")
+
+# Tags in a system under the guide's own domain are the guide's, even in a
+# release that no longer uses that system on any resource.
+GUIDE_DOMAIN = "https://fhir.optimalhealth.org/"
 
 
 class Package:
@@ -89,8 +100,32 @@ def ok(status):
     return 200 <= status < 300
 
 
+def tag_systems(resources):
+    """The systems of the tags the guide sets on any of its resources."""
+    return {t["system"] for r in resources for t in r.get("meta", {}).get("tag", []) if t.get("system")}
+
+
+def stale_tags(resource, stored, systems):
+    """The tags the store holds on a resource, in the guide's tag systems, that the guide no longer gives it."""
+    wanted = {(t.get("system"), t.get("code")) for t in resource.get("meta", {}).get("tag", [])}
+    return [t for t in stored.get("meta", {}).get("tag", [])
+            if (t.get("system") in systems or (t.get("system") or "").startswith(GUIDE_DOMAIN))
+            and (t.get("system"), t.get("code")) not in wanted]
+
+
+def untag(call, resource, stored, systems):
+    """Deletes the stale tags from the stored resource. Returns the status, the body and the tags deleted."""
+    stale = stale_tags(resource, stored, systems)
+    if not stale:
+        return 200, stored, []
+    meta = {"tag": [{"system": t["system"], "code": t["code"]} for t in stale]}
+    s, body = call("POST", f"/{resource['resourceType']}/{resource['id']}/$meta-delete",
+                   {"resourceType": "Parameters", "parameter": [{"name": "meta", "valueMeta": meta}]})
+    return s, body, stale
+
+
 def load(call, resources, verbose=False):
-    """PUTs each resource under its own id, in the order given.
+    """PUTs each resource under its own id, in the order given, then deletes the tags it no longer carries.
 
     call(method, path, body) sends one request to the store and returns its
     HTTP status and parsed body. Returns (resource, status, body) per resource.
@@ -102,14 +137,26 @@ def load(call, resources, verbose=False):
     if bare:
         raise SystemExit("These StructureDefinitions have no snapshot, so nothing was loaded: "
                          + ", ".join(bare) + ". Load the package the IG Publisher built, not fsh-generated/.")
+    systems = tag_systems(resources)
     results = []
     for r in resources:
-        s, body = call("PUT", f"/{r['resourceType']}/{r['id']}", r)
-        results.append((r, s, body))
+        path = f"/{r['resourceType']}/{r['id']}"
+        s, body = call("PUT", path, r)
         if not ok(s):
             print("  LOAD FAIL", r["resourceType"], r["id"], s, issues(body)[:2] or body)
-        elif verbose:
-            print(f"  {r['resourceType']}/{r['id']}: HTTP {s}")
+            results.append((r, s, body))
+            continue
+        if verbose:
+            print(f"  {path[1:]}: HTTP {s}")
+        stored = body if body.get("resourceType") == r["resourceType"] else call("GET", path)[1]
+        ts, tbody, gone = untag(call, r, stored, systems)
+        if not ok(ts):
+            print("  UNTAG FAIL", r["resourceType"], r["id"], ts, issues(tbody)[:2] or tbody)
+            s, body = ts, tbody
+        elif gone:
+            print(f"  {path[1:]}: deleted the tags it no longer carries: "
+                  + ", ".join(f"{t['system']}|{t['code']}" for t in gone))
+        results.append((r, s, body))
     return results
 
 
@@ -196,7 +243,7 @@ class Client:
                 if e.code == 401 and not renewed:
                     self.token, renewed = None, True
                     continue
-                # Every request this client makes is a PUT or a GET, so sending it again is safe.
+                # Every request this client makes is a PUT, a GET or a $meta-delete, so sending it again is safe.
                 if e.code in (502, 503, 504) and attempt < 3:
                     time.sleep(5 * (attempt + 1))
                     continue
@@ -242,7 +289,8 @@ def main(argv):
             print(f"  {rtype:20} {sum(1 for s in mine if ok(s)):3}   new {mine.count(201)}, already there {mine.count(200)}")
     print("Not loaded: " + ", ".join([f"{len(pkg.examples)} examples"] + [f"{n} {t}" for t, n in sorted(pkg.skipped.items())]))
     if failed:
-        raise SystemExit(f"{len(failed)} resources were refused; see LOAD FAIL above.")
+        raise SystemExit(f"{len(failed)} resources were refused or kept tags the guide dropped; "
+                         "see LOAD FAIL and UNTAG FAIL above.")
 
     print("\nValue sets:")
     systems = {r["url"] for r in pkg.conformance if r["resourceType"] == "CodeSystem"}
