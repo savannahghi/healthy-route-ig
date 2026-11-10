@@ -20,7 +20,7 @@
     "test:calculations": "node tests/run-calculations.js"
   },
   "devDependencies": {
-    "fhirpath": "4.11.0",
+    "fhirpath": "5.2.1",
     "fsh-sushi": "3.20.1"
   }
 }
