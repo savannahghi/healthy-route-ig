@@ -72,6 +72,14 @@
       ]
     },
     {
+      "linkId": "images-dilated",
+      "answer": [
+        {
+          "valueBoolean": false
+        }
+      ]
+    },
+    {
       "linkId": "images-right",
       "answer": [
         {

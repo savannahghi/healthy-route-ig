@@ -389,7 +389,7 @@ Instance: HRImagingGH
 InstanceOf: Questionnaire
 Usage: #definition
 Title: "Imaging, Ghana"
-Description: "The pack both eyes were written to, when they were captured, and the three answers about them, given against what is in the device's cloud storage. An eye counts as captured once its image passes the device's quality check, in up to five attempts. The camera is non-mydriatic, so dilation is not asked. The investigator's confirmation is not an item."
+Description: "The pack both eyes were written to, when they were captured, whether they were taken with dilation, and the three answers about them, given against what is in the device's cloud storage. An eye counts as captured once its image passes the device's quality check, in up to five attempts. The investigator's confirmation is not an item."
 * insert HRForm(hr-imaging-gh, HRImagingGH, Imaging\, Ghana, HRExtractImaging, HR-GH, Healthy Route Ghana)
 
 * item[+].linkId = "pack-id"
@@ -404,6 +404,11 @@ Description: "The pack both eyes were written to, when they were captured, and t
 * item[=].code = HRMeasurementCS#retinal-capture-time
 * item[=].text = "Time of retinal capture"
 * item[=].type = #dateTime
+* item[=].required = true
+* item[+].linkId = "images-dilated"
+* item[=].code = HRMeasurementCS#images-dilated
+* item[=].text = "Have the images been taken with dilation?"
+* item[=].type = #boolean
 * item[=].required = true
 * item[+].linkId = "images-right"
 * item[=].code = HRMeasurementCS#images-right
