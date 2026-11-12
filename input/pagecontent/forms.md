@@ -159,7 +159,7 @@ commits, by the response's tag.
 | Diet and activity (retired) | Served to no study since 0.2.0. Its map still turns a response recorded before then into an Observation per typed answer, category survey, and one per calculated item, also derived. |
 | Vitals | Three [HRBloodPressure](StructureDefinition-hr-blood-pressure.html) readings, each timed by its own item, numbered, with the monitor and, on reading two, the position as extensions. The time of retinal capture as its own Observation. The mean blood pressure, also derived. Ghana's form gives the three readings and their mean only. |
 | Laboratory | Two [HRSpecimen](StructureDefinition-hr-specimen.html) resources dated by the sample item; an Observation per result in the reported unit, with the LOINC code chosen by the unit, and the dipstick under `20454-5` on the urine specimen; an [HRDiagnosticReport](StructureDefinition-hr-diagnostic-report.html) gathering them. The converted creatinine, the age and sex the eGFR uses, and the eGFR, which alone is also derived. |
-| Imaging | One [HRImagingStudy](StructureDefinition-hr-imaging-study.html) for the pack, started at the time of retinal capture, a series per eye answered Yes, the reason as a note; the answers as Observations, category imaging. Ghana does not ask about dilation. |
+| Imaging | One [HRImagingStudy](StructureDefinition-hr-imaging-study.html) for the pack, started at the time of retinal capture, a series per eye answered Yes, the reason as a note; the answers as Observations, category imaging. |
 
 ### What the 6 November 2026 review removed
 
